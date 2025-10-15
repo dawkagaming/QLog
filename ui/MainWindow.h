@@ -77,6 +77,7 @@ private slots:
     void showEditLayout();
     void showServiceUpload();
     void showServiceDownloadQSL();
+    void showImportExportDB();
 
     void saveProfileLayoutGeometry();
     void setEquipmentKeepOptions(bool);

@@ -612,14 +612,6 @@ int Data::getCQZMax()
     return 40;
 }
 
-QString Data::dbFilename()
-{
-    FCT_IDENTIFICATION;
-
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
-    return dir.filePath("qlog.db");
-}
-
 QString Data::debugFilename()
 {
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));

@@ -1,9 +1,6 @@
 #include <QApplication>
-#include <QtSql/QtSql>
 #include <QMessageBox>
 #include <QResource>
-#include <QDir>
-#include <QStandardPaths>
 #include <QDebug>
 #include <QTime>
 #include <QSystemSemaphore>
@@ -12,7 +9,6 @@
 #include <QDebug>
 #include <QSplashScreen>
 #include <QTemporaryDir>
-#include <sqlite3.h>
 #include <QStyleFactory>
 
 #include "debug.h"
@@ -28,6 +24,7 @@
 #include "service/kstchat/KSTChat.h"
 #include "data/Data.h"
 #include "service/GenericCallbook.h"
+#include "core/LogDatabase.h"
 
 MODULE_IDENTIFICATION("qlog.core.main");
 
@@ -152,117 +149,6 @@ static void createDataDirectory() {
     if (!dataDir.exists()) {
         dataDir.mkpath(dataDir.path());
     }
-}
-
-static bool openDatabase() {
-    FCT_IDENTIFICATION;
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(Data::dbFilename());
-    db.setConnectOptions("QSQLITE_ENABLE_REGEXP");
-
-    if (!db.open()) {
-        qCritical() << db.lastError();
-        return false;
-    }
-    else {
-        QSqlQuery query;
-        if ( !query.exec("PRAGMA foreign_keys = ON") )
-        {
-            qCritical() << "Cannot set PRAGMA foreign_keys";
-            return false;
-        }
-
-        if ( !query.exec("PRAGMA journal_mode = WAL") )
-        {
-            qCritical() << "Cannot set PRAGMA journal_mode";
-            return false;
-        }
-
-        while ( query.next() )
-        {
-            QString pragma = query.value(0).toString();
-            qCDebug(runtime) << "Pragma result:" << pragma;
-        }
-    }
-
-    return true;
-}
-
-static bool createSQLFunctions()
-{
-    FCT_IDENTIFICATION;
-
-    QVariant v = QSqlDatabase::database().driver()->handle();
-
-    if ( v.isValid()
-         && qstrcmp(v.typeName(), "sqlite3*") == 0 )
-    {
-
-        sqlite3 *db_handle = *static_cast<sqlite3 **>(v.data());
-        if ( db_handle != 0 )
-        {
-            sqlite3_initialize();
-            sqlite3_create_function(db_handle,
-                                    "translate_to_locale",
-                                    1,
-                                    SQLITE_UTF8 | SQLITE_DETERMINISTIC,
-                                    nullptr,
-                                    [](sqlite3_context *ctx, int argc, sqlite3_value **argv) {
-                                        if ( argc != 1 )
-                                        {
-                                            sqlite3_result_error(ctx, "Invalid arguments", -1);
-                                            return;
-                                        }
-
-                                        switch ( sqlite3_value_type(argv[0]) )
-                                        {
-                                        case SQLITE_TEXT:
-                                        {
-                                            const char *text = reinterpret_cast<const char*>(sqlite3_value_text(argv[0]));
-                                            const QString &translatedText = QCoreApplication::translate("DBStrings", text);
-                                            sqlite3_result_text(ctx, translatedText.toUtf8().constData(), -1, SQLITE_TRANSIENT);
-                                        }
-                                            break;
-                                        case SQLITE_NULL:
-                                            sqlite3_result_null(ctx);
-                                            break;
-                                        case SQLITE_INTEGER:
-                                            sqlite3_result_int(ctx, sqlite3_value_int(argv[0]));
-                                            break;
-                                        case SQLITE_FLOAT:
-                                            sqlite3_result_double(ctx, sqlite3_value_double(argv[0]));
-                                            break;
-                                        default:
-                                            sqlite3_result_error(ctx, "Invalid arguments", -1);
-                                        }
-                                    }, nullptr, nullptr);
-            sqlite3_create_collation(db_handle,
-                                     "LOCALEAWARE",
-                                     SQLITE_UTF16,
-                                     nullptr,
-                                     [](void *, int ll, const void * l, int rl, const void * r) {
-                                        const QString &left = QString::fromUtf16(reinterpret_cast<const char16_t *>(l), ll/2);
-                                        const QString &right = QString::fromUtf16(reinterpret_cast<const char16_t *>(r), rl/2);
-                                        return QString::localeAwareCompare(left, right); // controlled by LC_COLLATE
-                                     });
-        }
-        else
-        {
-            qCritical() << "Cannot define new SQLite functions";
-            return false;
-        }
-    }
-
-    return true;
-}
-
-static bool migrateDatabase() {
-    FCT_IDENTIFICATION;
-
-    Migration m;
-    return m.run();
-
 }
 
 static void startRigThread() {
@@ -505,7 +391,8 @@ int main(int argc, char* argv[])
 
     QCoreApplication::processEvents();
 
-    if (!openDatabase()) {
+    if ( ! LogDatabase::instance()->openDatabase() )
+    {
         QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
                               QMessageBox::tr("Could not connect to database."));
         return 1;
@@ -526,16 +413,10 @@ int main(int argc, char* argv[])
 
     QCoreApplication::processEvents();
 
-    if (!migrateDatabase()) {
-        QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
-                              QMessageBox::tr("Database migration failed."));
-        return 1;
-    }
-
-    if ( !createSQLFunctions() )
+    if ( ! LogDatabase::instance()->schemaVersionUpgrade() )
     {
         QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
-                              QMessageBox::tr("Could not connect to database (2)."));
+                              QMessageBox::tr("Database migration failed."));
         return 1;
     }
 

@@ -36,6 +36,7 @@
 #include "core/LogParam.h"
 #include "core/PotaQE.h"
 #include "data/WsjtxEntry.h"
+#include "core/LogDatabase.h"
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -1078,6 +1079,13 @@ void MainWindow::showServiceDownloadQSL()
     DownloadQSLDialog dialog(this);
     dialog.exec();
     ui->logbookWidget->updateTable();
+}
+
+void MainWindow::showImportExportDB()
+{
+    FCT_IDENTIFICATION;
+
+    qInfo() << "export" <<LogDatabase::instance()->atomicCopy("pokus.dbe");
 }
 
 void MainWindow::setLayoutGeometry()

@@ -57,6 +57,7 @@ SOURCES += \
         core/CredentialStore.cpp \
         core/FldigiTCPServer.cpp \
         core/LOVDownloader.cpp \
+        core/LogDatabase.cpp \
         core/LogLocale.cpp \
         core/LogParam.cpp \
         core/MembershipQE.cpp \
@@ -194,6 +195,7 @@ HEADERS += \
         core/CredentialStore.h \
         core/FldigiTCPServer.h \
         core/LOVDownloader.h \
+        core/LogDatabase.h \
         core/LogLocale.h \
         core/LogParam.h \
         core/MembershipQE.h \
