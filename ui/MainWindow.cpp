@@ -1066,6 +1066,7 @@ void MainWindow::showServiceUpload()
 {
     FCT_IDENTIFICATION;
 
+CredentialStore::instance()->migrateAll();
 
     UploadQSODialog dialog(this);
     dialog.exec();

@@ -2366,10 +2366,10 @@ void SettingsDialog::readSettings()
     ui->secondaryCallbookCombo->setCurrentIndex(secondaryCallbookIndex);
 
     ui->hamQthUsernameEdit->setText(HamQTHBase::getUsername());
-    ui->hamQthPasswordEdit->setText(HamQTHBase::getPassword());
+    ui->hamQthPasswordEdit->setText(HamQTHBase::getPasswd());
 
     ui->qrzUsernameEdit->setText(QRZBase::getUsername());
-    ui->qrzPasswordEdit->setText(QRZBase::getPassword());
+    ui->qrzPasswordEdit->setText(QRZBase::getPasswd(QRZBase::getUsername()));
 
     ui->webLookupURLEdit->setText(GenericCallbook::getWebLookupURL("", QString(), false));
 
@@ -2377,21 +2377,21 @@ void SettingsDialog::readSettings()
     /* LoTW */
     /********/
     ui->lotwUsernameEdit->setText(LotwBase::getUsername());
-    ui->lotwPasswordEdit->setText(LotwBase::getPassword());
+    ui->lotwPasswordEdit->setText(LotwBase::getPasswd());
     ui->tqslPathEdit->setText(LotwBase::getTQSLPath());
 
     /***********/
     /* ClubLog */
     /***********/
     ui->clublogEmailEdit->setText(ClubLogBase::getEmail());
-    ui->clublogPasswordEdit->setText(ClubLogBase::getPassword());
+    ui->clublogPasswordEdit->setText(ClubLogBase::getPasswd());
     ui->clublogUploadImmediatelyCheckbox->setChecked(ClubLogBase::isUploadImmediatelyEnabled());
 
     /********/
     /* eQSL */
     /********/
     ui->eqslUsernameEdit->setText(EQSLBase::getUsername());
-    ui->eqslPasswordEdit->setText(EQSLBase::getPassword());
+    ui->eqslPasswordEdit->setText(EQSLBase::getPasswd());
 
     /**********/
     /* HRDLog */
@@ -2403,7 +2403,7 @@ void SettingsDialog::readSettings()
     /***********/
     /* QRZ.COM */
     /***********/
-    ui->qrzApiKeyEdit->setText(QRZBase::getLogbookAPIKey());
+    ui->qrzApiKeyEdit->setText(QRZBase::getLogbookAPIKey(QRZBase::getInternalAPIUsername()));
     generateQRZAPICallsignTable();
 
     /***********/
@@ -2423,7 +2423,7 @@ void SettingsDialog::readSettings()
     /* ON4KST Chat */
     /***************/
     ui->kstUsernameEdit->setText(KSTChat::getUsername());
-    ui->kstPasswordEdit->setText(KSTChat::getPassword());
+    ui->kstPasswordEdit->setText(KSTChat::getPasswd());
 
     /***********/
     /* MEMBERS */
@@ -2527,7 +2527,7 @@ void SettingsDialog::writeSettings()
     /***********/
     /* QRZ.COM */
     /***********/
-    QRZBase::saveLogbookAPIKey(ui->qrzApiKeyEdit->text());
+    QRZBase::saveLogbookAPIKey(ui->qrzApiKeyEdit->text(), QRZBase::getInternalAPIUsername());
     saveQRZAPICallsignTable();
 
     /***********/

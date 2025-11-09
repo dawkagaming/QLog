@@ -11,6 +11,30 @@
 
 MODULE_IDENTIFICATION("qlog.core.credentialstore");
 
+using namespace QKeychain;
+
+CredentialRegistry &CredentialRegistry::instance()
+{
+    static CredentialRegistry r;
+    return r;
+}
+
+void CredentialRegistry::add(const QString &, const std::function<QList<CredentialDescriptor>()> &fn)
+{
+    FCT_IDENTIFICATION;
+    callbacks.append(fn);
+}
+
+QList<CredentialDescriptor> CredentialRegistry::allDescriptors() const
+{
+    FCT_IDENTIFICATION;
+
+    QList<CredentialDescriptor> result;
+
+    for (auto &fn : callbacks) result.append(fn());
+    return result;
+}
+
 CredentialStore::CredentialStore(QObject *parent) : QObject(parent)
 {
     FCT_IDENTIFICATION;
@@ -22,20 +46,12 @@ int CredentialStore::savePassword(const QString &storage_key, const QString &use
 
     qCDebug(function_parameters) << storage_key << " " << user;
 
-    if ( user.isEmpty()
-         || storage_key.isEmpty()
-         || pass.isEmpty() )
-    {
+    if ( user.isEmpty() || storage_key.isEmpty() || pass.isEmpty() )
        return 1;
-    }
 
-    QString locStorageKey = storage_key;
-    locStorageKey.prepend(qApp->applicationName() + ":");
+    QString locStorageKey = qApp->applicationName() + ":" + storage_key;
     QString locUser = user;
     QString locPass = pass;
-
-    using namespace QKeychain;
-
     QEventLoop loop;
 
     // write a password to Credential Storage
@@ -72,19 +88,12 @@ QString CredentialStore::getPassword(const QString &storage_key, const QString &
 
     qCDebug(function_parameters) << storage_key << " " << user;
 
-    if ( user.isEmpty()
-         || storage_key.isEmpty() )
-    {
+    if ( user.isEmpty() || storage_key.isEmpty() )
         return QString();
-    }
 
-    QString locStorageKey = storage_key;
-    locStorageKey.prepend(qApp->applicationName() + ":");
+    QString locStorageKey = qApp->applicationName() + ":" + storage_key;
     QString locUser = user;
     QString pass;
-
-    using namespace QKeychain;
-
     QEventLoop loop;
 
     // get a password from Credential Storage
@@ -122,18 +131,11 @@ void CredentialStore::deletePassword(const QString &storage_key, const QString &
 
     qCDebug(function_parameters) << storage_key << " " << user;
 
-    if ( user.isEmpty()
-         || storage_key.isEmpty() )
-    {
+    if ( user.isEmpty() || storage_key.isEmpty() )
         return;
-    }
 
-    QString locStorageKey = storage_key;
-    locStorageKey.prepend(qApp->applicationName() + ":");
+    QString locStorageKey = qApp->applicationName() + ":" + storage_key;
     QString locUser = user;
-
-    using namespace QKeychain;
-
     QEventLoop loop;
 
     // delete password from Secure Storage
@@ -151,4 +153,18 @@ void CredentialStore::deletePassword(const QString &storage_key, const QString &
     loop.exec();
 
     return;
+}
+
+void CredentialStore::migrateAll()
+{
+    FCT_IDENTIFICATION;
+
+    const QList<CredentialDescriptor> list = CredentialRegistry::instance().allDescriptors();
+    for (const CredentialDescriptor &desc : list)
+    {
+        QString user = desc.usernameFn();
+        QString pass = getPassword(desc.storageKey, user);
+        qInfo() << "Would migrate:" << desc.storageKey << user << (pass.isEmpty() ? "[empty]" : "[ok]");
+    }
+
 }

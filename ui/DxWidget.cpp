@@ -14,6 +14,8 @@
 #include <netinet/tcp.h>
 #endif
 #include <QMenu>
+#include <QMutex>
+#include <QMutexLocker>
 
 #include "DxWidget.h"
 #include "ui_DxWidget.h"
@@ -38,6 +40,96 @@
 #define RECONNECT_TIMEOUT 10000
 
 MODULE_IDENTIFICATION("qlog.ui.dxwidget");
+
+QString dxClusterDefaultUsername()
+{
+    const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
+    return profile.callsign.toLower();
+}
+
+class DxClusterCredentials : public SecureServiceBase<DxClusterCredentials>
+{
+public:
+    DxClusterCredentials() = default;
+    ~DxClusterCredentials() override = default;
+
+    DECLARE_SECURE_SERVICE(DxClusterCredentials);
+
+    static QString loadPasswd(const DxServerString &server)
+    {
+        if (!server.isValid())
+            return QString();
+
+        return SecureServiceBase<DxClusterCredentials>::getPassword(server.getPasswordStorageKey(),
+                                                                    server.getUsername());
+    }
+
+    static void storePasswd(const DxServerString &server, const QString &password)
+    {
+        if (!server.isValid() || password.isEmpty())
+            return;
+
+        SecureServiceBase<DxClusterCredentials>::savePassword(server.getPasswordStorageKey(),
+                                                              server.getUsername(),
+                                                              password);
+    }
+
+    static void removePasswd(const DxServerString &server)
+    {
+        if (!server.isValid())
+            return;
+
+        SecureServiceBase<DxClusterCredentials>::deletePassword(server.getPasswordStorageKey(),
+                                                                server.getUsername());
+    }
+
+    static void refreshDescriptorCache(const QStringList &serverStrings,
+                                       const QString &defaultUsername);
+
+private:
+    static QMutex cacheMutex;
+    static QList<CredentialDescriptor> descriptorCache;
+};
+
+REGISTRATION_SECURE_SERVICE(DxClusterCredentials);
+
+QMutex DxClusterCredentials::cacheMutex;
+QList<CredentialDescriptor> DxClusterCredentials::descriptorCache;
+
+void DxClusterCredentials::registerCredentials()
+{
+    CredentialRegistry::instance().add(QStringLiteral("DXCluster"), []() {
+        QMutexLocker locker(&cacheMutex);
+        return descriptorCache;
+    });
+}
+
+void DxClusterCredentials::refreshDescriptorCache(const QStringList &serverStrings,
+                                                  const QString &defaultUsername)
+{
+    QList<CredentialDescriptor> descriptors;
+    descriptors.reserve(serverStrings.size());
+
+    for (const QString &serverString : serverStrings)
+    {
+        DxServerString server(serverString, defaultUsername);
+
+        if (!server.isValid())
+            continue;
+
+        const QString storageKey = server.getPasswordStorageKey();
+        const QString username = server.getUsername();
+
+        if (storageKey.isEmpty() || username.isEmpty())
+            continue;
+
+        const QString usernameCopy = username;
+        descriptors.append({ storageKey, [usernameCopy]() { return usernameCopy; } });
+    }
+
+    QMutexLocker locker(&cacheMutex);
+    descriptorCache = descriptors;
+}
 
 int DxTableModel::rowCount(const QModelIndex&) const
 {
@@ -645,6 +737,9 @@ void DxWidget::saveDXCServers()
 
     LogParam::setDXCServerlist(serversItems);
     LogParam::setDXCLastServer(ui->serverSelect->currentText());
+
+    DxClusterCredentials::refreshDescriptorCache(serversItems,
+                                                 dxClusterDefaultUsername());
 }
 
 QString DxWidget::modeFilterRegExp()
@@ -900,8 +995,7 @@ void DxWidget::receive()
         if ( connectionState == LOGIN_SENT && line.startsWith(passwordStr, Qt::CaseInsensitive) )
         {
             // password requested
-            QString password = CredentialStore::instance()->getPassword(connectedServerString->getPasswordStorageKey(),
-                                                                        connectedServerString->getUsername());
+            QString password = DxClusterCredentials::loadPasswd(*connectedServerString);
 
             if ( password.isEmpty() )
             {
@@ -916,9 +1010,7 @@ void DxWidget::receive()
                     password = passwordDialog.getPassword();
                     if ( passwordDialog.getRememberPassword() && !password.isEmpty() )
                     {
-                        CredentialStore::instance()->savePassword(connectedServerString->getPasswordStorageKey(),
-                                                                  connectedServerString->getUsername(),
-                                                                  password);
+                        DxClusterCredentials::storePasswd(*connectedServerString, password);
                     }
                 }
                 else
@@ -937,8 +1029,7 @@ void DxWidget::receive()
         if ( connectionState == PASSWORD_SENT && line.startsWith(sorryStr, Qt::CaseInsensitive ) )
         {
             // invalid password
-            CredentialStore::instance()->deletePassword(connectedServerString->getPasswordStorageKey(),
-                                                        connectedServerString->getUsername());
+            DxClusterCredentials::removePasswd(*connectedServerString);
             QMessageBox::warning(nullptr,
                                  QMessageBox::tr("DX Cluster Password"),
                                  QMessageBox::tr("Invalid Password"));
@@ -1569,8 +1660,7 @@ void DxWidget::actionForgetPassword()
 
     if ( serverName.isValid() )
     {
-        CredentialStore::instance()->deletePassword(serverName.getPasswordStorageKey(),
-                                                    serverName.getUsername());
+        DxClusterCredentials::removePasswd(serverName);
     }
     else
     {
@@ -1664,6 +1754,9 @@ void DxWidget::serverComboSetup()
     {
         ui->serverSelect->setCurrentIndex(index);
     }
+
+    DxClusterCredentials::refreshDescriptorCache(getDXCServerList(),
+                                                 dxClusterDefaultUsername());
 }
 
 void DxWidget::clearAllPasswordIcons()
