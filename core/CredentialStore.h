@@ -74,7 +74,7 @@ public:
         return &instance;
     };
 
-    void migrateAll();
+    void exportPasswords();
 
 private:
     explicit CredentialStore(QObject *parent = nullptr);
@@ -84,8 +84,6 @@ private:
     int savePassword(const QString &storage_key, const QString &user, const QString &pass);
     QString getPassword(const QString &storage_key, const QString &user);
     void deletePassword(const QString &storage_key, const QString &user);
-
-
 
 private:
     // Verifies that the given service (storage_key) is registered.

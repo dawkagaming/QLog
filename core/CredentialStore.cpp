@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include "CredentialStore.h"
 #include "core/debug.h"
+#include "core/PasswordCipher.h"
 
 MODULE_IDENTIFICATION("qlog.core.credentialstore");
 
@@ -21,7 +22,6 @@ CredentialRegistry &CredentialRegistry::instance()
 
 void CredentialRegistry::add(const QString &, const std::function<QList<CredentialDescriptor>()> &fn)
 {
-    FCT_IDENTIFICATION;
     callbacks.append(fn);
 }
 
@@ -31,7 +31,7 @@ QList<CredentialDescriptor> CredentialRegistry::allDescriptors() const
 
     QList<CredentialDescriptor> result;
 
-    for (auto &fn : callbacks) result.append(fn());
+    for (const auto &fn : callbacks) result.append(fn());
     return result;
 }
 
@@ -155,16 +155,27 @@ void CredentialStore::deletePassword(const QString &storage_key, const QString &
     return;
 }
 
-void CredentialStore::migrateAll()
+void CredentialStore::exportPasswords()
 {
     FCT_IDENTIFICATION;
+
+    const QString passa = "correct horse battery staple";
 
     const QList<CredentialDescriptor> list = CredentialRegistry::instance().allDescriptors();
     for (const CredentialDescriptor &desc : list)
     {
         QString user = desc.usernameFn();
         QString pass = getPassword(desc.storageKey, user);
-        qInfo() << "Would migrate:" << desc.storageKey << user << (pass.isEmpty() ? "[empty]" : "[ok]");
-    }
 
+        if ( !pass.isEmpty() )
+        {
+            qInfo() <<"start encrypt";
+            QByteArray blobB64;
+            if ( !PasswordCipher::encrypt(passa, pass.toUtf8(), blobB64))
+            {
+                qWarning() << "encrypt fail";
+            }
+            qInfo() << "Would migrate:" << desc.storageKey << user <<blobB64;
+        }
+    }
 }

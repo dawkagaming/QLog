@@ -62,6 +62,7 @@ SOURCES += \
         core/MembershipQE.cpp \
         core/Migration.cpp \
         core/NetworkNotification.cpp \
+        core/PasswordCipher.cpp \
         core/PotaQE.cpp \
         core/PropConditions.cpp \
         core/QSLStorage.cpp \
@@ -198,6 +199,7 @@ HEADERS += \
         core/MembershipQE.h \
         core/Migration.h \
         core/NetworkNotification.h \
+        core/PasswordCipher.h \
         core/PotaQE.h \
         core/PropConditions.h \
         core/QSLStorage.h \
@@ -500,7 +502,7 @@ unix:!macx {
    INSTALLS += target desktop icon metainfo
 
    INCLUDEPATH += /usr/local/include
-   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz
+   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz -lssl -lcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 }
