@@ -152,6 +152,7 @@ SOURCES += \
         ui/DxccTableWidget.cpp \
         ui/EditActivitiesDialog.cpp \
         ui/ExportDialog.cpp \
+        ui/ExportPasswordDialog.cpp \
         ui/ImportDialog.cpp \
         ui/InputPasswordDialog.cpp \
         ui/KSTChatWidget.cpp \
@@ -307,6 +308,7 @@ HEADERS += \
         ui/DxccTableWidget.h \
         ui/EditActivitiesDialog.h \
         ui/ExportDialog.h \
+        ui/ExportPasswordDialog.h \
         ui/ImportDialog.h \
         ui/InputPasswordDialog.h \
         ui/KSTChatWidget.h \
@@ -366,6 +368,7 @@ FORMS += \
         ui/DxWidget.ui \
         ui/EditActivitiesDialog.ui \
         ui/ExportDialog.ui \
+        ui/ExportPasswordDialog.ui \
         ui/ImportDialog.ui \
         ui/InputPasswordDialog.ui \
         ui/KSTChatWidget.ui \

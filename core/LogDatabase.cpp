@@ -25,6 +25,19 @@ QString LogDatabase::dbFilename()
     return dbDirectory().filePath("qlog.db");
 }
 
+QString LogDatabase::currentPlatformId()
+{
+#if defined(Q_OS_WIN)
+    return QStringLiteral("Windows");
+#elif defined(Q_OS_MACOS)
+    return QStringLiteral("MacOS");
+#elif defined(QLOG_FLATPAK)
+    return QStringLiteral("LinuxFlatpak");
+#else
+    return QStringLiteral("Linux");
+#endif
+}
+
 LogDatabase::LogDatabase()
 {
     FCT_IDENTIFICATION;
@@ -111,11 +124,7 @@ bool LogDatabase::atomicCopy(const QString &filename)
     }
 
     // Validate filename — must be a plain filename, no path separators
-    if ( filename.isEmpty()
-         || filename.contains('/')
-         || filename.contains('\\')
-         || filename == "."
-         || filename == ".." )
+    if ( filename.isEmpty() )
     {
         qWarning() << "Invalid filename:" << filename;
         return false;

@@ -74,7 +74,9 @@ public:
         return &instance;
     };
 
-    void exportPasswords();
+    bool exportPasswords(const QString &passphrase);
+    bool importPasswords(const QString &passphrase);
+    void deleteAllPasswords();
 
 private:
     explicit CredentialStore(QObject *parent = nullptr);

@@ -60,6 +60,7 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionSettings"/>
+    <addaction name="actionDumpDB"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -337,6 +338,11 @@
    </property>
    <property name="menuRole">
     <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="actionDumpDB">
+   <property name="text">
+    <string>Dump Database...</string>
    </property>
   </action>
   <action name="actionNewContact">
@@ -1062,6 +1068,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>actionDumpDB</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showDumpDB()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>actionExport</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -1699,5 +1721,6 @@
   <slot>showServiceDownloadQSL()</slot>
   <slot>showServiceUpload()</slot>
   <slot>showWhatsNew()</slot>
+  <slot>showDumpDB()</slot>
  </slots>
 </ui>

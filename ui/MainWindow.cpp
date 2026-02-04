@@ -37,6 +37,9 @@
 #include "core/PotaQE.h"
 #include "data/WsjtxEntry.h"
 #include "core/LogDatabase.h"
+#include "core/CredentialStore.h"
+#include "ui/ExportPasswordDialog.h"
+#include <QFileDialog>
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -1081,11 +1084,52 @@ void MainWindow::showServiceDownloadQSL()
     ui->logbookWidget->updateTable();
 }
 
-void MainWindow::showImportExportDB()
+void MainWindow::showDumpDB()
 {
     FCT_IDENTIFICATION;
 
-    qInfo() << "export" <<LogDatabase::instance()->atomicCopy("pokus.dbe");
+    ExportPasswordDialog passDialog(this);
+    if ( passDialog.exec() != QDialog::Accepted )
+        return;
+
+    const QString password = passDialog.getPassword();
+    const bool deletePasswords = passDialog.getDeletePasswords();
+
+    if ( !CredentialStore::instance()->exportPasswords(password) )
+    {
+        QMessageBox::warning(this, tr("Dump Database"),
+                             tr("Failed to encrypt credentials."));
+        return;
+    }
+
+    QString filename = QFileDialog::getSaveFileName(this,
+                                                    tr("Save Database Dump"),
+                                                    QString(),
+                                                    tr("Database files (*.dbe);;All files (*)"));
+
+    if ( filename.isEmpty() )
+    {
+        LogParam::removeEncryptedPasswords();
+        LogParam::removeSourcePlatform();
+        return;
+    }
+
+    bool ok = LogDatabase::instance()->atomicCopy(filename);
+
+    LogParam::removeEncryptedPasswords();
+    LogParam::removeSourcePlatform();
+
+    if ( ok )
+    {
+        if ( deletePasswords )
+            CredentialStore::instance()->deleteAllPasswords();
+
+        QMessageBox::information(this, tr("Dump Database"),
+                                 tr("Database successfully dumped to\n%1").arg(filename));
+    }
+    else
+        QMessageBox::warning(this, tr("Dump Database"),
+                             tr("Failed to dump the database."));
 }
 
 void MainWindow::setLayoutGeometry()

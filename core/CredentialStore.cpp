@@ -6,9 +6,15 @@
 #endif
 #include <QApplication>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <openssl/rand.h>
 #include "CredentialStore.h"
 #include "core/debug.h"
 #include "core/PasswordCipher.h"
+#include "core/LogParam.h"
+#include "core/LogDatabase.h"
 
 MODULE_IDENTIFICATION("qlog.core.credentialstore");
 
@@ -155,27 +161,118 @@ void CredentialStore::deletePassword(const QString &storage_key, const QString &
     return;
 }
 
-void CredentialStore::exportPasswords()
+bool CredentialStore::exportPasswords(const QString &passphrase)
 {
     FCT_IDENTIFICATION;
 
-    const QString passa = "correct horse battery staple";
-
     const QList<CredentialDescriptor> list = CredentialRegistry::instance().allDescriptors();
-    for (const CredentialDescriptor &desc : list)
+
+    QJsonArray credArray;
+    for ( const CredentialDescriptor &desc : list )
     {
         QString user = desc.usernameFn();
         QString pass = getPassword(desc.storageKey, user);
 
         if ( !pass.isEmpty() )
         {
-            qInfo() <<"start encrypt";
-            QByteArray blobB64;
-            if ( !PasswordCipher::encrypt(passa, pass.toUtf8(), blobB64))
-            {
-                qWarning() << "encrypt fail";
-            }
-            qInfo() << "Would migrate:" << desc.storageKey << user <<blobB64;
+            QJsonObject entry;
+            entry["storagekey"] = desc.storageKey;
+            entry["username"] = user;
+            entry["password"] = pass;
+            credArray.append(entry);
         }
+    }
+
+    // generate random padding (128-512 bytes)
+    // add this padding to make it more difficult to estimate the length of passwords.
+    unsigned char randLenBuf[2];
+    if ( RAND_bytes(randLenBuf, 2) != 1 )
+    {
+        qWarning() << "RAND_bytes failed for padding length";
+        return false;
+    }
+    int paddingLen = 128 + (static_cast<int>((randLenBuf[0] << 8) | randLenBuf[1]) % (512 - 128 + 1));
+
+    QByteArray paddingRaw(paddingLen, '\0');
+    if ( RAND_bytes(reinterpret_cast<unsigned char*>(paddingRaw.data()), paddingLen) != 1 )
+    {
+        qWarning() << "RAND_bytes failed for padding data";
+        return false;
+    }
+    QString paddingB64 = QString::fromLatin1(paddingRaw.toBase64());
+
+    QJsonObject root;
+    root["credentials"] = credArray;
+    root["padding"] = paddingB64;
+
+    const QByteArray json = QJsonDocument(root).toJson(QJsonDocument::Compact);
+
+    QByteArray blobB64;
+    if ( !PasswordCipher::encrypt(passphrase, json, blobB64) )
+    {
+        qWarning() << "Password encryption failed";
+        return false;
+    }
+
+    LogParam::setEncryptedPasswords(blobB64);
+    LogParam::setSourcePlatform(LogDatabase::currentPlatformId());
+
+    return true;
+}
+
+bool CredentialStore::importPasswords(const QString &passphrase)
+{
+    FCT_IDENTIFICATION;
+
+    QByteArray blobB64 = LogParam::getEncryptedPasswords();
+    if ( blobB64.isEmpty() )
+    {
+        qWarning() << "No encrypted passwords found";
+        return false;
+    }
+
+    QByteArray json;
+    if ( !PasswordCipher::decrypt(passphrase, blobB64, json) )
+    {
+        qWarning() << "Password decryption failed";
+        return false;
+    }
+
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(json, &parseError);
+    if ( parseError.error != QJsonParseError::NoError )
+    {
+        qWarning() << "JSON parse error:" << parseError.errorString();
+        return false;
+    }
+
+    QJsonObject root = doc.object();
+    QJsonArray credArray = root["credentials"].toArray();
+
+    for (const QJsonValue &val : credArray)
+    {
+        QJsonObject entry = val.toObject();
+        QString storageKey = entry["storagekey"].toString();
+        QString username = entry["username"].toString();
+        QString password = entry["password"].toString();
+
+        if ( !storageKey.isEmpty() && !username.isEmpty() && !password.isEmpty() )
+            savePassword(storageKey, username, password);
+    }
+
+    return true;
+}
+
+void CredentialStore::deleteAllPasswords()
+{
+    FCT_IDENTIFICATION;
+
+    const QList<CredentialDescriptor> list = CredentialRegistry::instance().allDescriptors();
+
+    for (const CredentialDescriptor &desc : list)
+    {
+        QString user = desc.usernameFn();
+        if ( !user.isEmpty() )
+            deletePassword(desc.storageKey, user);
     }
 }

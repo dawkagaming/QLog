@@ -16,6 +16,7 @@ public:
 
     static QDir dbDirectory();
     static QString dbFilename();
+    static QString currentPlatformId();
 
     bool atomicCopy(const QString &filename);
     bool openDatabase();
