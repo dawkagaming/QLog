@@ -245,7 +245,7 @@ bool LogDatabase::schemaVersionUpgrade()
 {
     FCT_IDENTIFICATION;
 
-    Migration m;
+    DBSchemaMigration m;
     return m.run();
 }
 

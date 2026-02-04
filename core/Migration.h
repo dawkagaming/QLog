@@ -1,21 +1,18 @@
 #ifndef QLOG_CORE_MIGRATION_H
 #define QLOG_CORE_MIGRATION_H
 
-#include <QSqlQuery>
-#include <QObject>
-#include <QProgressDialog>
 #include "core/LOVDownloader.h"
 
-class QString;
+class QProgressDialog;
 
-class Migration : public QObject
+class DBSchemaMigration : public QObject
 {
     Q_OBJECT
 
 public:
-    Migration(QObject *parent = nullptr) : QObject(parent) {}
+    DBSchemaMigration(QObject *parent = nullptr) : QObject(parent) {}
     bool run();
-    static bool backupDatabase(bool force = false);
+    static bool backupAllQSOsToADX(bool force = false);
 
 private:
     bool functionMigration(int version);

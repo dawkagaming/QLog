@@ -403,7 +403,7 @@ int main(int argc, char* argv[])
     QCoreApplication::processEvents();
 
     /* a migration can break a database therefore a backup is call before it */
-    if (!Migration::backupDatabase())
+    if (!DBSchemaMigration::backupAllQSOsToADX())
     {
         QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
                               QMessageBox::tr("Could not export a QLog database to ADIF as a backup.<p>Try to export your log to ADIF manually"));
