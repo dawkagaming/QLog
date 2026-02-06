@@ -38,8 +38,13 @@
 #include "data/WsjtxEntry.h"
 #include "core/LogDatabase.h"
 #include "core/CredentialStore.h"
+#include "core/PlatformParameterManager.h"
 #include "ui/ExportPasswordDialog.h"
+#include "ui/LoadDatabaseDialog.h"
+#include "ui/PlatformSettingsDialog.h"
 #include <QFileDialog>
+#include <QProcess>
+#include <QThread>
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -1130,6 +1135,89 @@ void MainWindow::showDumpDB()
     else
         QMessageBox::warning(this, tr("Dump Database"),
                              tr("Failed to dump the database."));
+}
+
+void MainWindow::showLoadDB()
+{
+    FCT_IDENTIFICATION;
+
+    LoadDatabaseDialog loadDialog(this);
+    if ( loadDialog.exec() != QDialog::Accepted )
+        return;
+
+    const QString selectedFile = loadDialog.getSelectedFile();
+    const QString password = loadDialog.getPassword();
+    const bool crossPlatform = loadDialog.isCrossPlatform();
+
+    // Handle cross-platform settings if needed
+    if ( crossPlatform )
+    {
+        DatabaseInfo dbInfo = LogDatabase::inspectDatabase(selectedFile);
+        QList<PlatformParameter> params = PlatformParameterManager::getParameters(selectedFile, dbInfo.sourcePlatform);
+        QList<ProfilePortParameter> profileParams = PlatformParameterManager::getProfilePortParameters(selectedFile);
+
+        if ( !params.isEmpty() || !profileParams.isEmpty() )
+        {
+            PlatformSettingsDialog settingsDialog(this);
+            settingsDialog.setParameters(params, profileParams);
+
+            if ( settingsDialog.exec() != QDialog::Accepted )
+                return;
+
+            // Save modified parameters to a JSON file for later application
+            QList<PlatformParameter> modifiedParams = settingsDialog.getParameters();
+            QList<ProfilePortParameter> modifiedProfileParams = settingsDialog.getProfilePortParameters();
+            PlatformParameterManager::saveParametersToFile(modifiedParams, modifiedProfileParams,
+                PlatformParameterManager::pendingParametersPath());
+        }
+    }
+
+    // Save import passphrase to SecureStore
+    if ( !password.isEmpty() )
+        CredentialStore::instance()->saveImportPassphrase(password);
+
+    // Copy selected file to pending import location
+    const QString pendingPath = LogDatabase::pendingImportPath();
+
+    // Remove existing pending file if any
+    if ( QFile::exists(pendingPath) )
+        QFile::remove(pendingPath);
+
+    if ( !QFile::copy(selectedFile, pendingPath) )
+    {
+        QMessageBox::warning(this, tr("Load Database"),
+                             tr("Failed to prepare database for import."));
+        CredentialStore::instance()->deleteImportPassphrase();
+        return;
+    }
+
+    // Restart the application
+    restartApplication();
+}
+
+void MainWindow::restartApplication()
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(runtime) << "Restarting application for database import";
+
+    // Wait a bit before starting new instance to ensure clean shutdown
+    QThread::msleep(500);
+
+    // Get original arguments (first one is app path)
+    QStringList args = QCoreApplication::arguments();
+    args.removeFirst();  // Remove app path
+
+    // Remove --import-pending if already present (avoid duplicates)
+    args.removeAll("--import-pending");
+
+    // Add import-pending argument
+    args << "--import-pending";
+
+    QProcess::startDetached(QCoreApplication::applicationFilePath(), args);
+
+    // Quit current instance
+    qApp->quit();
 }
 
 void MainWindow::setLayoutGeometry()

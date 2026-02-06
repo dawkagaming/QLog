@@ -78,6 +78,11 @@ public:
     bool importPasswords(const QString &passphrase);
     void deleteAllPasswords();
 
+    // Methods for storing import passphrase in SecureStore during application restart
+    void saveImportPassphrase(const QString &passphrase);
+    QString getImportPassphrase();
+    void deleteImportPassphrase();
+
 private:
     explicit CredentialStore(QObject *parent = nullptr);
 

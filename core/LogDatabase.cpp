@@ -4,6 +4,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QCoreApplication>
+#include <QUuid>
 
 #include <QStandardPaths>
 #include <QFile>
@@ -12,6 +13,9 @@
 #include "LogDatabase.h"
 #include "core/debug.h"
 #include "core/Migration.h"
+#include "core/LogParam.h"
+#include "core/CredentialStore.h"
+#include "core/PlatformParameterManager.h"
 
 MODULE_IDENTIFICATION("qlog.core.logdatabase");
 
@@ -256,5 +260,196 @@ bool LogDatabase::schemaVersionUpgrade()
 
     DBSchemaMigration m;
     return m.run();
+}
+
+DatabaseInfo LogDatabase::inspectDatabase(const QString &filename)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << filename;
+
+    DatabaseInfo info;
+    const QString connectionName = QStringLiteral("InspectDB");
+
+    // Use do-while(false) pattern to ensure removeDatabase is called after db/query are out of scope
+    do {
+        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+        db.setDatabaseName(filename);
+
+        if ( !db.open() )
+        {
+            info.errorMessage = db.lastError().text();
+            qWarning() << "Cannot open database for inspection:" << info.errorMessage;
+            break;
+        }
+
+        // Check if it's a valid QLog database by looking for schema_versions table
+        QSqlQuery query(db);
+        if ( !query.exec("SELECT version FROM schema_versions ORDER BY version DESC LIMIT 1") )
+        {
+            info.errorMessage = QObject::tr("Not a valid QLog database");
+            db.close();
+            break;
+        }
+
+        info.schemaVersion = ( query.first() ) ? query.value(0).toInt() : 0;
+
+        // Check if schema version is too new
+        if ( info.schemaVersion > DBSchemaMigration::latestVersion )
+        {
+            info.errorMessage = QObject::tr("Database version too new (requires newer QLog version)");
+            db.close();
+            break;
+        }
+
+        // Read source platform and encrypted passwords from log_param
+        if ( query.exec("SELECT value FROM log_param WHERE name = 'sourceplatform'") )
+        {
+            if ( query.first() )
+                info.sourcePlatform = query.value(0).toString();
+
+            if ( info.sourcePlatform.isEmpty() )
+            {
+                info.errorMessage = QObject::tr("Database is not QLog Export file");
+                db.close();
+                break;
+            }
+        }
+
+        if ( query.exec("SELECT value FROM log_param WHERE name = 'security/encryptedpasswords'") )
+        {
+            if ( query.first() && !query.value(0).toString().isEmpty() )
+                info.hasEncryptedPasswords = true;
+        }
+
+        info.valid = true;
+        db.close();
+    } while (false);
+
+    QSqlDatabase::removeDatabase(connectionName);
+
+    qCDebug(runtime) << "Database info - valid:" << info.valid
+                     << "version:" << info.schemaVersion
+                     << "platform:" << info.sourcePlatform
+                     << "hasPasswords:" << info.hasEncryptedPasswords;
+
+    return info;
+}
+
+QString LogDatabase::pendingImportPath()
+{
+    return dbDirectory().filePath("qlog.db.pending");
+}
+
+bool LogDatabase::hasPendingImport()
+{
+    FCT_IDENTIFICATION;
+
+    bool exists = QFile::exists(pendingImportPath());
+    qCDebug(runtime) << "Pending import exists:" << exists;
+    return exists;
+}
+
+bool LogDatabase::processPendingImport()
+{
+    FCT_IDENTIFICATION;
+
+    const QString pendingPath = pendingImportPath();
+
+    if ( !QFile::exists(pendingPath) )
+    {
+        qCDebug(runtime) << "No pending import";
+        return true;
+    }
+
+    qCDebug(runtime) << "Processing pending database import";
+
+    const QString currentDbPath = dbFilename();
+    const QString walPath = currentDbPath + "-wal"; // remove also support files
+    const QString shmPath = currentDbPath + "-shm"; // remove also support files
+
+    // Delete current database and WAL files
+    if ( QFile::exists(currentDbPath) )
+    {
+        if ( !QFile::remove(currentDbPath) )
+        {
+            qWarning() << "Cannot remove current database:" << currentDbPath;
+            return false;
+        }
+    }
+
+    if ( QFile::exists(walPath) )
+        QFile::remove(walPath);
+
+    if ( QFile::exists(shmPath) )
+        QFile::remove(shmPath);
+
+    // Rename pending to current
+    if ( !QFile::rename(pendingPath, currentDbPath) )
+    {
+        qWarning() << "Cannot rename pending database to current";
+        return false;
+    }
+
+    qCDebug(runtime) << "Pending database moved to current";
+
+    // Open the database
+    if ( !openDatabase() )
+    {
+        qCritical() << "Cannot open imported database";
+        return false;
+    }
+
+    // Run schema migration if needed
+    if ( !schemaVersionUpgrade() )
+    {
+        qCritical() << "Schema migration failed";
+        return false;
+    }
+
+    // Get import passphrase from SecureStore and import passwords
+    const QString passphrase = CredentialStore::instance()->getImportPassphrase();
+    if ( !passphrase.isEmpty() )
+    {
+        qCDebug(runtime) << "Importing passwords from encrypted store";
+
+        // Delete all existing passwords first
+        CredentialStore::instance()->deleteAllPasswords();
+
+        // Import passwords from the database
+        if ( !CredentialStore::instance()->importPasswords(passphrase) )
+            qWarning() << "Password import failed";
+
+        // Delete the import passphrase from SecureStore
+        CredentialStore::instance()->deleteImportPassphrase();
+    }
+
+    // Apply platform-specific parameters if any
+    const QString paramsPath = PlatformParameterManager::pendingParametersPath();
+    if ( QFile::exists(paramsPath) )
+    {
+        qCDebug(runtime) << "Applying platform-specific parameters";
+
+        QList<PlatformParameter> params = PlatformParameterManager::loadParametersFromFile(paramsPath);
+        PlatformParameterManager::applyParameters(params);
+
+        QList<ProfilePortParameter> profileParams = PlatformParameterManager::loadProfilePortParametersFromFile(paramsPath);
+        PlatformParameterManager::applyProfilePortParameters(profileParams);
+
+        QFile::remove(paramsPath);
+    }
+
+    // Clean up import metadata from database
+    LogParam::removeEncryptedPasswords();
+    LogParam::removeSourcePlatform();
+
+    // Generate new LogID
+    QString newLogId = QUuid::createUuid().toString(QUuid::WithoutBraces);
+    LogParam::setLogID(newLogId);
+    qCDebug(runtime) << "New LogID generated:" << newLogId;
+
+    qCDebug(runtime) << "Database import completed successfully";
+
+    return true;
 }
 

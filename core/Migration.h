@@ -14,6 +14,8 @@ public:
     bool run();
     static bool backupAllQSOsToADX(bool force = false);
 
+    static constexpr int latestVersion = 35;
+
 private:
     bool functionMigration(int version);
     bool migrate(int toVersion);
@@ -39,8 +41,6 @@ private:
     bool setSelectedProfile(const QString &tablename, const QString &profileName);
     QString fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl);
     bool refreshUploadStatusTrigger();
-
-    static const int latestVersion = 35;
 
     friend class MigrationSqlTest_FriendAccessor;
 };

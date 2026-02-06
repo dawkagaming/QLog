@@ -60,7 +60,9 @@
      <string>&amp;File</string>
     </property>
     <addaction name="actionSettings"/>
+    <addaction name="separator"/>
     <addaction name="actionDumpDB"/>
+    <addaction name="actionLoadDB"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -342,7 +344,12 @@
   </action>
   <action name="actionDumpDB">
    <property name="text">
-    <string>Dump Database...</string>
+    <string>Pack Data &amp;&amp; Settings</string>
+   </property>
+  </action>
+  <action name="actionLoadDB">
+   <property name="text">
+    <string>Unpack Data &amp;&amp; Settings</string>
    </property>
   </action>
   <action name="actionNewContact">
@@ -1084,6 +1091,22 @@
    </hints>
   </connection>
   <connection>
+   <sender>actionLoadDB</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showLoadDB()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>actionExport</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
@@ -1722,5 +1745,6 @@
   <slot>showServiceUpload()</slot>
   <slot>showWhatsNew()</slot>
   <slot>showDumpDB()</slot>
+  <slot>showLoadDB()</slot>
  </slots>
 </ui>

@@ -64,6 +64,7 @@ SOURCES += \
         core/Migration.cpp \
         core/NetworkNotification.cpp \
         core/PasswordCipher.cpp \
+        core/PlatformParameterManager.cpp \
         core/PotaQE.cpp \
         core/PropConditions.cpp \
         core/QSLStorage.cpp \
@@ -153,6 +154,8 @@ SOURCES += \
         ui/EditActivitiesDialog.cpp \
         ui/ExportDialog.cpp \
         ui/ExportPasswordDialog.cpp \
+        ui/LoadDatabaseDialog.cpp \
+        ui/PlatformSettingsDialog.cpp \
         ui/ImportDialog.cpp \
         ui/InputPasswordDialog.cpp \
         ui/KSTChatWidget.cpp \
@@ -203,6 +206,7 @@ HEADERS += \
         core/Migration.h \
         core/NetworkNotification.h \
         core/PasswordCipher.h \
+        core/PlatformParameterManager.h \
         core/PotaQE.h \
         core/PropConditions.h \
         core/QSLStorage.h \
@@ -309,6 +313,8 @@ HEADERS += \
         ui/EditActivitiesDialog.h \
         ui/ExportDialog.h \
         ui/ExportPasswordDialog.h \
+        ui/LoadDatabaseDialog.h \
+        ui/PlatformSettingsDialog.h \
         ui/ImportDialog.h \
         ui/InputPasswordDialog.h \
         ui/KSTChatWidget.h \
@@ -369,6 +375,8 @@ FORMS += \
         ui/EditActivitiesDialog.ui \
         ui/ExportDialog.ui \
         ui/ExportPasswordDialog.ui \
+        ui/LoadDatabaseDialog.ui \
+        ui/PlatformSettingsDialog.ui \
         ui/ImportDialog.ui \
         ui/InputPasswordDialog.ui \
         ui/KSTChatWidget.ui \

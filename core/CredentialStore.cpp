@@ -165,6 +165,20 @@ bool CredentialStore::exportPasswords(const QString &passphrase)
 {
     FCT_IDENTIFICATION;
 
+    /*
+     * Password storage format:
+     * 1. Build JSON object:
+     *    {
+     *      "credentials": [
+     *        {"storagekey": "...", "username": "...", "password": "..."},
+     *        ...
+     *      ],
+     *      "padding": "<base64 random 128-512 bytes>"
+     *    }
+     * 2. Encrypt JSON with AES-256-GCM using passphrase (via PasswordCipher)
+     * 3. Store base64-encoded ciphertext in LogParam ("security/encryptedpasswords")
+     */
+
     const QList<CredentialDescriptor> list = CredentialRegistry::instance().allDescriptors();
 
     QJsonArray credArray;
@@ -224,6 +238,14 @@ bool CredentialStore::importPasswords(const QString &passphrase)
 {
     FCT_IDENTIFICATION;
 
+    /*
+     * Import process (reverse of exportPasswords):
+     * 1. Read base64-encoded ciphertext from LogParam ("security/encryptedpasswords")
+     * 2. Decrypt with AES-256-GCM using passphrase (via PasswordCipher)
+     * 3. Parse JSON and restore each credential to the credential store
+     *    (padding field is ignored)
+     */
+
     QByteArray blobB64 = LogParam::getEncryptedPasswords();
     if ( blobB64.isEmpty() )
     {
@@ -249,7 +271,7 @@ bool CredentialStore::importPasswords(const QString &passphrase)
     QJsonObject root = doc.object();
     QJsonArray credArray = root["credentials"].toArray();
 
-    for (const QJsonValue &val : credArray)
+    for (const QJsonValue &val : static_cast<const QJsonArray>(credArray))
     {
         QJsonObject entry = val.toObject();
         QString storageKey = entry["storagekey"].toString();
@@ -275,4 +297,32 @@ void CredentialStore::deleteAllPasswords()
         if ( !user.isEmpty() )
             deletePassword(desc.storageKey, user);
     }
+}
+
+void CredentialStore::saveImportPassphrase(const QString &passphrase)
+{
+    FCT_IDENTIFICATION;
+
+    // special one-time password when QLog import external DB
+    savePassword(QStringLiteral("ImportPassphrase"),
+                 QStringLiteral("import"),
+                 passphrase);
+}
+
+QString CredentialStore::getImportPassphrase()
+{
+    FCT_IDENTIFICATION;
+
+    // special one-time password when QLog import external DB
+    return getPassword(QStringLiteral("ImportPassphrase"),
+                       QStringLiteral("import"));
+}
+
+void CredentialStore::deleteImportPassphrase()
+{
+    FCT_IDENTIFICATION;
+
+    // special one-time password when QLog import external DB
+    deletePassword(QStringLiteral("ImportPassphrase"),
+                   QStringLiteral("import"));
 }

@@ -10,6 +10,7 @@
 #include <QSplashScreen>
 #include <QTemporaryDir>
 #include <QStyleFactory>
+#include <QThread>
 
 #include "debug.h"
 #include "Migration.h"
@@ -320,17 +321,29 @@ int main(int argc, char* argv[])
                 QCoreApplication::translate("main", "code"));
     QCommandLineOption debugFile(QStringList() << "d" << "debug",
                 QCoreApplication::translate("main", "Writes debug messages to the debug file"));
+    QCommandLineOption importPending("import-pending",
+                QCoreApplication::translate("main", "Process pending database import (internal use)"));
 
     parser.addOption(environmentName);
     parser.addOption(translationFilename);
     parser.addOption(forceLanguage);
     parser.addOption(debugFile);
+    parser.addOption(importPending);
 
     parser.process(app);
     QString environment = parser.value(environmentName);
     QString translation_file = parser.value(translationFilename);
     QString lang = parser.value(forceLanguage);
     logToFile = parser.isSet(debugFile);
+    bool isImportPending = parser.isSet(importPending);
+
+    // If started with --import-pending, wait a bit for the previous instance to fully terminate
+    if ( isImportPending )
+    {
+        qCDebug(runtime) << "Start postponed";
+        QCoreApplication::processEvents();
+        QThread::msleep(1000);
+    }
 
     app.setOrganizationName("hamradio");
     app.setApplicationName("QLog" + ((environment.isEmpty()) ? "" : environment.prepend("-")));
@@ -387,37 +400,53 @@ int main(int argc, char* argv[])
 
     createDataDirectory();
 
-    splash.showMessage(QObject::tr("Opening Database"), Qt::AlignBottom|Qt::AlignCenter );
-
-    QCoreApplication::processEvents();
-
-    if ( ! LogDatabase::instance()->openDatabase() )
+    // Process pending database import if exists
+    if ( LogDatabase::hasPendingImport() )
     {
-        QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
-                              QMessageBox::tr("Could not connect to database."));
-        return 1;
+        splash.showMessage(QObject::tr("Importing Database"), Qt::AlignBottom|Qt::AlignCenter);
+        QCoreApplication::processEvents();
+
+        if ( !LogDatabase::instance()->processPendingImport() )
+        {
+            QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
+                                  QMessageBox::tr("Failed to process pending database import."));
+            return 1;
+        }
     }
-
-    splash.showMessage(QObject::tr("Backuping Database"), Qt::AlignBottom|Qt::AlignCenter);
-
-    QCoreApplication::processEvents();
-
-    /* a migration can break a database therefore a backup is call before it */
-    if (!DBSchemaMigration::backupAllQSOsToADX())
+    else
     {
-        QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
-                              QMessageBox::tr("Could not export a QLog database to ADIF as a backup.<p>Try to export your log to ADIF manually"));
-    }
+        splash.showMessage(QObject::tr("Opening Database"), Qt::AlignBottom|Qt::AlignCenter);
 
-    splash.showMessage(QObject::tr("Migrating Database"), Qt::AlignBottom|Qt::AlignCenter);
+        QCoreApplication::processEvents();
 
-    QCoreApplication::processEvents();
+        if ( ! LogDatabase::instance()->openDatabase() )
+        {
+            QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
+                                  QMessageBox::tr("Could not connect to database."));
+            return 1;
+        }
 
-    if ( ! LogDatabase::instance()->schemaVersionUpgrade() )
-    {
-        QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
-                              QMessageBox::tr("Database migration failed."));
-        return 1;
+        splash.showMessage(QObject::tr("Backuping Database"), Qt::AlignBottom|Qt::AlignCenter);
+
+        QCoreApplication::processEvents();
+
+        /* a migration can break a database therefore a backup is call before it */
+        if (!DBSchemaMigration::backupAllQSOsToADX())
+        {
+            QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
+                                  QMessageBox::tr("Could not export a QLog database to ADIF as a backup.<p>Try to export your log to ADIF manually"));
+        }
+
+        splash.showMessage(QObject::tr("Migrating Database"), Qt::AlignBottom|Qt::AlignCenter);
+
+        QCoreApplication::processEvents();
+
+        if ( ! LogDatabase::instance()->schemaVersionUpgrade() )
+        {
+            QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
+                                  QMessageBox::tr("Database migration failed."));
+            return 1;
+        }
     }
 
     splash.showMessage(QObject::tr("Starting Application"), Qt::AlignBottom|Qt::AlignCenter);
