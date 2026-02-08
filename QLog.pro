@@ -55,6 +55,7 @@ SOURCES += \
         core/AppGuard.cpp \
         core/CallbookManager.cpp \
         core/CredentialStore.cpp \
+        core/FileCompressor.cpp \
         core/FldigiTCPServer.cpp \
         core/LOVDownloader.cpp \
         core/LogDatabase.cpp \
@@ -197,6 +198,7 @@ HEADERS += \
         core/AppGuard.h \
         core/CallbookManager.h \
         core/CredentialStore.h \
+        core/FileCompressor.h \
         core/FldigiTCPServer.h \
         core/LOVDownloader.h \
         core/LogDatabase.h \

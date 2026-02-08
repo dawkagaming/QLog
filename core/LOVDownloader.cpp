@@ -15,10 +15,9 @@
 #include <QXmlStreamReader>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <zlib.h>
-
 #include "LogParam.h"
 #include "LOVDownloader.h"
+#include "FileCompressor.h"
 #include "debug.h"
 #include "data/Data.h"
 
@@ -1051,34 +1050,6 @@ void LOVDownloader::parseMembershipContent(const SourceDefinition &sourceDef, QT
 
 }
 
-QByteArray LOVDownloader::gunzip(const QByteArray &in)
-{
-    if ( in.isEmpty() ) return {};
-
-    z_stream strm{};
-
-    strm.next_in = reinterpret_cast<Bytef*>(const_cast<char*>(in.data()));
-    strm.avail_in = in.size();
-
-    // 16 + MAX_WBITS tells zlib to parse gzip header/footer
-    if ( inflateInit2(&strm, 16 + MAX_WBITS) != Z_OK ) return {};
-
-    QByteArray out;
-    char buf[8192];
-    int ret = Z_OK;
-    while ( ret == Z_OK )
-    {
-        strm.next_out = reinterpret_cast<Bytef*>(buf);
-        strm.avail_out = sizeof(buf);
-        ret = inflate(&strm, Z_NO_FLUSH);
-
-        if (ret == Z_OK || ret == Z_STREAM_END)
-            out.append(buf, sizeof(buf) - strm.avail_out);
-    }
-    inflateEnd(&strm);
-    return out;
-}
-
 void LOVDownloader::parseClubLogCTY(const SourceDefinition &sourceDef, QTextStream &data)
 {
     FCT_IDENTIFICATION;
@@ -1369,7 +1340,7 @@ void LOVDownloader::processReply(QNetworkReply *reply)
         file.open(QIODevice::WriteOnly);
         if (sourceType == CLUBLOGCTY)
         {
-            QByteArray maybeXml = gunzip(data);
+            QByteArray maybeXml = FileCompressor::gunzip(data);
             if ( !maybeXml.isEmpty() )
                 data = maybeXml;
         }

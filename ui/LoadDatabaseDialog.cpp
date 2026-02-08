@@ -6,9 +6,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QTemporaryFile>
 #include "LoadDatabaseDialog.h"
 #include "ui_LoadDatabaseDialog.h"
 #include "core/PasswordCipher.h"
+#include "core/FileCompressor.h"
 #include "core/debug.h"
 
 MODULE_IDENTIFICATION("qlog.ui.loaddatabasedialog");
@@ -43,6 +45,28 @@ LoadDatabaseDialog::~LoadDatabaseDialog()
 QString LoadDatabaseDialog::getSelectedFile() const
 {
     return selectedFile;
+}
+
+QString LoadDatabaseDialog::getDecompressedFile() const
+{
+    return tempDecompressedFile;
+}
+
+QString LoadDatabaseDialog::takeDecompressedFile()
+{
+    // Close SQL connection first to release file lock
+    if ( QSqlDatabase::contains(importConnectionName) )
+    {
+        {
+            QSqlDatabase db = QSqlDatabase::database(importConnectionName);
+            db.close();
+        }
+        QSqlDatabase::removeDatabase(importConnectionName);
+    }
+
+    QString path = tempDecompressedFile;
+    tempDecompressedFile.clear();  // Transfer ownership - destructor won't delete
+    return path;
 }
 
 QString LoadDatabaseDialog::getPassword() const
@@ -139,8 +163,43 @@ void LoadDatabaseDialog::openImportDatabase()
 {
     FCT_IDENTIFICATION;
 
-    // First get basic info using LogDatabase::inspectDatabase
-    dbInfo = LogDatabase::inspectDatabase(selectedFile);
+    // Create temporary file for decompressed database
+    QTemporaryFile tempFile;
+    tempFile.setAutoRemove(false);  // We manage deletion ourselves
+    if ( !tempFile.open() )
+    {
+        dbInfo.valid = false;
+        dbInfo.errorMessage = tr("Cannot create temporary file");
+        ui->statusLabel->setText(QString("<span style=\"color: red;\">✗ %1</span>")
+                                     .arg(dbInfo.errorMessage));
+        ui->decryptGroup->setEnabled(false);
+        ui->passwordEdit->clear();
+        encryptedPasswordsBlob.clear();
+        updateLoadButtonState();
+        return;
+    }
+    tempDecompressedFile = tempFile.fileName();
+    tempFile.close();
+
+    // Decompress the .dbe file (with progress dialog)
+    if ( !FileCompressor::gunzipFileWithProgress(selectedFile, tempDecompressedFile,
+                                                  this, tr("Decompressing database...")) )
+    {
+        dbInfo.valid = false;
+        dbInfo.errorMessage = tr("Cannot decompress database file");
+        ui->statusLabel->setText(QString("<span style=\"color: red;\">✗ %1</span>")
+                                     .arg(dbInfo.errorMessage));
+        ui->decryptGroup->setEnabled(false);
+        ui->passwordEdit->clear();
+        encryptedPasswordsBlob.clear();
+        QFile::remove(tempDecompressedFile);
+        tempDecompressedFile.clear();
+        updateLoadButtonState();
+        return;
+    }
+
+    // Get basic info using LogDatabase::inspectDatabase on decompressed file
+    dbInfo = LogDatabase::inspectDatabase(tempDecompressedFile);
 
     if ( !dbInfo.valid )
     {
@@ -153,10 +212,10 @@ void LoadDatabaseDialog::openImportDatabase()
         return;
     }
 
-    // Open the database and cache encrypted passwords blob
+    // Open the decompressed database and cache encrypted passwords blob
     {
         QSqlDatabase importDb = QSqlDatabase::addDatabase("QSQLITE", importConnectionName);
-        importDb.setDatabaseName(selectedFile);
+        importDb.setDatabaseName(tempDecompressedFile);
 
         if ( !importDb.open() )
         {
@@ -178,7 +237,10 @@ void LoadDatabaseDialog::openImportDatabase()
             if ( query.first() && !query.value(0).toString().isEmpty() )
                 encryptedPasswordsBlob = QByteArray::fromBase64(query.value(0).toByteArray());
         }
+
+        importDb.close();
     }
+    QSqlDatabase::removeDatabase(importConnectionName);
 
     // Build status message
     QString status = QString("<span style=\"color: green;\">✓ %1</span>")
@@ -214,8 +276,18 @@ void LoadDatabaseDialog::closeImportDatabase()
 
     if ( QSqlDatabase::contains(importConnectionName) )
     {
-        QSqlDatabase::database(importConnectionName).close();
+        {
+            QSqlDatabase db = QSqlDatabase::database(importConnectionName);
+            db.close();
+        }
         QSqlDatabase::removeDatabase(importConnectionName);
+    }
+
+    // Remove temporary decompressed file
+    if ( !tempDecompressedFile.isEmpty() )
+    {
+        QFile::remove(tempDecompressedFile);
+        tempDecompressedFile.clear();
     }
 
     encryptedPasswordsBlob.clear();

@@ -19,6 +19,8 @@ public:
     ~LoadDatabaseDialog();
 
     QString getSelectedFile() const;
+    QString getDecompressedFile() const;
+    QString takeDecompressedFile();  // Returns path and transfers ownership (caller must delete)
     QString getPassword() const;
     bool isCrossPlatform() const;
     bool requiresPassword() const;
@@ -43,6 +45,10 @@ private:
 
     // Cached encrypted passwords blob from import DB
     QByteArray encryptedPasswordsBlob;
+
+    // Temporary decompressed file path
+    QString tempDecompressedFile;
+
     static const QString importConnectionName;
 };
 

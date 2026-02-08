@@ -173,7 +173,7 @@ bool LogDatabase::atomicCopy(const QString &filename)
         int done = total - remaining;
         int percent = total > 0 ? (done * 100 / total) : 0;
 
-        qInfo() << percent;
+        qCDebug(runtime) << percent;
 
         if (rc == SQLITE_DONE)
         {

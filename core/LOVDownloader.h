@@ -135,7 +135,6 @@ private:
     void parseIOTA(const SourceDefinition &sourceDef, QTextStream& data);
     void parsePOTA(const SourceDefinition &sourceDef, QTextStream& data);
     void parseMembershipContent(const SourceDefinition &sourceDef, QTextStream& data);
-    static QByteArray gunzip(const QByteArray &in);
     void parseClubLogCTY(const SourceDefinition &sourceDef, QTextStream &data);
 
 private slots:

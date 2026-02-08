@@ -39,12 +39,14 @@
 #include "core/LogDatabase.h"
 #include "core/CredentialStore.h"
 #include "core/PlatformParameterManager.h"
+#include "core/FileCompressor.h"
 #include "ui/ExportPasswordDialog.h"
 #include "ui/LoadDatabaseDialog.h"
 #include "ui/PlatformSettingsDialog.h"
 #include <QFileDialog>
 #include <QProcess>
 #include <QThread>
+#include <QTemporaryFile>
 
 MODULE_IDENTIFICATION("qlog.ui.mainwindow");
 
@@ -1107,9 +1109,11 @@ void MainWindow::showDumpDB()
         return;
     }
 
+    const QString documentsPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
+
     QString filename = QFileDialog::getSaveFileName(this,
                                                     tr("Save Database Dump"),
-                                                    QString(),
+                                                    documentsPath,
                                                     tr("Database files (*.dbe);;All files (*)"));
 
     if ( filename.isEmpty() )
@@ -1119,10 +1123,36 @@ void MainWindow::showDumpDB()
         return;
     }
 
-    bool ok = LogDatabase::instance()->atomicCopy(filename);
+    // Create temporary file for uncompressed database
+    QTemporaryFile tempFile;
+    if ( !tempFile.open() )
+    {
+        LogParam::removeEncryptedPasswords();
+        LogParam::removeSourcePlatform();
+        QMessageBox::warning(this, tr("Dump Database"),
+                             tr("Failed to create temporary file."));
+        return;
+    }
+    QString tempPath = tempFile.fileName();
+    tempFile.close();
+
+    // Copy database to temporary file
+    bool ok = LogDatabase::instance()->atomicCopy(tempPath);
 
     LogParam::removeEncryptedPasswords();
     LogParam::removeSourcePlatform();
+
+    if ( !ok )
+    {
+        QFile::remove(tempPath);
+        QMessageBox::warning(this, tr("Dump Database"),
+                             tr("Failed to dump the database."));
+        return;
+    }
+
+    // Compress temporary file to destination (with progress dialog)
+    ok = FileCompressor::gzipFileWithProgress(tempPath, filename, this, tr("Compressing database..."));
+    QFile::remove(tempPath);
 
     if ( ok )
     {
@@ -1134,7 +1164,7 @@ void MainWindow::showDumpDB()
     }
     else
         QMessageBox::warning(this, tr("Dump Database"),
-                             tr("Failed to dump the database."));
+                             tr("Failed to compress the database."));
 }
 
 void MainWindow::showLoadDB()
@@ -1145,16 +1175,18 @@ void MainWindow::showLoadDB()
     if ( loadDialog.exec() != QDialog::Accepted )
         return;
 
-    const QString selectedFile = loadDialog.getSelectedFile();
     const QString password = loadDialog.getPassword();
     const bool crossPlatform = loadDialog.isCrossPlatform();
+
+    // Take ownership of decompressed file (we must delete it)
+    const QString decompressedFile = loadDialog.takeDecompressedFile();
 
     // Handle cross-platform settings if needed
     if ( crossPlatform )
     {
-        DatabaseInfo dbInfo = LogDatabase::inspectDatabase(selectedFile);
-        QList<PlatformParameter> params = PlatformParameterManager::getParameters(selectedFile, dbInfo.sourcePlatform);
-        QList<ProfilePortParameter> profileParams = PlatformParameterManager::getProfilePortParameters(selectedFile);
+        DatabaseInfo dbInfo = LogDatabase::inspectDatabase(decompressedFile);
+        QList<PlatformParameter> params = PlatformParameterManager::getParameters(decompressedFile, dbInfo.sourcePlatform);
+        QList<ProfilePortParameter> profileParams = PlatformParameterManager::getProfilePortParameters(decompressedFile);
 
         if ( !params.isEmpty() || !profileParams.isEmpty() )
         {
@@ -1162,7 +1194,10 @@ void MainWindow::showLoadDB()
             settingsDialog.setParameters(params, profileParams);
 
             if ( settingsDialog.exec() != QDialog::Accepted )
+            {
+                QFile::remove(decompressedFile);
                 return;
+            }
 
             // Save modified parameters to a JSON file for later application
             QList<PlatformParameter> modifiedParams = settingsDialog.getParameters();
@@ -1176,19 +1211,30 @@ void MainWindow::showLoadDB()
     if ( !password.isEmpty() )
         CredentialStore::instance()->saveImportPassphrase(password);
 
-    // Copy selected file to pending import location
+    // Move decompressed file to pending import location
     const QString pendingPath = LogDatabase::pendingImportPath();
+
+    qCDebug(runtime) << "Decompressed file:" << decompressedFile << "exists:" << QFile::exists(decompressedFile);
+    qCDebug(runtime) << "Pending path:" << pendingPath;
 
     // Remove existing pending file if any
     if ( QFile::exists(pendingPath) )
         QFile::remove(pendingPath);
 
-    if ( !QFile::copy(selectedFile, pendingPath) )
+    if ( !QFile::rename(decompressedFile, pendingPath) )
     {
-        QMessageBox::warning(this, tr("Load Database"),
-                             tr("Failed to prepare database for import."));
-        CredentialStore::instance()->deleteImportPassphrase();
-        return;
+        qCDebug(runtime) << "Rename failed, trying copy";
+        // rename failed, try copy + remove
+        if ( !QFile::copy(decompressedFile, pendingPath) )
+        {
+            qWarning() << "Copy also failed from" << decompressedFile << "to" << pendingPath;
+            QMessageBox::warning(this, tr("Load Database"),
+                                 tr("Failed to prepare database for import."));
+            CredentialStore::instance()->deleteImportPassphrase();
+            QFile::remove(decompressedFile);
+            return;
+        }
+        QFile::remove(decompressedFile);
     }
 
     // Restart the application
