@@ -1123,6 +1123,10 @@ void MainWindow::showDumpDB()
         return;
     }
 
+    // Add .dbe suffix if not present
+    if ( !filename.endsWith(".dbe", Qt::CaseInsensitive) )
+        filename.append(".dbe");
+
     // Create temporary file for uncompressed database
     QTemporaryFile tempFile;
     if ( !tempFile.open() )
