@@ -322,7 +322,7 @@ QList<PlatformParameter> PlatformParameterManager::loadParametersFromFile(const 
     file.close();
 
     QJsonParseError error;
-    QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 
     if ( error.error != QJsonParseError::NoError )
     {
@@ -330,8 +330,8 @@ QList<PlatformParameter> PlatformParameterManager::loadParametersFromFile(const 
         return result;
     }
 
-    QJsonObject root = doc.object();
-    QJsonArray array = root["parameters"].toArray();
+    const QJsonObject root = doc.object();
+    const QJsonArray array = root["parameters"].toArray();
 
     for ( const QJsonValue &val : array )
     {
@@ -339,6 +339,7 @@ QList<PlatformParameter> PlatformParameterManager::loadParametersFromFile(const 
         PlatformParameter p;
         p.key = obj["key"].toString();
         p.newValue = obj["newValue"].toString();
+        p.requiresChange = false;
         result.append(p);
     }
 
@@ -371,7 +372,7 @@ QList<ProfilePortParameter> PlatformParameterManager::loadProfilePortParametersF
     file.close();
 
     QJsonParseError error;
-    QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    const QJsonDocument doc = QJsonDocument::fromJson(data, &error);
 
     if ( error.error != QJsonParseError::NoError )
     {
@@ -379,8 +380,8 @@ QList<ProfilePortParameter> PlatformParameterManager::loadProfilePortParametersF
         return result;
     }
 
-    QJsonObject root = doc.object();
-    QJsonArray array = root["profilePorts"].toArray();
+    const QJsonObject root = doc.object();
+    const QJsonArray array = root["profilePorts"].toArray();
 
     for ( const QJsonValue &val : array )
     {

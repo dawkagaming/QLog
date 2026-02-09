@@ -1,6 +1,6 @@
-#include <QtCore/QDataStream>
-#include <QtCore/QVector>
-#include <QtCore/QLoggingCategory>
+#include <QDataStream>
+#include <QIODevice>
+#include <QLoggingCategory>
 
 #include <openssl/evp.h>
 #include <openssl/rand.h>

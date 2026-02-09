@@ -34,6 +34,10 @@ DEFINES += VERSION=\\\"$$VERSION\\\"
 #ZLIBINCLUDEPATH =
 #ZLIBLIBPATH =
 
+# Define paths to OpenSSL - Leave empty if system libraries should be used
+#OPENSSLINCLUDEPATH =
+#OPENSSLLIBPATH =
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -479,6 +483,10 @@ isEmpty(HAMLIBVERSION_PATCH){
    INCLUDEPATH += $$ZLIBINCLUDEPATH
 }
 
+!isEmpty(OPENSSLINCLUDEPATH) {
+   INCLUDEPATH += $$OPENSSLINCLUDEPATH
+}
+
 !isEmpty(HAMLIBLIBPATH) {
    LIBS += -L$$HAMLIBLIBPATH
 }
@@ -493,6 +501,10 @@ isEmpty(HAMLIBVERSION_PATCH){
 
 !isEmpty(ZLIBLIBPATH) {
    LIBS += -L$$ZLIBLIBPATH
+}
+
+!isEmpty(OPENSSLLIBPATH) {
+   LIBS += -L$$OPENSSLLIBPATH
 }
 
 unix:!macx {
@@ -530,7 +542,7 @@ macx: {
    }
 
    INCLUDEPATH += /usr/local/include /opt/homebrew/include /opt/local/include
-   LIBS += -L/usr/local/lib -L/opt/homebrew/lib -lhamlib -lsqlite3 -lz -L/opt/local/lib
+   LIBS += -L/usr/local/lib -L/opt/homebrew/lib -lhamlib -lsqlite3 -lz -L/opt/local/lib -lssl -lcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
    DISTFILES +=
@@ -557,7 +569,7 @@ win32: {
    QMAKE_TARGET_COMPANY = OK1MLG
    QMAKE_TARGET_DESCRIPTION = Hamradio logging
 
-   LIBS += -lws2_32 -llibhamlib-4 -lzlib
+   LIBS += -lws2_32 -llibhamlib-4 -lzlib -llibssl -llibcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 
