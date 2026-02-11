@@ -7,6 +7,7 @@
 
 #include "RigctldManager.h"
 #include "core/debug.h"
+#include "data/SerialPort.h"
 
 MODULE_IDENTIFICATION("qlog.rig.rigctldmanager");
 
@@ -65,7 +66,7 @@ bool RigctldManager::start(const RigProfile &profile)
     connect(rigctldProcess, &QProcess::readyReadStandardError, this, &RigctldManager::onReadyReadStderr);
 
     // exec arguments
-    QStringList args = buildArguments(profile);
+    const QStringList args = buildArguments(profile);
     qCDebug(runtime) << "Starting rigctld with args:" << args;
 
     rigctldProcess->start(rigctldPath, args);
@@ -129,9 +130,9 @@ QString RigctldManager::findRigctldPath()
 
     // First priority: Check application directory (bundled rigctld)
 #ifdef Q_OS_WIN
-    QString appDirPath = QCoreApplication::applicationDirPath() + "/rigctld.exe";
+    const QString appDirPath = QCoreApplication::applicationDirPath() + "/rigctld.exe";
 #else
-    QString appDirPath = QCoreApplication::applicationDirPath() + "/rigctld";
+    const QString appDirPath = QCoreApplication::applicationDirPath() + "/rigctld";
 #endif
     if ( QFile::exists(appDirPath) )
     {
@@ -140,7 +141,7 @@ QString RigctldManager::findRigctldPath()
     }
 
     // Second priority: Platform-specific paths
-    QStringList platformPaths =
+    const QStringList platformPaths =
     {
 #ifdef Q_OS_WIN
         "C:/Program Files/Hamlib/bin/rigctld.exe",
@@ -171,7 +172,7 @@ QString RigctldManager::findRigctldPath()
     }
 
     // Last resort: Try $PATH
-    QString path = QStandardPaths::findExecutable("rigctld");
+    const QString path = QStandardPaths::findExecutable("rigctld");
     if ( !path.isEmpty() )
     {
         qCDebug(runtime) << "Found rigctld in PATH:" << path;
@@ -243,21 +244,21 @@ QStringList RigctldManager::buildArguments(const RigProfile &profile) const
         if ( profile.stopbits > 0 ) args << "-C" << QString("stop_bits=%1").arg(static_cast<int>(profile.stopbits));
 
         // Parity
-        if ( !profile.parity.isEmpty() && profile.parity.compare("none", Qt::CaseInsensitive) )
+        if ( !profile.parity.isEmpty() && profile.parity.compare(SerialPort::SERIAL_PARITY_NO, Qt::CaseInsensitive) )
         {
             QString parity = profile.parity.toLower();
-            if      ( parity == "even" ) parity = "E";
-            else if ( parity == "odd" )  parity = "O";
+            if      ( parity == SerialPort::SERIAL_PARITY_EVEN ) parity = "E";
+            else if ( parity == SerialPort::SERIAL_PARITY_ODD )  parity = "O";
             else parity = "N";
             args << "-C" << QString("serial_parity=%1").arg(parity);
         }
 
         // Flow control
-        if ( !profile.flowcontrol.isEmpty() && profile.parity.compare("None", Qt::CaseInsensitive) )
+        if ( !profile.flowcontrol.isEmpty() && profile.flowcontrol.compare(SerialPort::SERIAL_FLOWCONTROL_NONE, Qt::CaseInsensitive) )
         {
             QString flow = profile.flowcontrol.toLower();
-            if ( flow == "hardware" )      flow = "Hardware";
-            else if ( flow == "software" ) flow = "XONXOFF";
+            if ( flow == SerialPort::SERIAL_FLOWCONTROL_HARDWARE )      flow = "Hardware";
+            else if ( flow == SerialPort::SERIAL_FLOWCONTROL_SOFTWARE ) flow = "XONXOFF";
             args << "-C" << QString("serial_handshake=%1").arg(flow);
         }
 
@@ -265,20 +266,20 @@ QStringList RigctldManager::buildArguments(const RigProfile &profile) const
         if (profile.civAddr >= 0) args << "-C" << QString("civaddr=%1").arg(profile.civAddr, 2, 16, QChar('0'));
 
         // DTR signal
-        if ( !profile.dtr.isEmpty() && profile.dtr.compare("None", Qt::CaseInsensitive) )
+        if ( !profile.dtr.isEmpty() && profile.dtr.compare(SerialPort::SERIAL_SIGNAL_NONE, Qt::CaseInsensitive) )
         {
             QString dtr = profile.dtr.toLower();
-            if ( dtr == "high" )     dtr = "ON";
-            else if ( dtr == "off" ) dtr = "OFF";
+            if ( dtr == SerialPort::SERIAL_SIGNAL_HIGH )     dtr = "ON";
+            else if ( dtr == SerialPort::SERIAL_SIGNAL_LOW ) dtr = "OFF";
             args << "-C" << QString("dtr_state=%1").arg(dtr);
         }
 
         // RTS signal
-        if ( !profile.rts.isEmpty() && profile.rts.compare("None", Qt::CaseInsensitive) )
+        if ( !profile.rts.isEmpty() && profile.rts.compare(SerialPort::SERIAL_SIGNAL_NONE, Qt::CaseInsensitive) )
         {
             QString rts = profile.rts.toLower();
-            if ( rts == "high" )     rts = "ON";
-            else if ( rts == "off" ) rts = "OFF";
+            if ( rts == SerialPort::SERIAL_SIGNAL_HIGH )     rts = "ON";
+            else if ( rts == SerialPort::SERIAL_SIGNAL_LOW ) rts = "OFF";
             args << "-C" << QString("rts_state=%1").arg(rts);
         }
     }
@@ -353,7 +354,7 @@ void RigctldManager::onReadyReadStdout()
     if (!rigctldProcess)
         return;
 
-    QByteArray data = rigctldProcess->readAllStandardOutput();
+    const QByteArray data = rigctldProcess->readAllStandardOutput();
     if ( !data.isEmpty() )
     {
         // Split by lines and log each
@@ -371,7 +372,7 @@ void RigctldManager::onReadyReadStderr()
     if (!rigctldProcess)
         return;
 
-    QByteArray data = rigctldProcess->readAllStandardError();
+    const QByteArray data = rigctldProcess->readAllStandardError();
     if ( !data.isEmpty() )
     {
         const QList<QByteArray> lines = data.split('\n');

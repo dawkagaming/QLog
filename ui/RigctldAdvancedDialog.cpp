@@ -16,9 +16,6 @@ RigctldAdvancedDialog::RigctldAdvancedDialog(QWidget *parent) :
     FCT_IDENTIFICATION;
 
     ui->setupUi(this);
-
-    connect(ui->autoButton, &QPushButton::clicked, this, &RigctldAdvancedDialog::autoDetectPath);
-    connect(ui->browseButton, &QPushButton::clicked, this, &RigctldAdvancedDialog::browsePath);
 }
 
 RigctldAdvancedDialog::~RigctldAdvancedDialog()
@@ -51,20 +48,16 @@ void RigctldAdvancedDialog::autoDetectPath()
 {
     FCT_IDENTIFICATION;
 
-    QString detectedPath = RigctldManager::findRigctldPath();
+    const QString detectedPath = RigctldManager::findRigctldPath();
 
-    if (detectedPath.isEmpty())
+    if ( detectedPath.isEmpty() )
     {
         QMessageBox::warning(this, tr("Auto Detect"),
                              tr("rigctld was not found on this system.\n"
                                 "Please install Hamlib or specify the path manually."));
     }
     else
-    {
         ui->pathEdit->setText(detectedPath);
-        QMessageBox::information(this, tr("Auto Detect"),
-                                 tr("Found rigctld at:\n%1").arg(detectedPath));
-    }
 }
 
 void RigctldAdvancedDialog::browsePath()
@@ -72,16 +65,16 @@ void RigctldAdvancedDialog::browsePath()
     FCT_IDENTIFICATION;
 
 #ifdef Q_OS_WIN
-    QString filter = tr("Executable (*.exe);;All files (*.*)");
+    const QString filter = tr("Executable (*.exe);;All files (*.*)");
 #else
-    QString filter = tr("All files (*)");
+    const QString filter = tr("All files (*)");
 #endif
 
-    QString path = QFileDialog::getOpenFileName(this,
+    const QString path = QFileDialog::getOpenFileName(this,
                                                 tr("Select rigctld executable"),
                                                 ui->pathEdit->text(),
                                                 filter);
-    if (!path.isEmpty())
+    if ( !path.isEmpty() )
     {
         ui->pathEdit->setText(path);
     }

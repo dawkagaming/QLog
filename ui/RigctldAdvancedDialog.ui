@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>547</width>
+    <width>572</width>
     <height>123</height>
    </rect>
   </property>
@@ -30,31 +30,43 @@
          <property name="placeholderText">
           <string>Leave empty for auto-detection</string>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="autoButton">
-         <property name="maximumSize">
-          <size>
-           <width>50</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Auto</string>
+         <property name="clearButtonEnabled">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="browseButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>30</width>
            <height>16777215</height>
           </size>
          </property>
+         <property name="icon">
+          <iconset theme="folder-open"/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="autoButton">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Auto-detect Rigctld path</string>
+         </property>
          <property name="text">
-          <string>...</string>
+          <string>Auto-Detect</string>
          </property>
         </widget>
        </item>
@@ -71,6 +83,9 @@
       <widget class="QLineEdit" name="argsEdit">
        <property name="placeholderText">
         <string>e.g. -v -v for verbose logging</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -135,5 +150,41 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>autoButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RigctldAdvancedDialog</receiver>
+   <slot>autoDetectPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>474</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>browseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>RigctldAdvancedDialog</receiver>
+   <slot>browsePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>520</x>
+     <y>24</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>273</x>
+     <y>61</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>autoDetectPath()</slot>
+  <slot>browsePath()</slot>
+ </slots>
 </ui>
