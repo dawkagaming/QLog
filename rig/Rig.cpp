@@ -1,4 +1,5 @@
 #include "Rig.h"
+#include "RigctldManager.h"
 #include "core/debug.h"
 #include "rig/drivers/HamlibRigDrv.h"
 #ifdef Q_OS_WIN
@@ -197,6 +198,37 @@ void Rig::__openRig()
 
     qCDebug(runtime) << "Opening profile name: " << newRigProfile.profileName;
 
+    // If rig sharing is enabled, start rigctld and modify profile to connect via network
+    if ( newRigProfile.shareRigctld
+         && newRigProfile.driver == HAMLIB_DRIVER
+         && newRigProfile.getPortType() == RigProfile::SERIAL_ATTACHED)
+    {
+        qCDebug(runtime) << "Starting rigctld for rig sharing";
+
+        if ( !rigctldManager )
+        {
+            rigctldManager = new RigctldManager(this);
+            connect(rigctldManager, &RigctldManager::errorOccurred, this, [this](const QString &error)
+            {
+                emit rigErrorPresent(tr("Rigctld Error"), error);
+            });
+        }
+
+        if ( !rigctldManager->start(newRigProfile) )
+        {
+            emit rigErrorPresent(tr("Cannot start rigctld"),
+                                 tr("Failed to start rigctld daemon for rig sharing. Check Advanced settings for path."));
+            return;
+        }
+
+        // Modify profile to connect via network to rigctld
+        newRigProfile.hostname = rigctldManager->getConnectHost();
+        newRigProfile.netport = rigctldManager->getConnectPort();
+        newRigProfile.portPath.clear();  // Clear serial port to force network connection
+
+        qCDebug(runtime) << "Connecting to rigctld at" << newRigProfile.hostname << ":" << newRigProfile.netport;
+    }
+
     rigDriver = getDriver(newRigProfile);
 
     if ( !rigDriver )
@@ -347,6 +379,14 @@ void Rig::__closeRig()
     delete rigDriver;
     rigDriver = nullptr;
     connected = false;
+
+    // Stop rigctld if it was running
+    if (rigctldManager && rigctldManager->isRunning())
+    {
+        qCDebug(runtime) << "Stopping rigctld";
+        rigctldManager->stop();
+    }
+
     emit rigDisconnected();
 }
 

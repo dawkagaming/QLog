@@ -30,6 +30,7 @@ public:
                    getXITInfo = true; defaultPWR = 0.0, getPTTInfo = false;
                    QSYWiping = false, getKeySpeed = false, keySpeedSync = false;
                    driver = 0, dxSpot2Rig = false, civAddr = -1;
+                   shareRigctld = false; rigctldPort = 4532;
                  };
 
     QString profileName;
@@ -66,6 +67,10 @@ public:
     QString rts;
     QString dtr;
     qint16 civAddr; // -1 = AUTO; otherwise address
+    bool shareRigctld;
+    quint16 rigctldPort;
+    QString rigctldPath;  // empty = autodetect
+    QString rigctldArgs;  // additional arguments
 
     bool operator== (const RigProfile &profile);
     bool operator!= (const RigProfile &profile);

@@ -1,0 +1,4 @@
+ALTER TABLE rig_profiles ADD COLUMN share_rigctld INTEGER DEFAULT 0;
+ALTER TABLE rig_profiles ADD COLUMN rigctld_port INTEGER DEFAULT 4532;
+ALTER TABLE rig_profiles ADD COLUMN rigctld_path TEXT;
+ALTER TABLE rig_profiles ADD COLUMN rigctld_args TEXT;

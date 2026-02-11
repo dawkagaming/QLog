@@ -121,6 +121,7 @@ SOURCES += \
         models/WsjtxTableModel.cpp \
         rig/Rig.cpp \
         rig/RigCaps.cpp \
+        rig/RigctldManager.cpp \
         rig/drivers/FlrigRigDrv.cpp \
         rig/drivers/GenericRigDrv.cpp \
         rig/drivers/HamlibRigDrv.cpp \
@@ -161,6 +162,7 @@ SOURCES += \
         ui/ExportPasswordDialog.cpp \
         ui/LoadDatabaseDialog.cpp \
         ui/PlatformSettingsDialog.cpp \
+        ui/RigctldAdvancedDialog.cpp \
         ui/ImportDialog.cpp \
         ui/InputPasswordDialog.cpp \
         ui/KSTChatWidget.cpp \
@@ -280,6 +282,7 @@ HEADERS += \
         models/WsjtxTableModel.h \
         rig/Rig.h \
         rig/RigCaps.h \
+        rig/RigctldManager.h \
         rig/drivers/FlrigRigDrv.h \
         rig/drivers/GenericRigDrv.h \
         rig/drivers/HamlibRigDrv.h \
@@ -321,6 +324,7 @@ HEADERS += \
         ui/ExportPasswordDialog.h \
         ui/LoadDatabaseDialog.h \
         ui/PlatformSettingsDialog.h \
+        ui/RigctldAdvancedDialog.h \
         ui/ImportDialog.h \
         ui/InputPasswordDialog.h \
         ui/KSTChatWidget.h \
@@ -383,6 +387,7 @@ FORMS += \
         ui/ExportPasswordDialog.ui \
         ui/LoadDatabaseDialog.ui \
         ui/PlatformSettingsDialog.ui \
+        ui/RigctldAdvancedDialog.ui \
         ui/ImportDialog.ui \
         ui/InputPasswordDialog.ui \
         ui/KSTChatWidget.ui \

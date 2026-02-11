@@ -120,6 +120,8 @@ public slots:
     void clublogSettingChanged();
     void updateDateFormatResult();
     void rigFlowControlChanged(int);
+    void showRigctldAdvanced();
+    void rigShareChanged(int);
 
     void qrzAddCallsignAPIKey();
     void qrzDelCallsignAPIKey();
@@ -129,6 +131,7 @@ private:
     void writeSettings();
     void setUIBasedOnRigCaps(const RigCaps&);
     void refreshRigAssignedCWKeyCombo();
+    void updateRigShareEnabled();
     void setValidationResultColor(QLineEdit *);
     QString getMemberListComboValue(const QComboBox *);
     void generateMembershipCheckboxes();
@@ -157,6 +160,8 @@ private:
     bool sotaFallback;
     bool potaFallback;
     bool wwffFallback;
+    QString rigctldPath;
+    QString rigctldArgs;
 };
 
 #endif // QLOG_UI_SETTINGSDIALOG_H

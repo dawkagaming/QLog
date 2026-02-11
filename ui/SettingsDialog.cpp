@@ -38,6 +38,7 @@
 #include "ui/component/StyleItemDelegate.h"
 #include "data/SerialPort.h"
 #include "service/cloudlog/Cloudlog.h"
+#include "ui/RigctldAdvancedDialog.h"
 
 #define STACKED_WIDGET_SERIAL_SETTING  0
 #define STACKED_WIDGET_NETWORK_SETTING 1
@@ -517,6 +518,12 @@ void SettingsDialog::addRigProfile()
     profile.keySpeedSync = ui->rigKeySpeedSyncCheckBox->isChecked();
     profile.dxSpot2Rig = ui->rigDXSpots2RigCheckBox->isChecked();
 
+    // Rigctld sharing settings
+    profile.shareRigctld = ui->rigShareCheckBox->isChecked();
+    profile.rigctldPort = ui->rigSharePortSpinBox->value();
+    profile.rigctldPath = rigctldPath;
+    profile.rigctldArgs = rigctldArgs;
+
     rigProfManager->addProfile(profile.profileName, profile);
 
     refreshRigProfilesView();
@@ -613,7 +620,14 @@ void SettingsDialog::doubleClickRigProfile(QModelIndex i)
 
     ui->rigCIVAddrSpinBox->setValue(( profile.civAddr >= 0 ) ? profile.civAddr : CIVADDR_DISABLED_VALUE);
 
+    // Rigctld sharing settings
+    ui->rigShareCheckBox->setChecked(profile.shareRigctld);
+    ui->rigSharePortSpinBox->setValue(profile.rigctldPort);
+    rigctldPath = profile.rigctldPath;
+    rigctldArgs = profile.rigctldArgs;
+
     setUIBasedOnRigCaps(caps);
+    updateRigShareEnabled();
 
     ui->rigAddProfileButton->setText(tr("Modify"));
 }
@@ -660,7 +674,14 @@ void SettingsDialog::clearRigProfileForm()
     ui->rigPTTPortEdit->clear();
     ui->rigCIVAddrSpinBox->setValue(CIVADDR_DISABLED_VALUE);
 
+    // Rigctld sharing settings
+    ui->rigShareCheckBox->setChecked(false);
+    ui->rigSharePortSpinBox->setValue(4532);
+    rigctldPath.clear();
+    rigctldArgs.clear();
+
     rigChanged(ui->rigModelSelect->currentIndex());
+    updateRigShareEnabled();
 }
 
 void SettingsDialog::rigRXOffsetChanged(int)
@@ -2301,6 +2322,62 @@ void SettingsDialog::rigFlowControlChanged(int)
         ui->rigRTSCombo->setCurrentIndex((rstNoneIndex < 0) ? 0 : rstNoneIndex);
     }
     ui->rigRTSCombo->setEnabled(!isHWControlEnabled);
+}
+
+void SettingsDialog::showRigctldAdvanced()
+{
+    FCT_IDENTIFICATION;
+
+    RigctldAdvancedDialog dialog(this);
+    dialog.setPath(rigctldPath);
+    dialog.setArgs(rigctldArgs);
+
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        rigctldPath = dialog.getPath();
+        rigctldArgs = dialog.getArgs();
+    }
+}
+
+void SettingsDialog::rigShareChanged(int)
+{
+    FCT_IDENTIFICATION;
+
+    updateRigShareEnabled();
+}
+
+void SettingsDialog::updateRigShareEnabled()
+{
+    FCT_IDENTIFICATION;
+
+    Rig::DriverID driverID = static_cast<Rig::DriverID>(ui->rigInterfaceCombo->currentData().toInt());
+    int portType = ui->rigPortTypeCombo->currentIndex();
+
+    // Share rigctld is only available for Hamlib driver with serial connection
+    bool canShare = (driverID == Rig::HAMLIB_DRIVER) && (portType == RIGPORT_SERIAL_INDEX);
+
+    ui->rigShareCheckBox->setEnabled(canShare);
+    ui->rigSharePortSpinBox->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
+    ui->rigSharePortLabel->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
+    ui->rigShareAdvancedButton->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
+
+    if (!canShare)
+    {
+        ui->rigShareCheckBox->setChecked(false);
+
+        if (driverID != Rig::HAMLIB_DRIVER)
+        {
+            ui->rigShareCheckBox->setToolTip(tr("Rig sharing is only available for Hamlib driver"));
+        }
+        else
+        {
+            ui->rigShareCheckBox->setToolTip(tr("Rig sharing is not available for network connection"));
+        }
+    }
+    else
+    {
+        ui->rigShareCheckBox->setToolTip(tr("Start rigctld daemon to share rig with other applications (e.g. WSJT-X)"));
+    }
 }
 
 void SettingsDialog::qrzAddCallsignAPIKey()
