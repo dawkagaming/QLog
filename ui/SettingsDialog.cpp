@@ -2358,7 +2358,6 @@ void SettingsDialog::updateRigShareEnabled()
 
     ui->rigShareCheckBox->setEnabled(canShare);
     ui->rigSharePortSpinBox->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
-    ui->rigSharePortLabel->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
     ui->rigShareAdvancedButton->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
 
     if (!canShare)
