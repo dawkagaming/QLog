@@ -15,7 +15,13 @@ RigctldAdvancedDialog::RigctldAdvancedDialog(QWidget *parent) :
 {
     FCT_IDENTIFICATION;
 
-    ui->setupUi(this);
+    ui->setupUi(this);  
+#ifdef QLOG_FLATPAK
+    ui->pathEdit->setEnabled(false);
+    ui->browseButton->setEnabled(false);
+    ui->autoButton->setEnabled(false);
+    ui->pathEdit->setPlaceholderText(tr("Cannot be changed"));
+#endif
 }
 
 RigctldAdvancedDialog::~RigctldAdvancedDialog()
@@ -69,10 +75,12 @@ void RigctldAdvancedDialog::browsePath()
 #else
     const QString filter = tr("All files (*)");
 #endif
+    const QString folder = (ui->pathEdit->text().isEmpty() ) ? QStandardPaths::writableLocation(QStandardPaths::HomeLocation)
+                                                             : ui->pathEdit->text();
 
     const QString path = QFileDialog::getOpenFileName(this,
                                                 tr("Select rigctld executable"),
-                                                ui->pathEdit->text(),
+                                                folder,
                                                 filter);
     if ( !path.isEmpty() )
     {
