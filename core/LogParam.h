@@ -161,6 +161,7 @@ public:
     static void setLoTWCallbookUsername(const QString& username);
     static QString getLoTWTQSLPath(const QString &defaultPath);
     static void setLoTWTQSLPath(const QString& path);
+    static bool isLoTWTQSLPathKey(const QString &key);
 
     /*******************
      * Callbook setting

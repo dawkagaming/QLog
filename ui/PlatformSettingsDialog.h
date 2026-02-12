@@ -18,9 +18,9 @@ public:
     ~PlatformSettingsDialog();
 
     void setParameters(const QList<PlatformParameter> &params,
-                       const QList<ProfilePortParameter> &profileParams);
+                       const QList<ProfileParameter> &profileParams);
     QList<PlatformParameter> getParameters() const;
-    QList<ProfilePortParameter> getProfilePortParameters() const;
+    QList<ProfileParameter> getProfilePortParameters() const;
 
 private slots:
     void browseForPath(int row);
@@ -29,7 +29,7 @@ private:
     Ui::PlatformSettingsDialog *ui;
     QPushButton *continueButton;
     QList<PlatformParameter> parameters;
-    QList<ProfilePortParameter> profilePortParameters;
+    QList<ProfileParameter> profilePortParameters;
     int parameterCount;  // Number of PlatformParameter rows
 };
 

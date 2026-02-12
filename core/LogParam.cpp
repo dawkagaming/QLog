@@ -467,6 +467,11 @@ void LogParam::setLoTWTQSLPath(const QString &path)
     setParam("services/lotw/callbook/tqsl", path);
 }
 
+bool LogParam::isLoTWTQSLPathKey(const QString &key)
+{
+    return key.compare("services/lotw/callbook/tqsl", Qt::CaseInsensitive) == 0;
+}
+
 QString LogParam::getPrimaryCallbook(const QString &defaultValue)
 {
     return getParam("callbook/primary", defaultValue).toString();

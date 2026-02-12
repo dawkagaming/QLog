@@ -39,7 +39,7 @@ PlatformSettingsDialog::~PlatformSettingsDialog()
 }
 
 void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &params,
-                                           const QList<ProfilePortParameter> &profileParams)
+                                           const QList<ProfileParameter> &profileParams)
 {
     FCT_IDENTIFICATION;
 
@@ -70,11 +70,11 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         layout->setContentsMargins(2, 2, 2, 2);
         layout->setSpacing(2);
 
-        QLineEdit *lineEdit = new QLineEdit();
+        QLineEdit *lineEdit = new QLineEdit(this);
         lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
         layout->addWidget(lineEdit);
 
-        QPushButton *browseBtn = new QPushButton("...");
+        QPushButton *browseBtn = new QPushButton("...", this);
         browseBtn->setFixedWidth(30);
         connect(browseBtn, &QPushButton::clicked, this, [this, row]() {
             browseForPath(row);
@@ -86,7 +86,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
     }
 
     // Add ProfilePortParameter entries
-    for ( const ProfilePortParameter &p : profileParams )
+    for ( const ProfileParameter &p : profileParams )
     {
         // Setting name (includes profile name)
         QTableWidgetItem *nameItem = new QTableWidgetItem(p.displayName);
@@ -103,9 +103,25 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         layout->setContentsMargins(2, 2, 2, 2);
         layout->setSpacing(2);
 
-        SerialPortEditLine *lineEdit = new SerialPortEditLine();
-        lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
-        layout->addWidget(lineEdit);
+        if ( p.isExecutablePath )
+        {
+            QLineEdit *lineEdit = new QLineEdit(this);
+            lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
+            layout->addWidget(lineEdit);
+
+            QPushButton *browseBtn = new QPushButton("...",this);
+            browseBtn->setFixedWidth(30);
+            connect(browseBtn, &QPushButton::clicked, this, [this, row]() {
+                browseForPath(row);
+            });
+            layout->addWidget(browseBtn);
+        }
+        else
+        {
+            SerialPortEditLine *lineEdit = new SerialPortEditLine(this);
+            lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
+            layout->addWidget(lineEdit);
+        }
 
         ui->settingsTable->setCellWidget(row, 2, editWidget);
         ++row;
@@ -125,18 +141,21 @@ QList<PlatformParameter> PlatformSettingsDialog::getParameters() const
         {
             QLineEdit *lineEdit = cellWidget->findChild<QLineEdit*>(QString("lineEdit_%1").arg(row));
             if ( lineEdit )
+            {
+                qCDebug(runtime) << "new value" << lineEdit->text();
                 result[row].newValue = lineEdit->text();
+            }
         }
     }
 
     return result;
 }
 
-QList<ProfilePortParameter> PlatformSettingsDialog::getProfilePortParameters() const
+QList<ProfileParameter> PlatformSettingsDialog::getProfilePortParameters() const
 {
     FCT_IDENTIFICATION;
 
-    QList<ProfilePortParameter> result = profilePortParameters;
+    QList<ProfileParameter> result = profilePortParameters;
 
     for ( int i = 0; i < result.size(); ++i )
     {
@@ -146,7 +165,10 @@ QList<ProfilePortParameter> PlatformSettingsDialog::getProfilePortParameters() c
         {
             QLineEdit *lineEdit = cellWidget->findChild<QLineEdit*>(QString("lineEdit_%1").arg(row));
             if ( lineEdit )
+            {
+                qCDebug(runtime) << "new value" << lineEdit->text();
                 result[i].newValue = lineEdit->text();
+            }
         }
     }
 

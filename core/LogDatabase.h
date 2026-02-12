@@ -23,6 +23,11 @@ public:
         return &instance;
     };
 
+    static QString PLATFORM_WINDOWS;
+    static QString PLATFORM_MACOS;
+    static QString PLATFORM_LINUX;
+    static QString PLATFORM_LINUXFLATPAK;
+
     static QDir dbDirectory();
     static QString dbFilename();
     static QString currentPlatformId();

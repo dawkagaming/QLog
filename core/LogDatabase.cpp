@@ -19,6 +19,11 @@
 
 MODULE_IDENTIFICATION("qlog.core.logdatabase");
 
+QString LogDatabase::PLATFORM_WINDOWS = "Windows";
+QString LogDatabase::PLATFORM_MACOS = "MacOS";
+QString LogDatabase::PLATFORM_LINUX = "Linux";
+QString LogDatabase::PLATFORM_LINUXFLATPAK = "LinuxFlatpak";
+
 QDir LogDatabase::dbDirectory()
 {
     return QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
@@ -32,13 +37,13 @@ QString LogDatabase::dbFilename()
 QString LogDatabase::currentPlatformId()
 {
 #if defined(Q_OS_WIN)
-    return QStringLiteral("Windows");
+    return LogDatabase::PLATFORM_WINDOWS;
 #elif defined(Q_OS_MACOS)
-    return QStringLiteral("MacOS");
+    return LogDatabase::PLATFORM_MACOS;
 #elif defined(QLOG_FLATPAK)
-    return QStringLiteral("LinuxFlatpak");
+    return LogDatabase::PLATFORM_LINUXFLATPAK;
 #else
-    return QStringLiteral("Linux");
+    return LogDatabase::PLATFORM_LINUX;
 #endif
 }
 
@@ -368,7 +373,6 @@ bool LogDatabase::processPendingImport()
     const QString walPath = currentDbPath + "-wal"; // remove also support files
     const QString shmPath = currentDbPath + "-shm"; // remove also support files
 
-    // Delete current database and WAL files
     if ( QFile::exists(currentDbPath) )
     {
         if ( !QFile::remove(currentDbPath) )
@@ -393,38 +397,31 @@ bool LogDatabase::processPendingImport()
 
     qCDebug(runtime) << "Pending database moved to current";
 
-    // Open the database
     if ( !openDatabase() )
     {
         qCritical() << "Cannot open imported database";
         return false;
     }
 
-    // Run schema migration if needed
     if ( !schemaVersionUpgrade() )
     {
         qCritical() << "Schema migration failed";
         return false;
     }
 
-    // Get import passphrase from SecureStore and import passwords
     const QString passphrase = CredentialStore::instance()->getImportPassphrase();
     if ( !passphrase.isEmpty() )
     {
         qCDebug(runtime) << "Importing passwords from encrypted store";
 
-        // Delete all existing passwords first
         CredentialStore::instance()->deleteAllPasswords();
 
-        // Import passwords from the database
         if ( !CredentialStore::instance()->importPasswords(passphrase) )
             qWarning() << "Password import failed";
 
-        // Delete the import passphrase from SecureStore
         CredentialStore::instance()->deleteImportPassphrase();
     }
 
-    // Apply platform-specific parameters if any
     const QString paramsPath = PlatformParameterManager::pendingParametersPath();
     if ( QFile::exists(paramsPath) )
     {
@@ -433,17 +430,20 @@ bool LogDatabase::processPendingImport()
         QList<PlatformParameter> params = PlatformParameterManager::loadParametersFromFile(paramsPath);
         PlatformParameterManager::applyParameters(params);
 
-        QList<ProfilePortParameter> profileParams = PlatformParameterManager::loadProfilePortParametersFromFile(paramsPath);
-        PlatformParameterManager::applyProfilePortParameters(profileParams);
+        QList<ProfileParameter> profileParams = PlatformParameterManager::loadProfileParametersFromFile(paramsPath);
+        PlatformParameterManager::applyProfileParameters(profileParams);
 
         QFile::remove(paramsPath);
     }
 
-    // Clean up import metadata from database
+    // For Flatpak target: apply fixed paths (TQSL, rigctld_path)
+    // This overrides any imported values with Flatpak-specific paths
+    PlatformParameterManager::applyFlatpakFixedPaths();
+
     LogParam::removeEncryptedPasswords();
     LogParam::removeSourcePlatform();
 
-    // Generate new LogID
+    // Generate new LogID because we want to uniquie identified every log
     QString newLogId = QUuid::createUuid().toString(QUuid::WithoutBraces);
     LogParam::setLogID(newLogId);
     qCDebug(runtime) << "New LogID generated:" << newLogId;

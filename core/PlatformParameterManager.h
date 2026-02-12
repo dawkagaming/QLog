@@ -15,7 +15,7 @@ struct PlatformParameter
 };
 
 // Structure for profile-based port paths (rig, rotator, cwkey)
-struct ProfilePortParameter
+struct ProfileParameter
 {
     QString tableName;     // e.g. "rig_profiles"
     QString profileName;   // e.g. "My Rig"
@@ -23,6 +23,7 @@ struct ProfilePortParameter
     QString displayName;   // e.g. "Rig: My Rig - Serial Port"
     QString currentValue;  // Value from imported DB
     QString newValue;      // User-provided value for current platform
+    bool isExecutablePath; // is exec - browse should be displayer
 };
 
 class PlatformParameterManager
@@ -39,30 +40,43 @@ public:
     // params: list of parameters with newValue set by user
     static void applyParameters(const QList<PlatformParameter> &params);
 
+    // Apply fixed paths for Flatpak target (called during import)
+    // Sets TQSL path to /app/bin/tqsl and clears rigctld_path in all profiles
+    static void applyFlatpakFixedPaths();
+
     // Get list of profile port parameters from imported DB
-    static QList<ProfilePortParameter> getProfilePortParameters(const QString &importDbPath);
+    // sourcePlatform: platform from which the DB was exported
+    static QList<ProfileParameter> getProfileParameters(const QString &importDbPath,
+                                                                 const QString &sourcePlatform);
 
     // Apply profile port parameters to the current database
-    static void applyProfilePortParameters(const QList<ProfilePortParameter> &params);
+    static void applyProfileParameters(const QList<ProfileParameter> &params);
 
     // Save parameters to a JSON file for later application after restart
     static bool saveParametersToFile(const QList<PlatformParameter> &params,
-                                     const QList<ProfilePortParameter> &profileParams,
+                                     const QList<ProfileParameter> &profileParams,
                                      const QString &filePath);
 
     // Load parameters from JSON file
     static QList<PlatformParameter> loadParametersFromFile(const QString &filePath);
 
     // Load profile port parameters from JSON file
-    static QList<ProfilePortParameter> loadProfilePortParametersFromFile(const QString &filePath);
+    static QList<ProfileParameter> loadProfileParametersFromFile(const QString &filePath);
 
     // Get path to pending parameters file
     static QString pendingParametersPath();
 
 private:
+    // Structure for known platform-dependent parameters
+    struct KnownParamDef
+    {
+        QString key;            // LogParam key
+        QString displayName;    // Human-readable name
+        bool isExecutablePath;  // true for paths to executables
+    };
+
     // Template list of known platform-dependent parameters
-    // Returns list of (key, displayName) pairs
-    static QList<QPair<QString, QString>> knownParameters();
+    static QList<KnownParamDef> knownParameters();
 };
 
 #endif // QLOG_CORE_PLATFORMPARAMETERMANAGER_H

@@ -1190,7 +1190,7 @@ void MainWindow::showLoadDB()
     {
         DatabaseInfo dbInfo = LogDatabase::inspectDatabase(decompressedFile);
         QList<PlatformParameter> params = PlatformParameterManager::getParameters(decompressedFile, dbInfo.sourcePlatform);
-        QList<ProfilePortParameter> profileParams = PlatformParameterManager::getProfilePortParameters(decompressedFile);
+        QList<ProfileParameter> profileParams = PlatformParameterManager::getProfileParameters(decompressedFile, dbInfo.sourcePlatform);
 
         if ( !params.isEmpty() || !profileParams.isEmpty() )
         {
@@ -1205,7 +1205,7 @@ void MainWindow::showLoadDB()
 
             // Save modified parameters to a JSON file for later application
             QList<PlatformParameter> modifiedParams = settingsDialog.getParameters();
-            QList<ProfilePortParameter> modifiedProfileParams = settingsDialog.getProfilePortParameters();
+            QList<ProfileParameter> modifiedProfileParams = settingsDialog.getProfilePortParameters();
             PlatformParameterManager::saveParametersToFile(modifiedParams, modifiedProfileParams,
                 PlatformParameterManager::pendingParametersPath());
         }
