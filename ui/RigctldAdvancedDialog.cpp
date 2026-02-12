@@ -75,7 +75,7 @@ void RigctldAdvancedDialog::browsePath()
 #else
     const QString filter = tr("All files (*)");
 #endif
-    const QString folder = (ui->pathEdit->text().isEmpty() ) ? QStandardPaths::writableLocation(QStandardPaths::HomeLocation)
+    const QString folder = (ui->pathEdit->text().isEmpty() ) ? QDir::rootPath()
                                                              : ui->pathEdit->text();
 
     const QString path = QFileDialog::getOpenFileName(this,
