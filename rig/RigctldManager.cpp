@@ -289,7 +289,12 @@ QStringList RigctldManager::buildArguments(const RigProfile &profile) const
     {
         // Split by whitespace, respecting quotes
         QStringList extraArgs = profile.rigctldArgs.split(QRegularExpression("\\s+"), // clazy:exclude=use-static-qregularexpression
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
                                                           Qt::SkipEmptyParts);
+#else
+                                                          QString::SkipEmptyParts);
+#endif
+
         args << extraArgs;
     }
 
