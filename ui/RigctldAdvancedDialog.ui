@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>572</width>
+    <width>631</width>
     <height>123</height>
    </rect>
   </property>
@@ -43,14 +43,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>30</width>
-           <height>16777215</height>
-          </size>
+         <property name="text">
+          <string>Browse</string>
          </property>
          <property name="icon">
-          <iconset theme="folder-open"/>
+          <iconset theme="folder-open">
+           <normaloff>.</normaloff>.</iconset>
          </property>
         </widget>
        </item>
