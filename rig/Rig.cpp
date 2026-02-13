@@ -217,16 +217,13 @@ void Rig::__openRig()
         }
 
         if ( !rigctldManager->start(newRigProfile) )
-        {
-            emit rigErrorPresent(tr("Cannot start rigctld"),
-                                 tr("Failed to start rigctld daemon for rig sharing. Check Advanced settings for path."));
             return;
-        }
 
         // Modify profile to connect via network to rigctld
         newRigProfile.hostname = rigctldManager->getConnectHost();
         newRigProfile.netport = rigctldManager->getConnectPort();
         newRigProfile.portPath.clear();  // Clear serial port to force network connection
+        newRigProfile.model = HamlibRigDrv::RIGCTLD_MODEL;
 
         qCDebug(runtime) << "Connecting to rigctld at" << newRigProfile.hostname << ":" << newRigProfile.netport;
     }
