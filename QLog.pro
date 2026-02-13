@@ -162,6 +162,7 @@ SOURCES += \
         ui/ExportPasswordDialog.cpp \
         ui/LoadDatabaseDialog.cpp \
         ui/PlatformSettingsDialog.cpp \
+        ui/QSLGalleryDialog.cpp \
         ui/RigctldAdvancedDialog.cpp \
         ui/ImportDialog.cpp \
         ui/InputPasswordDialog.cpp \
@@ -324,6 +325,7 @@ HEADERS += \
         ui/ExportPasswordDialog.h \
         ui/LoadDatabaseDialog.h \
         ui/PlatformSettingsDialog.h \
+        ui/QSLGalleryDialog.h \
         ui/RigctldAdvancedDialog.h \
         ui/ImportDialog.h \
         ui/InputPasswordDialog.h \
@@ -387,6 +389,7 @@ FORMS += \
         ui/ExportPasswordDialog.ui \
         ui/LoadDatabaseDialog.ui \
         ui/PlatformSettingsDialog.ui \
+        ui/QSLGalleryDialog.ui \
         ui/RigctldAdvancedDialog.ui \
         ui/ImportDialog.ui \
         ui/InputPasswordDialog.ui \

@@ -43,6 +43,7 @@
 #include "ui/ExportPasswordDialog.h"
 #include "ui/LoadDatabaseDialog.h"
 #include "ui/PlatformSettingsDialog.h"
+#include "ui/QSLGalleryDialog.h"
 #include <QFileDialog>
 #include <QProcess>
 #include <QThread>
@@ -1089,6 +1090,14 @@ void MainWindow::showServiceDownloadQSL()
     DownloadQSLDialog dialog(this);
     dialog.exec();
     ui->logbookWidget->updateTable();
+}
+
+void MainWindow::showQSLGallery()
+{
+    FCT_IDENTIFICATION;
+
+    QSLGalleryDialog dialog(this);
+    dialog.exec();
 }
 
 void MainWindow::showDumpDB()

@@ -133,3 +133,179 @@ QSLObject QSLStorage::getQSL(const QSqlRecord &qso,
 
     return QSLObject (qso, source, qslName, QByteArray(), QSLObject::RAWBYTES);
 }
+
+QStringList QSLStorage::getDistinctCountries() const
+{
+    FCT_IDENTIFICATION;
+
+    QStringList ret;
+    QSqlQuery query;
+
+    if ( !query.prepare("SELECT DISTINCT c.country FROM contacts_qsl_cards q "
+                        "JOIN contacts c ON q.contactid = c.id "
+                        "WHERE c.country IS NOT NULL AND c.country != '' "
+                        "ORDER BY c.country COLLATE LOCALEAWARE ASC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return ret;
+    }
+
+    if ( query.exec() )
+    {
+        while ( query.next() )
+            ret << query.value(0).toString();
+    }
+    else
+    {
+        qCDebug(runtime) << "Error" << query.lastError();
+    }
+
+    return ret;
+}
+
+QStringList QSLStorage::getDistinctYears() const
+{
+    FCT_IDENTIFICATION;
+
+    QStringList ret;
+    QSqlQuery query;
+
+    if ( !query.prepare("SELECT DISTINCT strftime('%Y', c.start_time) AS year "
+                        "FROM contacts_qsl_cards q "
+                        "JOIN contacts c ON q.contactid = c.id "
+                        "WHERE c.start_time IS NOT NULL "
+                        "ORDER BY year DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return ret;
+    }
+
+    if ( query.exec() )
+    {
+        while ( query.next() )
+            ret << query.value(0).toString();
+    }
+    else
+    {
+        qCDebug(runtime) << "Error" << query.lastError();
+    }
+
+    return ret;
+}
+
+static QList<QSLGalleryItem> executeGalleryQuery(QSqlQuery &query)
+{
+    QList<QSLGalleryItem> ret;
+
+    if ( query.exec() )
+    {
+        while ( query.next() )
+        {
+            QSLGalleryItem item;
+            item.contactId = query.value(0).toULongLong();
+            item.source = static_cast<QSLObject::SourceType>(query.value(1).toInt());
+            item.name = query.value(2).toString();
+            item.callsign = query.value(3).toString();
+            item.startTime = query.value(4).toDateTime();
+            item.country = query.value(5).toString();
+            ret << item;
+        }
+    }
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItems() const
+{
+    FCT_IDENTIFICATION;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items found or error" << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByCountry(const QString &country) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << country;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE c.country = :country ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":country", country);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for country" << country << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByYear(const QString &year) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << year;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE strftime('%Y', c.start_time) = :year ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":year", year);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for year" << year << query.lastError();
+
+    return ret;
+}
+
+QByteArray QSLStorage::getQSLData(qulonglong contactId, int source, const QString &name) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << contactId << source << name;
+
+    QSqlQuery query;
+
+    if ( !query.prepare("SELECT data FROM contacts_qsl_cards "
+                        "WHERE contactid = :contactid AND source = :source AND name = :name "
+                        "LIMIT 1") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QByteArray();
+    }
+
+    query.bindValue(":contactid", static_cast<quint64>(contactId));
+    query.bindValue(":source", source);
+    query.bindValue(":name", name);
+
+    if ( query.exec() && query.next() )
+        return QByteArray::fromBase64(query.value(0).toByteArray());
+
+    qCDebug(runtime) << "QSL data not found" << query.lastError();
+    return QByteArray();
+}

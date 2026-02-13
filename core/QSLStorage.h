@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QSqlRecord>
 #include <QVariant>
+#include <QList>
+#include <QDateTime>
 
 class QSLObject
 {
@@ -52,6 +54,16 @@ private:
     QByteArray blob;
 };
 
+struct QSLGalleryItem
+{
+    qulonglong contactId;
+    QSLObject::SourceType source;
+    QString name;
+    QString callsign;
+    QDateTime startTime;
+    QString country;
+};
+
 class QSLStorage : public QObject
 {
     Q_OBJECT
@@ -68,6 +80,22 @@ public:
     QSLObject getQSL(const QSqlRecord &qso,
                      const QSLObject::SourceType source,
                      const QString &qslName) const;
+
+    QStringList getDistinctCountries() const;
+    QStringList getDistinctYears() const;
+
+    QList<QSLGalleryItem> getGalleryItems() const;
+    QList<QSLGalleryItem> getGalleryItemsByCountry(const QString &country) const;
+    QList<QSLGalleryItem> getGalleryItemsByYear(const QString &year) const;
+
+    QByteArray getQSLData(qulonglong contactId, int source, const QString &name) const;
+
+private:
+    const QString galleryBaseSQL=
+        "SELECT q.contactid, q.source, q.name, c.callsign, c.start_time, translate_to_locale(c.country) "
+        "FROM contacts_qsl_cards q "
+        "JOIN contacts c ON q.contactid = c.id ";
+
 };
 
 #endif // QLOG_CORE_QSLSTORAGE_H

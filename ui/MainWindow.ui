@@ -78,6 +78,8 @@
     <addaction name="separator"/>
     <addaction name="actionAwards"/>
     <addaction name="actionStatistics"/>
+    <addaction name="separator"/>
+    <addaction name="actionQSLGallery"/>
    </widget>
    <widget class="QMenu" name="menuEquipment">
     <property name="title">
@@ -454,6 +456,11 @@
    </property>
    <property name="text">
     <string>S&amp;tatistics</string>
+   </property>
+  </action>
+  <action name="actionQSLGallery">
+   <property name="text">
+    <string>QSL &amp;Gallery</string>
    </property>
   </action>
   <action name="actionWsjtx">
@@ -1714,6 +1721,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionQSLGallery</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showQSLGallery()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>settingsChanged()</signal>
@@ -1746,5 +1769,6 @@
   <slot>showWhatsNew()</slot>
   <slot>showDumpDB()</slot>
   <slot>showLoadDB()</slot>
+  <slot>showQSLGallery()</slot>
  </slots>
 </ui>
