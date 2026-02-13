@@ -33,6 +33,11 @@ private slots:
     void getConnectHost_returnsLocalhost();
     void getConnectPort_returnsConfiguredPort();
 
+    // getVersion tests
+    void getVersion_returnsInvalidForNonexistentPath();
+    void getVersion_returnsValidIfInstalled();
+    void getVersion_autodetectsPath();
+
     // Integration test (skipped if rigctld not available)
     void start_stop_integration();
 
@@ -226,6 +231,47 @@ void RigctldManagerTest::getConnectPort_returnsConfiguredPort()
 
     // Default port should be 4532
     QCOMPARE(manager.getConnectPort(), static_cast<quint16>(4532));
+}
+
+// ============================================================================
+// getVersion tests
+// ============================================================================
+
+void RigctldManagerTest::getVersion_returnsInvalidForNonexistentPath()
+{
+    RigctldVersion version = RigctldManager::getVersion("/nonexistent/path/to/rigctld");
+
+    QVERIFY(!version.isValid());
+    QCOMPARE(version.major, -1);
+    QCOMPARE(version.minor, -1);
+    QCOMPARE(version.patch, -1);
+}
+
+void RigctldManagerTest::getVersion_returnsValidIfInstalled()
+{
+    if ( !rigctldAvailable )
+        QSKIP("rigctld not available");
+
+    RigctldVersion version = RigctldManager::getVersion(rigctldPath);
+
+    QVERIFY(version.isValid());
+    QVERIFY(version.major >= 0);
+    QVERIFY(version.minor >= 0);
+    QVERIFY(version.patch >= 0);
+
+    qDebug() << "rigctld version:" << version.major << "." << version.minor << "." << version.patch;
+}
+
+void RigctldManagerTest::getVersion_autodetectsPath()
+{
+    if ( !rigctldAvailable )
+        QSKIP("rigctld not available");
+
+    // Call without path - should autodetect
+    RigctldVersion version = RigctldManager::getVersion();
+
+    QVERIFY(version.isValid());
+    QVERIFY(version.major >= 0);
 }
 
 // ============================================================================

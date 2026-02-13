@@ -26,6 +26,8 @@ private slots:
     void browsePath();
 
 private:
+    void updateVersionLabel();
+
     Ui::RigctldAdvancedDialog *ui;
 };
 

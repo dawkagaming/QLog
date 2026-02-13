@@ -5,6 +5,14 @@
 #include <QProcess>
 #include "data/RigProfile.h"
 
+struct RigctldVersion
+{
+    int major = -1;
+    int minor = -1;
+    int patch = -1;
+    bool isValid() const { return major >= 0; }
+};
+
 class RigctldManager : public QObject
 {
     Q_OBJECT
@@ -21,6 +29,7 @@ public:
     quint16 getConnectPort() const { return currentPort; }
 
     static QString findRigctldPath();
+    static RigctldVersion getVersion(const QString &rigctldPath = QString());
 
 signals:
     void started();

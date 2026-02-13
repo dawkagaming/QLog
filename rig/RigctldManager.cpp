@@ -53,6 +53,26 @@ bool RigctldManager::start(const RigProfile &profile)
 
     qCDebug(runtime) << "Using rigctld at:" << rigctldPath;
 
+    // Check major version compatibility
+    // Hamlib 3 vs 4 changed RIG model IDs and they are not compatible
+    const RigctldVersion rigctldVersion = getVersion(rigctldPath);
+
+    if ( rigctldVersion.isValid()
+          && ((rigctldVersion.major >= 4 && HAMLIBVERSION_MAJOR <= 3)
+               || (rigctldVersion.major <= 3 && HAMLIBVERSION_MAJOR >= 4)))
+    {
+        qCDebug(runtime) << "Hamlib major version mismatch: QLog compiled with"
+                           << HAMLIBVERSION_MAJOR << "but rigctld is" << rigctldVersion.major;
+        emit errorOccurred(tr("Hamlib major version mismatch: QLog was compiled with Hamlib %1 "
+                              "but rigctld reports version %2.%3.%4. "
+                              "Rig model IDs are incompatible between major versions.")
+                           .arg(HAMLIBVERSION_MAJOR)
+                           .arg(rigctldVersion.major)
+                           .arg(rigctldVersion.minor)
+                           .arg(rigctldVersion.patch));
+        return false;
+    }
+
     currentPort = profile.rigctldPort;
 
     // Create process
@@ -73,7 +93,7 @@ bool RigctldManager::start(const RigProfile &profile)
 
     if ( !rigctldProcess->waitForStarted(5000) )
     {
-        qCWarning(runtime) << "Failed to start rigctld";
+        qCDebug(runtime) << "Failed to start rigctld";
         emit errorOccurred(tr("Failed to start rigctld process."));
         delete rigctldProcess;
         rigctldProcess = nullptr;
@@ -83,7 +103,7 @@ bool RigctldManager::start(const RigProfile &profile)
     // Wait for rigctld to be ready (accepting connections)
     if ( !waitForRigctldReady() )
     {
-        qCWarning(runtime) << "rigctld not responding on port" << currentPort;
+        qCDebug(runtime) << "rigctld not responding on port" << currentPort;
         stop();
         emit errorOccurred(tr("rigctld started but not responding on port %1.").arg(currentPort));
         return false;
@@ -181,6 +201,55 @@ QString RigctldManager::findRigctldPath()
 
     qCWarning(runtime) << "rigctld not found";
     return QString();
+}
+
+RigctldVersion RigctldManager::getVersion(const QString &rigctldPath)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << rigctldPath;
+
+    RigctldVersion version;
+
+    QString path = rigctldPath;
+    if ( path.isEmpty() )
+        path = findRigctldPath();
+
+    if ( path.isEmpty() )
+    {
+        qCDebug(runtime) << "rigctld not found";
+        return version;
+    }
+
+    QProcess process;
+    process.start(path, QStringList("--version"));
+
+    if ( !process.waitForFinished(2000) )
+    {
+        qCDebug(runtime) << "rigctld --version timed out";
+        return version;
+    }
+
+    const QString output = QString::fromLocal8Bit(process.readAllStandardOutput()).trimmed();
+    qCDebug(runtime) << "rigctld version output:" << output;
+
+    // "rigctld Hamlib 4.5.5"
+    QRegularExpression re("(\\d+)\\.(\\d+)\\.(\\d+)");
+    QRegularExpressionMatch match = re.match(output); // clazy:exclude=use-static-qregularexpression
+
+    if ( match.hasMatch() )
+    {
+        version.major = match.captured(1).toInt();
+        version.minor = match.captured(2).toInt();
+        version.patch = match.captured(3).toInt();
+        qCDebug(runtime) << "Parsed version:" << version.major << version.minor << version.patch;
+    }
+    else
+    {
+        qCDebug(runtime) << "Failed to parse version from output:" << output;
+    }
+
+    return version;
 }
 
 bool RigctldManager::waitForRigctldReady(int timeoutMs)

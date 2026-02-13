@@ -15,13 +15,15 @@ RigctldAdvancedDialog::RigctldAdvancedDialog(QWidget *parent) :
 {
     FCT_IDENTIFICATION;
 
-    ui->setupUi(this);  
+    ui->setupUi(this);
 #ifdef QLOG_FLATPAK
     ui->pathEdit->setEnabled(false);
     ui->browseButton->setEnabled(false);
     ui->autoButton->setEnabled(false);
     ui->pathEdit->setPlaceholderText(tr("Cannot be changed"));
 #endif
+
+    updateVersionLabel();
 }
 
 RigctldAdvancedDialog::~RigctldAdvancedDialog()
@@ -64,6 +66,8 @@ void RigctldAdvancedDialog::autoDetectPath()
     }
     else
         ui->pathEdit->setText(detectedPath);
+
+    updateVersionLabel();
 }
 
 void RigctldAdvancedDialog::browsePath()
@@ -85,5 +89,40 @@ void RigctldAdvancedDialog::browsePath()
     if ( !path.isEmpty() )
     {
         ui->pathEdit->setText(path);
+        updateVersionLabel();
     }
+}
+
+void RigctldAdvancedDialog::updateVersionLabel()
+{
+    FCT_IDENTIFICATION;
+
+    const QString path = ui->pathEdit->text().trimmed();
+    const bool isAutoDetect = path.isEmpty();
+
+    // When autodetect, resolve the path to show it to the user
+    const QString resolvedPath = isAutoDetect ? RigctldManager::findRigctldPath() : path;
+
+    if ( resolvedPath.isEmpty() )
+    {
+        ui->versionValueLabel->setText(tr("Not found"));
+        return;
+    }
+
+    const RigctldVersion version = RigctldManager::getVersion(resolvedPath);
+
+    if ( !version.isValid() )
+    {
+        ui->versionValueLabel->setText(tr("Not found"));
+        return;
+    }
+
+    const QString versionStr = QString("%1.%2.%3").arg(version.major)
+                                                   .arg(version.minor)
+                                                   .arg(version.patch);
+
+    if ( isAutoDetect )
+        ui->versionValueLabel->setText(QString("%1 (%2)").arg(versionStr, resolvedPath));
+    else
+        ui->versionValueLabel->setText(versionStr);
 }
