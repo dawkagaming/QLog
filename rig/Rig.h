@@ -23,6 +23,8 @@ class Rig : public QObject
     Q_OBJECT
 public:
 
+    static int DEFAULT_MODEL;
+
     enum DriverID
     {
         UNDEF_DRIVER = 0,

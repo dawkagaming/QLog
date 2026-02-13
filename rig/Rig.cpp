@@ -15,6 +15,8 @@ MODULE_IDENTIFICATION("qlog.rig.rig");
                         QMutexLocker locker(&rigLock); \
                         qCDebug(runtime) << "Using Rig"
 
+int Rig::DEFAULT_MODEL = HamlibRigDrv::DUMMY_MODEL;
+
 Rig::Rig(QObject *parent)
     : QObject{parent},
     rigDriver(nullptr),

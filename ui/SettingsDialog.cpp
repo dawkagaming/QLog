@@ -780,7 +780,7 @@ void SettingsDialog::rigInterfaceChanged(int)
     }
 
     rigTypeModel->select(driverID);
-    ui->rigModelSelect->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? ui->rigModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL)
+    ui->rigModelSelect->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? ui->rigModelSelect->findData(Rig::DEFAULT_MODEL)
                                                                            : 0 );
     ui->rigPTTTypeCombo->clear();
     int noneIndex = ui->rigRTSCombo->findData(SerialPort::SERIAL_SIGNAL_NONE);
@@ -989,7 +989,7 @@ void SettingsDialog::rotInterfaceChanged(int)
 
     if ( driverID == Rotator::HAMLIB_DRIVER )
     {
-        ui->rotModelSelect->setCurrentIndex(ui->rotModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL));
+        ui->rotModelSelect->setCurrentIndex(ui->rotModelSelect->findData(Rig::DEFAULT_MODEL));
         ui->rotNetPortSpin->setValue(ROT_NET_DEFAULT_PORT);
     }
     else
