@@ -379,11 +379,13 @@ void Rig::__closeRig()
     rigDriver = nullptr;
     connected = false;
 
-    // Stop rigctld if it was running
-    if (rigctldManager && rigctldManager->isRunning())
+    // Stop and cleanup rigctld if it was running
+    if ( rigctldManager )
     {
         qCDebug(runtime) << "Stopping rigctld";
         rigctldManager->stop();
+        delete rigctldManager;
+        rigctldManager = nullptr;
     }
 
     emit rigDisconnected();

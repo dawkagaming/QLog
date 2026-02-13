@@ -75,6 +75,22 @@ bool RigctldManager::start(const RigProfile &profile)
 
     currentPort = profile.rigctldPort;
 
+    // Check if port is already in use
+    {
+        QTcpSocket testSocket;
+        testSocket.connectToHost("127.0.0.1", currentPort);
+        if ( testSocket.waitForConnected(500) )
+        {
+            testSocket.disconnectFromHost();
+            qCWarning(runtime) << "Port" << currentPort << "is already in use";
+            emit errorOccurred(tr("Port %1 is already in use. "
+                                  "Another rigctld or application may be running on this port.")
+                               .arg(currentPort));
+            return false;
+        }
+        testSocket.abort();
+    }
+
     // Create process
     rigctldProcess = new QProcess(this);
     rigctldProcess->setProcessChannelMode(QProcess::SeparateChannels);
@@ -94,7 +110,7 @@ bool RigctldManager::start(const RigProfile &profile)
     if ( !rigctldProcess->waitForStarted(5000) )
     {
         qCDebug(runtime) << "Failed to start rigctld";
-        emit errorOccurred(tr("Failed to start rigctld process."));
+        // onProcessError already emits errorOccurred via QProcess::errorOccurred signal
         delete rigctldProcess;
         rigctldProcess = nullptr;
         return false;
@@ -120,11 +136,16 @@ void RigctldManager::stop()
 
     if ( !rigctldProcess ) return;
 
+    stoppingInProgress = true;
+
     if ( rigctldProcess->state() != QProcess::NotRunning )
     {
         qCDebug(runtime) << "Stopping rigctld";
-        rigctldProcess->terminate();
 
+        // Disconnect signals to prevent error notifications during controlled shutdown
+        rigctldProcess->disconnect();
+
+        rigctldProcess->terminate();
         if ( !rigctldProcess->waitForFinished(3000) )
         {
             qCWarning(runtime) << "rigctld did not terminate gracefully, killing";
@@ -135,6 +156,7 @@ void RigctldManager::stop()
 
     delete rigctldProcess;
     rigctldProcess = nullptr;
+    stoppingInProgress = false;
 
     emit stopped();
 }
@@ -384,10 +406,8 @@ void RigctldManager::onProcessFinished(int exitCode, QProcess::ExitStatus exitSt
     qCDebug(runtime) << "rigctld process finished with exit code" << exitCode
                      << "status" << exitStatus;
 
-    if (exitStatus == QProcess::CrashExit)
-    {
-        emit errorOccurred(tr("rigctld process crashed."));
-    }
+    if ( stoppingInProgress )
+        return;
 
     emit stopped();
 }
@@ -400,8 +420,12 @@ void RigctldManager::onProcessError(QProcess::ProcessError error)
     switch ( error )
     {
     case QProcess::FailedToStart:
-        errorStr = tr("Failed to start rigctld.");
+    {
+        const QString program = rigctldProcess ? rigctldProcess->program() : QString();
+        const QStringList args = rigctldProcess ? rigctldProcess->arguments() : QStringList();
+        errorStr = tr("Failed to start rigctld: %1 %2").arg(program, args.join(" "));
         break;
+    }
     case QProcess::Crashed:
         errorStr = tr("rigctld crashed.");
         break;
@@ -419,8 +443,10 @@ void RigctldManager::onProcessError(QProcess::ProcessError error)
         break;
     }
 
-    qCWarning(runtime) << "rigctld process error:" << errorStr;
-    emit errorOccurred(errorStr);
+    qCDebug(runtime) << "rigctld process error:" << errorStr;
+
+    if ( !stoppingInProgress )
+        emit errorOccurred(errorStr);
 }
 
 void RigctldManager::onReadyReadStdout()
@@ -453,7 +479,7 @@ void RigctldManager::onReadyReadStderr()
         for ( const QByteArray &line : lines )
         {
             if ( !line.trimmed().isEmpty() )
-                qCWarning(runtime) << "rigctld stderr:" << line.trimmed();
+                qCDebug(runtime) << "rigctld stderr:" << line.trimmed();
         }
     }
 }

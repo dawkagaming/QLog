@@ -49,6 +49,7 @@ private:
 
     QProcess *rigctldProcess = nullptr;
     quint16 currentPort = 4532;
+    bool stoppingInProgress = false;
 };
 
 #endif // RIG_RIGCTLDMANAGER_H

@@ -2037,6 +2037,8 @@ MainWindow::~MainWindow()
 
     //saveEquipmentConnOptions();
 
+    Rig::instance()->close();
+    Rotator::instance()->close();
     CWKeyer::instance()->close();
     QThread::msleep(500);
 
