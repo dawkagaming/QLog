@@ -48,6 +48,14 @@ private:
         FILTER_YEAR
     };
 
+    enum SortOrder
+    {
+        SORT_DATE_DESC = 0,
+        SORT_DATE_ASC,
+        SORT_CALLSIGN_ASC,
+        SORT_CALLSIGN_DESC
+    };
+
     void buildFilterTree();
     void loadGallery();
     void populateItems(const QList<QSLGalleryItem> &items);
@@ -60,6 +68,7 @@ private:
     Ui::QSLGalleryDialog *ui;
     QSLStorage qslStorage;
     QTimer *scrollTimer;
+    QTimer *searchTimer;
     QTemporaryDir *tempDir;
     LogLocale locale;
 };

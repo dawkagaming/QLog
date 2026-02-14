@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <QScrollBar>
 #include <QMimeDatabase>
 #include <QDesktopServices>
@@ -144,6 +145,40 @@ QSLGalleryDialog::QSLGalleryDialog(QWidget *parent) :
     connect(ui->exportFilteredButton, &QPushButton::clicked,
             this, &QSLGalleryDialog::exportFiltered);
 
+    ui->sortCombo->addItem(tr("Date (Newest)"), SORT_DATE_DESC);
+    ui->sortCombo->addItem(tr("Date (Oldest)"), SORT_DATE_ASC);
+    ui->sortCombo->addItem(tr("Callsign (A-Z)"), SORT_CALLSIGN_ASC);
+    ui->sortCombo->addItem(tr("Callsign (Z-A)"), SORT_CALLSIGN_DESC);
+
+    connect(ui->sortCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, [this]() { loadGallery(); });
+
+    searchTimer = new QTimer(this);
+    searchTimer->setSingleShot(true);
+    searchTimer->setInterval(300);
+    connect(searchTimer, &QTimer::timeout, this, [this]()
+    {
+        const QString text = ui->searchEdit->text().trimmed().toUpper();
+        int visibleCount = 0;
+
+        for ( int i = 0; i < ui->cardListWidget->count(); ++i )
+        {
+            QListWidgetItem *item = ui->cardListWidget->item(i);
+            const bool match = text.isEmpty()
+                               || item->data(CallsignRole).toString().toUpper().contains(text);
+            item->setHidden(!match);
+
+            if ( match )
+                ++visibleCount;
+        }
+
+        ui->statusLabel->setText(tr("%n QSL card(s)", "", visibleCount));
+        ui->exportFilteredButton->setEnabled(visibleCount > 0);
+    });
+
+    connect(ui->searchEdit, &QLineEdit::textChanged,
+            this, [this]() { searchTimer->start(); });
+
     buildFilterTree();
 }
 
@@ -214,6 +249,10 @@ void QSLGalleryDialog::filterTreeSelectionChanged()
 {
     FCT_IDENTIFICATION;
 
+    ui->searchEdit->blockSignals(true);
+    ui->searchEdit->clear();
+    ui->searchEdit->blockSignals(false);
+
     loadGallery();
 }
 
@@ -263,11 +302,30 @@ void QSLGalleryDialog::populateItems(const QList<QSLGalleryItem> &items)
 
     ui->cardListWidget->clear();
 
+    QList<QSLGalleryItem> sorted = items;
+    const SortOrder order = static_cast<SortOrder>(ui->sortCombo->currentData().toInt());
+
+    std::sort(sorted.begin(), sorted.end(), [order](const QSLGalleryItem &a, const QSLGalleryItem &b)
+    {
+        switch ( order )
+        {
+        case SORT_DATE_ASC:
+            return a.startTime < b.startTime;
+        case SORT_CALLSIGN_ASC:
+            return a.callsign.compare(b.callsign, Qt::CaseInsensitive) < 0;
+        case SORT_CALLSIGN_DESC:
+            return a.callsign.compare(b.callsign, Qt::CaseInsensitive) > 0;
+        case SORT_DATE_DESC:
+        default:
+            return a.startTime > b.startTime;
+        }
+    });
+
     // Create a placeholder pixmap
     QPixmap placeholder(150, 112);
     placeholder.fill(QColor(220, 220, 220));
 
-    for ( const QSLGalleryItem &item : items )
+    for ( const QSLGalleryItem &item : sorted )
     {
         const QString dateStr = item.startTime.toTimeZone(QTimeZone::utc())
                                               .toString(locale.formatDateTimeShortWithYYYY());
@@ -285,6 +343,7 @@ void QSLGalleryDialog::populateItems(const QList<QSLGalleryItem> &items)
     }
 
     ui->statusLabel->setText(tr("%n QSL card(s)", "", items.count()));
+    ui->exportFilteredButton->setEnabled(!items.isEmpty());
 
     // initial thumbnail load
     QTimer::singleShot(0, this, &QSLGalleryDialog::loadVisibleThumbnails);
@@ -551,10 +610,16 @@ void QSLGalleryDialog::exportFiltered()
         return;
 
     int saved = 0;
+    int visible = 0;
 
     for ( int i = 0; i < count; ++i )
     {
         QListWidgetItem *item = ui->cardListWidget->item(i);
+
+        if ( item->isHidden() )
+            continue;
+
+        ++visible;
 
         const qulonglong contactId = item->data(ContactIdRole).toULongLong();
         const int source = item->data(SourceRole).toInt();
@@ -583,6 +648,6 @@ void QSLGalleryDialog::exportFiltered()
         ++saved;
     }
 
-    ui->statusLabel->setText(tr("Exported %1 of %2 cards").arg(saved).arg(count));
-    qCDebug(runtime) << "Exported" << saved << "of" << count << "QSL cards to" << dir;
+    ui->statusLabel->setText(tr("Exported %1 of %2 cards").arg(saved).arg(visible));
+    qCDebug(runtime) << "Exported" << saved << "of" << visible << "QSL cards to" << dir;
 }
