@@ -45,7 +45,10 @@ private:
         FILTER_ALL = 0,
         FILTER_FAVORITE,
         FILTER_COUNTRY,
-        FILTER_YEAR
+        FILTER_YEAR,
+        FILTER_BAND,
+        FILTER_MODE,
+        FILTER_CONTINENT
     };
 
     enum SortOrder

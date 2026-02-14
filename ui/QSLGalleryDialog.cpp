@@ -208,14 +208,15 @@ void QSLGalleryDialog::buildFilterTree()
     favItem->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
     favItem->setData(0, Qt::UserRole, FILTER_FAVORITE);
 
+    const QSLStorage::FilterValues filters = qslStorage.getDistinctFilterValues();
+
     // "By Country" branch
     QTreeWidgetItem *countryRoot = new QTreeWidgetItem(ui->filterTree);
     countryRoot->setText(0, tr("By Country"));
     countryRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
     countryRoot->setFlags(countryRoot->flags() & ~Qt::ItemIsSelectable);
 
-    const QStringList countries = qslStorage.getDistinctCountries();
-    for ( const QString &country : countries )
+    for ( const QString &country : filters.countries )
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(countryRoot);
         item->setText(0, country);
@@ -229,13 +230,54 @@ void QSLGalleryDialog::buildFilterTree()
     yearRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
     yearRoot->setFlags(yearRoot->flags() & ~Qt::ItemIsSelectable);
 
-    const QStringList years = qslStorage.getDistinctYears();
-    for ( const QString &year : years )
+    for ( const QString &year : filters.years )
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(yearRoot);
         item->setText(0, year);
         item->setData(0, Qt::UserRole, FILTER_YEAR);
         item->setData(0, Qt::UserRole + 1, year);
+    }
+
+    // "By Band" branch
+    QTreeWidgetItem *bandRoot = new QTreeWidgetItem(ui->filterTree);
+    bandRoot->setText(0, tr("By Band"));
+    bandRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
+    bandRoot->setFlags(bandRoot->flags() & ~Qt::ItemIsSelectable);
+
+    for ( const QString &band : filters.bands )
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem(bandRoot);
+        item->setText(0, band);
+        item->setData(0, Qt::UserRole, FILTER_BAND);
+        item->setData(0, Qt::UserRole + 1, band);
+    }
+
+    // "By Mode" branch
+    QTreeWidgetItem *modeRoot = new QTreeWidgetItem(ui->filterTree);
+    modeRoot->setText(0, tr("By Mode"));
+    modeRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
+    modeRoot->setFlags(modeRoot->flags() & ~Qt::ItemIsSelectable);
+
+    for ( const QString &mode : filters.modes )
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem(modeRoot);
+        item->setText(0, mode);
+        item->setData(0, Qt::UserRole, FILTER_MODE);
+        item->setData(0, Qt::UserRole + 1, mode);
+    }
+
+    // "By Continent" branch
+    QTreeWidgetItem *contRoot = new QTreeWidgetItem(ui->filterTree);
+    contRoot->setText(0, tr("By Continent"));
+    contRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
+    contRoot->setFlags(contRoot->flags() & ~Qt::ItemIsSelectable);
+
+    for ( const QString &cont : filters.continents )
+    {
+        QTreeWidgetItem *item = new QTreeWidgetItem(contRoot);
+        item->setText(0, cont);
+        item->setData(0, Qt::UserRole, FILTER_CONTINENT);
+        item->setData(0, Qt::UserRole + 1, cont);
     }
 
     // Expand all branches
@@ -289,6 +331,27 @@ void QSLGalleryDialog::loadGallery()
     {
         const QString year = current->data(0, Qt::UserRole + 1).toString();
         items = qslStorage.getGalleryItemsByYear(year);
+        break;
+    }
+
+    case FILTER_BAND:
+    {
+        const QString band = current->data(0, Qt::UserRole + 1).toString();
+        items = qslStorage.getGalleryItemsByBand(band);
+        break;
+    }
+
+    case FILTER_MODE:
+    {
+        const QString mode = current->data(0, Qt::UserRole + 1).toString();
+        items = qslStorage.getGalleryItemsByMode(mode);
+        break;
+    }
+
+    case FILTER_CONTINENT:
+    {
+        const QString continent = current->data(0, Qt::UserRole + 1).toString();
+        items = qslStorage.getGalleryItemsByContinent(continent);
         break;
     }
     }

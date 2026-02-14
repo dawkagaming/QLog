@@ -82,13 +82,24 @@ public:
                      const QSLObject::SourceType source,
                      const QString &qslName) const;
 
-    QStringList getDistinctCountries() const;
-    QStringList getDistinctYears() const;
+    struct FilterValues
+    {
+        QStringList countries;
+        QStringList years;
+        QStringList bands;
+        QStringList modes;
+        QStringList continents;
+    };
+
+    FilterValues getDistinctFilterValues() const;
 
     QList<QSLGalleryItem> getGalleryItems() const;
     QList<QSLGalleryItem> getGalleryItemsByCountry(const QString &country) const;
     QList<QSLGalleryItem> getGalleryItemsByYear(const QString &year) const;
     QList<QSLGalleryItem> getGalleryItemsFavorite() const;
+    QList<QSLGalleryItem> getGalleryItemsByBand(const QString &band) const;
+    QList<QSLGalleryItem> getGalleryItemsByMode(const QString &mode) const;
+    QList<QSLGalleryItem> getGalleryItemsByContinent(const QString &continent) const;
 
     QByteArray getQSLData(qulonglong contactId, int source, const QString &name) const;
 

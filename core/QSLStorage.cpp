@@ -1,4 +1,6 @@
+#include <algorithm>
 #include <QDir>
+#include <QSet>
 #include <QSqlQuery>
 #include <QSqlError>
 
@@ -134,61 +136,60 @@ QSLObject QSLStorage::getQSL(const QSqlRecord &qso,
     return QSLObject (qso, source, qslName, QByteArray(), QSLObject::RAWBYTES);
 }
 
-QStringList QSLStorage::getDistinctCountries() const
+QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
 {
     FCT_IDENTIFICATION;
 
-    QStringList ret;
+    FilterValues ret;
     QSqlQuery query;
 
-    if ( !query.prepare("SELECT DISTINCT c.country FROM contacts_qsl_cards q "
-                        "JOIN contacts c ON q.contactid = c.id "
-                        "WHERE c.country IS NOT NULL AND c.country != '' "
-                        "ORDER BY c.country COLLATE LOCALEAWARE ASC") )
-    {
-        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
-        return ret;
-    }
-
-    if ( query.exec() )
-    {
-        while ( query.next() )
-            ret << query.value(0).toString();
-    }
-    else
-    {
-        qCDebug(runtime) << "Error" << query.lastError();
-    }
-
-    return ret;
-}
-
-QStringList QSLStorage::getDistinctYears() const
-{
-    FCT_IDENTIFICATION;
-
-    QStringList ret;
-    QSqlQuery query;
-
-    if ( !query.prepare("SELECT DISTINCT strftime('%Y', c.start_time) AS year "
+    if ( !query.prepare("SELECT DISTINCT translate_to_locale(c.country), strftime('%Y', c.start_time), "
+                        "c.band, c.mode, c.cont "
                         "FROM contacts_qsl_cards q "
-                        "JOIN contacts c ON q.contactid = c.id "
-                        "WHERE c.start_time IS NOT NULL "
-                        "ORDER BY year DESC") )
+                        "JOIN contacts c ON q.contactid = c.id") )
     {
         qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
         return ret;
     }
 
+    QSet<QString> countries, years, bands, modes, continents;
+
     if ( query.exec() )
     {
         while ( query.next() )
-            ret << query.value(0).toString();
+        {
+            const QString country = query.value(0).toString();
+            const QString year = query.value(1).toString();
+            const QString band = query.value(2).toString();
+            const QString mode = query.value(3).toString();
+            const QString cont = query.value(4).toString();
+
+            if ( !country.isEmpty() ) countries.insert(country);
+            if ( !year.isEmpty() )    years.insert(year);
+            if ( !band.isEmpty() )    bands.insert(band);
+            if ( !mode.isEmpty() )    modes.insert(mode);
+            if ( !cont.isEmpty() )    continents.insert(cont);
+        }
     }
     else
     {
         qCDebug(runtime) << "Error" << query.lastError();
     }
+
+    ret.countries = countries.values();
+    ret.years = years.values();
+    ret.bands = bands.values();
+    ret.modes = modes.values();
+    ret.continents = continents.values();
+
+    std::sort(ret.countries.begin(), ret.countries.end(), [](const QString &a, const QString &b)
+    {
+        return a.localeAwareCompare(b) < 0;
+    });
+    std::sort(ret.years.begin(), ret.years.end(), std::greater<QString>());
+    std::sort(ret.bands.begin(), ret.bands.end());
+    std::sort(ret.modes.begin(), ret.modes.end());
+    std::sort(ret.continents.begin(), ret.continents.end());
 
     return ret;
 }
@@ -280,6 +281,78 @@ QList<QSLGalleryItem> QSLStorage::getGalleryItemsByYear(const QString &year) con
 
     if ( ret.isEmpty() )
         qCDebug(runtime) << "No gallery items for year" << year << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByBand(const QString &band) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << band;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE c.band = :band ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":band", band);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for band" << band << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByMode(const QString &mode) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << mode;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE c.mode = :mode ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":mode", mode);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for mode" << mode << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByContinent(const QString &continent) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << continent;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE c.cont = :cont ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":cont", continent);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for continent" << continent << query.lastError();
 
     return ret;
 }
