@@ -295,9 +295,6 @@ void QSLGalleryDialog::buildFilterTree()
         item->setData(0, Qt::UserRole + 1, cont);
     }
 
-    // Expand all branches
-    ui->filterTree->expandAll();
-
     // Select "All" by default
     ui->filterTree->setCurrentItem(allItem);
 }
