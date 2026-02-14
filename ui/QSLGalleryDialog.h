@@ -29,7 +29,8 @@ public:
         NameRole = Qt::UserRole + 2,
         ThumbnailLoadedRole = Qt::UserRole + 3,
         CallsignRole = Qt::UserRole + 4,
-        DateStringRole = Qt::UserRole + 5
+        DateStringRole = Qt::UserRole + 5,
+        FavoriteRole = Qt::UserRole + 6
     };
 
 private slots:
@@ -42,6 +43,7 @@ private:
     enum FilterType
     {
         FILTER_ALL = 0,
+        FILTER_FAVORITE,
         FILTER_COUNTRY,
         FILTER_YEAR
     };
@@ -52,6 +54,7 @@ private:
     QPixmap createThumbnail(const QByteArray &data, const QString &name) const;
     void openItem(QListWidgetItem *item);
     void saveItem(QListWidgetItem *item);
+    void toggleFavorite(QListWidgetItem *item);
 
     Ui::QSLGalleryDialog *ui;
     QSLStorage qslStorage;

@@ -62,6 +62,7 @@ struct QSLGalleryItem
     QString callsign;
     QDateTime startTime;
     QString country;
+    bool favorite = false;
 };
 
 class QSLStorage : public QObject
@@ -87,12 +88,16 @@ public:
     QList<QSLGalleryItem> getGalleryItems() const;
     QList<QSLGalleryItem> getGalleryItemsByCountry(const QString &country) const;
     QList<QSLGalleryItem> getGalleryItemsByYear(const QString &year) const;
+    QList<QSLGalleryItem> getGalleryItemsFavorite() const;
 
     QByteArray getQSLData(qulonglong contactId, int source, const QString &name) const;
 
+    bool setFavorite(qulonglong contactId, QSLObject::SourceType source, const QString &name, bool favorite);
+    bool isFavorite(qulonglong contactId, QSLObject::SourceType source, const QString &name) const;
+
 private:
     const QString galleryBaseSQL=
-        "SELECT q.contactid, q.source, q.name, c.callsign, c.start_time, translate_to_locale(c.country) "
+        "SELECT q.contactid, q.source, q.name, c.callsign, c.start_time, translate_to_locale(c.country), q.favorite "
         "FROM contacts_qsl_cards q "
         "JOIN contacts c ON q.contactid = c.id ";
 

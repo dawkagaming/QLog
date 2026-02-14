@@ -72,6 +72,29 @@ public:
         const QString elidedDate = normalFm.elidedText(dateStr, Qt::ElideRight, dateRect.width());
         painter->drawText(dateRect, Qt::AlignHCenter | Qt::AlignTop, elidedDate);
 
+        // Draw favorite star in the top-right corner of the icon
+        if ( index.data(QSLGalleryDialog::FavoriteRole).toBool() )
+        {
+            QFont starFont = option.font;
+            starFont.setPixelSize(14);
+            painter->setFont(starFont);
+
+            const QString star = QStringLiteral("\u2605");
+            const int starX = iconX + iconW - 14;
+            const int starY = iconY + 14;
+
+            // Black outline
+            painter->setPen(Qt::black);
+            painter->drawText(starX - 1, starY, star);
+            painter->drawText(starX + 1, starY, star);
+            painter->drawText(starX, starY - 1, star);
+            painter->drawText(starX, starY + 1, star);
+
+            // Yellow star
+            painter->setPen(QColor(0xFF, 0xD7, 0x00));
+            painter->drawText(starX, starY, star);
+        }
+
         painter->restore();
     }
 
@@ -141,6 +164,12 @@ void QSLGalleryDialog::buildFilterTree()
     allItem->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
     allItem->setData(0, Qt::UserRole, FILTER_ALL);
 
+    // "Favorites" item
+    QTreeWidgetItem *favItem = new QTreeWidgetItem(ui->filterTree);
+    favItem->setText(0, tr("Favorites"));
+    favItem->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
+    favItem->setData(0, Qt::UserRole, FILTER_FAVORITE);
+
     // "By Country" branch
     QTreeWidgetItem *countryRoot = new QTreeWidgetItem(ui->filterTree);
     countryRoot->setText(0, tr("By Country"));
@@ -203,6 +232,10 @@ void QSLGalleryDialog::loadGallery()
         items = qslStorage.getGalleryItems();
         break;
 
+    case FILTER_FAVORITE:
+        items = qslStorage.getGalleryItemsFavorite();
+        break;
+
     case FILTER_COUNTRY:
     {
         const QString country = current->data(0, Qt::UserRole + 1).toString();
@@ -243,6 +276,7 @@ void QSLGalleryDialog::populateItems(const QList<QSLGalleryItem> &items)
         listItem->setData(ThumbnailLoadedRole, false);
         listItem->setData(CallsignRole, item.callsign);
         listItem->setData(DateStringRole, dateStr);
+        listItem->setData(FavoriteRole, item.favorite);
 
         ui->cardListWidget->addItem(listItem);
     }
@@ -350,12 +384,18 @@ void QSLGalleryDialog::showContextMenu(const QPoint &pos)
         return;
 
     QMenu menu(this);
+
+    const bool isFav = item->data(FavoriteRole).toBool();
+    QAction *favAction = menu.addAction(isFav ? tr("Remove from Favorites") : tr("Add to Favorites"));
+    menu.addSeparator();
     QAction *openAction = menu.addAction(tr("Open"));
     QAction *saveAction = menu.addAction(tr("Save..."));
 
     QAction *selected = menu.exec(ui->cardListWidget->viewport()->mapToGlobal(pos));
 
-    if ( selected == openAction )
+    if ( selected == favAction )
+        toggleFavorite(item);
+    else if ( selected == openAction )
         openItem(item);
     else if ( selected == saveAction )
         saveItem(item);
@@ -443,4 +483,23 @@ void QSLGalleryDialog::saveItem(QListWidgetItem *item)
     file.close();
 
     qCDebug(runtime) << "QSL card saved to" << savePath;
+}
+
+void QSLGalleryDialog::toggleFavorite(QListWidgetItem *item)
+{
+    FCT_IDENTIFICATION;
+
+    if ( !item )
+        return;
+
+    const qulonglong contactId = item->data(ContactIdRole).toULongLong();
+    const auto source = static_cast<QSLObject::SourceType>(item->data(SourceRole).toInt());
+    const QString name = item->data(NameRole).toString();
+    const bool currentFav = item->data(FavoriteRole).toBool();
+
+    if ( qslStorage.setFavorite(contactId, source, name, !currentFav) )
+    {
+        item->setData(FavoriteRole, !currentFav);
+        ui->cardListWidget->update();
+    }
 }

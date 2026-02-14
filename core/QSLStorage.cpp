@@ -208,6 +208,7 @@ static QList<QSLGalleryItem> executeGalleryQuery(QSqlQuery &query)
             item.callsign = query.value(3).toString();
             item.startTime = query.value(4).toDateTime();
             item.country = query.value(5).toString();
+            item.favorite = query.value(6).toBool();
             ret << item;
         }
     }
@@ -308,4 +309,77 @@ QByteArray QSLStorage::getQSLData(qulonglong contactId, int source, const QStrin
 
     qCDebug(runtime) << "QSL data not found" << query.lastError();
     return QByteArray();
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsFavorite() const
+{
+    FCT_IDENTIFICATION;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE q.favorite = 1 ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No favorite gallery items found or error" << query.lastError();
+
+    return ret;
+}
+
+bool QSLStorage::setFavorite(qulonglong contactId, QSLObject::SourceType source, const QString &name, bool favorite)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << contactId << source << name << favorite;
+
+    QSqlQuery query;
+
+    if ( !query.prepare("UPDATE contacts_qsl_cards SET favorite = :fav "
+                        "WHERE contactid = :contactid AND source = :source AND name = :name") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return false;
+    }
+
+    query.bindValue(":fav", favorite ? 1 : 0);
+    query.bindValue(":contactid", static_cast<quint64>(contactId));
+    query.bindValue(":source", static_cast<int>(source));
+    query.bindValue(":name", name);
+
+    if ( !query.exec() )
+    {
+        qCDebug(runtime) << "Cannot update favorite" << query.lastError();
+        return false;
+    }
+
+    return true;
+}
+
+bool QSLStorage::isFavorite(qulonglong contactId, QSLObject::SourceType source, const QString &name) const
+{
+    FCT_IDENTIFICATION;
+
+    QSqlQuery query;
+
+    if ( !query.prepare("SELECT favorite FROM contacts_qsl_cards "
+                        "WHERE contactid = :contactid AND source = :source AND name = :name "
+                        "LIMIT 1") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return false;
+    }
+
+    query.bindValue(":contactid", static_cast<quint64>(contactId));
+    query.bindValue(":source", static_cast<int>(source));
+    query.bindValue(":name", name);
+
+    if ( query.exec() && query.next() )
+        return query.value(0).toBool();
+
+    return false;
 }
