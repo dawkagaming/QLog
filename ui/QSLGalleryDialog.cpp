@@ -467,7 +467,18 @@ void QSLGalleryDialog::loadVisibleThumbnails()
         const QByteArray data = qslStorage.getQSLData(contactId, source, name);
 
         if ( !data.isEmpty() )
+        {
             item->setIcon(QIcon(createThumbnail(data, name)));
+
+            QMimeDatabase mimeDb;
+            const QMimeType mimeType = mimeDb.mimeTypeForData(data);
+
+            if ( mimeType.name().startsWith("image/") )
+                item->setToolTip(QString("<img src='data:%1;base64, %2' width='600'>")
+                                     .arg(mimeType.name(), QString(data.toBase64())));
+            else
+                item->setToolTip(QString("%1 (%2)").arg(name, mimeType.comment()));
+        }
 
         item->setData(ThumbnailLoadedRole, true);
     }
