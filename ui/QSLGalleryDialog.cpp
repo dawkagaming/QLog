@@ -224,18 +224,33 @@ void QSLGalleryDialog::buildFilterTree()
         item->setData(0, Qt::UserRole + 1, country);
     }
 
-    // "By Year" branch
-    QTreeWidgetItem *yearRoot = new QTreeWidgetItem(ui->filterTree);
-    yearRoot->setText(0, tr("By Year"));
-    yearRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
-    yearRoot->setFlags(yearRoot->flags() & ~Qt::ItemIsSelectable);
+    // "By Date" branch (year -> months)
+    QTreeWidgetItem *dateRoot = new QTreeWidgetItem(ui->filterTree);
+    dateRoot->setText(0, tr("By Date"));
+    dateRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
+    dateRoot->setFlags(dateRoot->flags() & ~Qt::ItemIsSelectable);
 
-    for ( const QString &year : filters.years )
+    // Iterate years in descending order
+    QStringList years = filters.yearMonths.keys();
+    std::sort(years.begin(), years.end(), std::greater<QString>());
+
+    for ( const QString &year : years )
     {
-        QTreeWidgetItem *item = new QTreeWidgetItem(yearRoot);
-        item->setText(0, year);
-        item->setData(0, Qt::UserRole, FILTER_YEAR);
-        item->setData(0, Qt::UserRole + 1, year);
+        QTreeWidgetItem *yearItem = new QTreeWidgetItem(dateRoot);
+        yearItem->setText(0, year);
+        yearItem->setData(0, Qt::UserRole, FILTER_YEAR);
+        yearItem->setData(0, Qt::UserRole + 1, year);
+
+        const QStringList &months = filters.yearMonths.value(year);
+
+        for ( const QString &month : months )
+        {
+            QTreeWidgetItem *monthItem = new QTreeWidgetItem(yearItem);
+            monthItem->setText(0, month);
+            monthItem->setData(0, Qt::UserRole, FILTER_MONTH);
+            monthItem->setData(0, Qt::UserRole + 1, year);
+            monthItem->setData(0, Qt::UserRole + 2, month);
+        }
     }
 
     // "By Band" branch
@@ -331,6 +346,14 @@ void QSLGalleryDialog::loadGallery()
     {
         const QString year = current->data(0, Qt::UserRole + 1).toString();
         items = qslStorage.getGalleryItemsByYear(year);
+        break;
+    }
+
+    case FILTER_MONTH:
+    {
+        const QString year = current->data(0, Qt::UserRole + 1).toString();
+        const QString month = current->data(0, Qt::UserRole + 2).toString();
+        items = qslStorage.getGalleryItemsByYearMonth(year, month);
         break;
     }
 

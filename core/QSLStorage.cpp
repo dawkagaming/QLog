@@ -144,7 +144,7 @@ QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
     QSqlQuery query;
 
     if ( !query.prepare("SELECT DISTINCT translate_to_locale(c.country), strftime('%Y', c.start_time), "
-                        "c.band, c.mode, c.cont "
+                        "strftime('%m', c.start_time), c.band, c.mode, c.cont "
                         "FROM contacts_qsl_cards q "
                         "JOIN contacts c ON q.contactid = c.id") )
     {
@@ -152,7 +152,8 @@ QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
         return ret;
     }
 
-    QSet<QString> countries, years, bands, modes, continents;
+    QSet<QString> countries, bands, modes, continents;
+    QMap<QString, QSet<QString>> yearMonthSets;
 
     if ( query.exec() )
     {
@@ -160,12 +161,13 @@ QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
         {
             const QString country = query.value(0).toString();
             const QString year = query.value(1).toString();
-            const QString band = query.value(2).toString();
-            const QString mode = query.value(3).toString();
-            const QString cont = query.value(4).toString();
+            const QString month = query.value(2).toString();
+            const QString band = query.value(3).toString();
+            const QString mode = query.value(4).toString();
+            const QString cont = query.value(5).toString();
 
             if ( !country.isEmpty() ) countries.insert(country);
-            if ( !year.isEmpty() )    years.insert(year);
+            if ( !year.isEmpty() )    yearMonthSets[year].insert(month.isEmpty() ? "00" : month);
             if ( !band.isEmpty() )    bands.insert(band);
             if ( !mode.isEmpty() )    modes.insert(mode);
             if ( !cont.isEmpty() )    continents.insert(cont);
@@ -177,16 +179,22 @@ QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
     }
 
     ret.countries = countries.values();
-    ret.years = years.values();
     ret.bands = bands.values();
     ret.modes = modes.values();
     ret.continents = continents.values();
+
+    // Build sorted yearMonths map
+    for ( auto it = yearMonthSets.constBegin(); it != yearMonthSets.constEnd(); ++it )
+    {
+        QStringList months = it.value().values();
+        std::sort(months.begin(), months.end());
+        ret.yearMonths.insert(it.key(), months);
+    }
 
     std::sort(ret.countries.begin(), ret.countries.end(), [](const QString &a, const QString &b)
     {
         return a.localeAwareCompare(b) < 0;
     });
-    std::sort(ret.years.begin(), ret.years.end(), std::greater<QString>());
     std::sort(ret.bands.begin(), ret.bands.end());
     std::sort(ret.modes.begin(), ret.modes.end());
     std::sort(ret.continents.begin(), ret.continents.end());
@@ -281,6 +289,32 @@ QList<QSLGalleryItem> QSLStorage::getGalleryItemsByYear(const QString &year) con
 
     if ( ret.isEmpty() )
         qCDebug(runtime) << "No gallery items for year" << year << query.lastError();
+
+    return ret;
+}
+
+QList<QSLGalleryItem> QSLStorage::getGalleryItemsByYearMonth(const QString &year, const QString &month) const
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << year << month;
+
+    QSqlQuery query;
+
+    if ( !query.prepare(galleryBaseSQL + "WHERE strftime('%Y', c.start_time) = :year "
+                        "AND strftime('%m', c.start_time) = :month ORDER BY c.start_time DESC") )
+    {
+        qCDebug(runtime) << "Cannot prepare SQL Statement" << query.lastError();
+        return QList<QSLGalleryItem>();
+    }
+
+    query.bindValue(":year", year);
+    query.bindValue(":month", month);
+
+    QList<QSLGalleryItem> ret = executeGalleryQuery(query);
+
+    if ( ret.isEmpty() )
+        qCDebug(runtime) << "No gallery items for" << year << month << query.lastError();
 
     return ret;
 }

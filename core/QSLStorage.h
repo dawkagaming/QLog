@@ -5,6 +5,7 @@
 #include <QSqlRecord>
 #include <QVariant>
 #include <QList>
+#include <QMap>
 #include <QDateTime>
 
 class QSLObject
@@ -85,7 +86,7 @@ public:
     struct FilterValues
     {
         QStringList countries;
-        QStringList years;
+        QMap<QString, QStringList> yearMonths; // year -> sorted list of months ("01".."12")
         QStringList bands;
         QStringList modes;
         QStringList continents;
@@ -96,6 +97,7 @@ public:
     QList<QSLGalleryItem> getGalleryItems() const;
     QList<QSLGalleryItem> getGalleryItemsByCountry(const QString &country) const;
     QList<QSLGalleryItem> getGalleryItemsByYear(const QString &year) const;
+    QList<QSLGalleryItem> getGalleryItemsByYearMonth(const QString &year, const QString &month) const;
     QList<QSLGalleryItem> getGalleryItemsFavorite() const;
     QList<QSLGalleryItem> getGalleryItemsByBand(const QString &band) const;
     QList<QSLGalleryItem> getGalleryItemsByMode(const QString &mode) const;

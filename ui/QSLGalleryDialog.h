@@ -46,6 +46,7 @@ private:
         FILTER_FAVORITE,
         FILTER_COUNTRY,
         FILTER_YEAR,
+        FILTER_MONTH,
         FILTER_BAND,
         FILTER_MODE,
         FILTER_CONTINENT
