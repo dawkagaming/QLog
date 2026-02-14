@@ -55,6 +55,7 @@ private:
     void openItem(QListWidgetItem *item);
     void saveItem(QListWidgetItem *item);
     void toggleFavorite(QListWidgetItem *item);
+    void exportFiltered();
 
     Ui::QSLGalleryDialog *ui;
     QSLStorage qslStorage;

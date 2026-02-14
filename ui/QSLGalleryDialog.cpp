@@ -141,6 +141,9 @@ QSLGalleryDialog::QSLGalleryDialog(QWidget *parent) :
     connect(ui->cardListWidget->verticalScrollBar(), &QScrollBar::valueChanged,
             this, [this]() { scrollTimer->start(); });
 
+    connect(ui->exportFilteredButton, &QPushButton::clicked,
+            this, &QSLGalleryDialog::exportFiltered);
+
     buildFilterTree();
 }
 
@@ -502,4 +505,56 @@ void QSLGalleryDialog::toggleFavorite(QListWidgetItem *item)
         item->setData(FavoriteRole, !currentFav);
         ui->cardListWidget->update();
     }
+}
+
+void QSLGalleryDialog::exportFiltered()
+{
+    FCT_IDENTIFICATION;
+
+    const int count = ui->cardListWidget->count();
+
+    if ( count == 0 )
+        return;
+
+    const QString dir = QFileDialog::getExistingDirectory(this,
+                                                           tr("Export QSL Cards"),
+                                                           QDir::homePath());
+    if ( dir.isEmpty() )
+        return;
+
+    int saved = 0;
+
+    for ( int i = 0; i < count; ++i )
+    {
+        QListWidgetItem *item = ui->cardListWidget->item(i);
+
+        const qulonglong contactId = item->data(ContactIdRole).toULongLong();
+        const int source = item->data(SourceRole).toInt();
+        const QString name = item->data(NameRole).toString();
+
+        const QByteArray data = qslStorage.getQSLData(contactId, source, name);
+
+        if ( data.isEmpty() )
+        {
+            qCDebug(runtime) << "No QSL data for" << contactId << source << name;
+            continue;
+        }
+
+        const QString filePath = dir + QDir::separator() + name;
+
+        QFile file(filePath);
+
+        if ( !file.open(QIODevice::WriteOnly) )
+        {
+            qCDebug(runtime) << "Cannot write file" << filePath;
+            continue;
+        }
+
+        file.write(data);
+        file.close();
+        ++saved;
+    }
+
+    ui->statusLabel->setText(tr("Exported %1 of %2 cards").arg(saved).arg(count));
+    qCDebug(runtime) << "Exported" << saved << "of" << count << "QSL cards to" << dir;
 }
