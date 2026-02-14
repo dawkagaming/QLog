@@ -365,9 +365,37 @@ QPixmap QSLGalleryDialog::createThumbnail(const QByteArray &data, const QString 
             return pixmap.scaled(150, 112, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     }
 
-    // Non-image file: use generic icon
-    Q_UNUSED(name);
-    return QApplication::style()->standardIcon(QStyle::SP_FileIcon).pixmap(150, 112);
+    // Non-image file: draw file type label over generic icon
+    QPixmap pixmap(150, 112);
+    pixmap.fill(Qt::transparent);
+
+    QPainter p(&pixmap);
+    const QIcon fileIcon = QApplication::style()->standardIcon(QStyle::SP_FileIcon);
+    fileIcon.paint(&p, 0, 0, 150, 112);
+
+    const QString suffix = QFileInfo(name).suffix().toUpper();
+
+    if ( !suffix.isEmpty() )
+    {
+        QFont font = p.font();
+        font.setPixelSize(18);
+        font.setBold(true);
+        p.setFont(font);
+
+        const QRect textRect(0, 70, 150, 30);
+        p.setPen(Qt::white);
+        p.setBrush(QColor(0, 0, 0, 160));
+        const QFontMetrics fm(font);
+        const int textWidth = fm.horizontalAdvance(suffix) + 10;
+        const int bgX = (150 - textWidth) / 2;
+        p.drawRoundedRect(bgX, 72, textWidth, fm.height() + 4, 3, 3);
+
+        p.setPen(Qt::white);
+        p.drawText(textRect, Qt::AlignCenter, suffix);
+    }
+
+    p.end();
+    return pixmap;
 }
 
 void QSLGalleryDialog::cardDoubleClicked(QListWidgetItem *item)
