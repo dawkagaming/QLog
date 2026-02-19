@@ -12,6 +12,7 @@
 #include "service/hrdlog/HRDLog.h"
 #include "logformat/AdxFormat.h"
 #include "ui/DxWidget.h"
+#include "core/LogDatabase.h"
 
 MODULE_IDENTIFICATION("qlog.core.migration");
 
@@ -63,6 +64,9 @@ bool DBSchemaMigration::run() {
             qCritical() << QSqlDatabase::database().lastError();
             return false;
         }
+        // Re-register custom SQL functions after connection reopen
+        // (sqlite3_create_function bindings are lost on close/open)
+        LogDatabase::instance()->createSQLFunctions();
         progress.setValue(currentVersion);
     }
 

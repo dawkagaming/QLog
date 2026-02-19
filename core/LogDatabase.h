@@ -49,10 +49,10 @@ public:
     bool atomicCopy(const QString &filename);
     bool openDatabase();
     bool schemaVersionUpgrade();
+    bool createSQLFunctions();
 
 private:
     LogDatabase();
-    bool createSQLFunctions();
 };
 
 #endif // QLOG_CORE_LOGDATABASE_H
