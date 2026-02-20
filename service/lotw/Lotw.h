@@ -6,24 +6,27 @@
 #include <logformat/LogFormat.h>
 #include "service/GenericQSOUploader.h"
 #include "service/GenericQSLDownloader.h"
+#include "core/CredentialStore.h"
 
 class QNetworkAccessManager;
 
-class LotwBase
+class LotwBase : public SecureServiceBase<LotwBase>
 {
+protected:
+    static const QString SECURE_STORAGE_KEY;
+
 public:
     explicit LotwBase() {};
     virtual ~LotwBase() {};
 
+    DECLARE_SECURE_SERVICE(LotwBase);
+
     static const QString getUsername();
-    static const QString getPassword();
+    static const QString getPasswd();
     static const QString getTQSLPath(const QString &defaultPath = QDir::rootPath());
 
     static void saveUsernamePassword(const QString&, const QString&);
     static void saveTQSLPath(const QString&);
-
-protected:
-    static const QString SECURE_STORAGE_KEY;
 };
 
 class LotwUploader : public GenericQSOUploader, private LotwBase

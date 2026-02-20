@@ -21,6 +21,8 @@
 
 MODULE_IDENTIFICATION("qlog.core.kstchat");
 
+REGISTRATION_SECURE_SERVICE(KSTChat);
+
 KSTChat::KSTChat(int chatRoomIndex,
                  const QString &username,
                  const QString &password,
@@ -85,12 +87,11 @@ const QString KSTChat::getUsername()
     return LogParam::getKSTChatUsername();
 }
 
-const QString KSTChat::getPassword()
+const QString KSTChat::getPasswd()
 {
     FCT_IDENTIFICATION;
 
-    return CredentialStore::instance()->getPassword(KSTChat::SECURE_STORAGE_KEY,
-                                                    getUsername());
+    return getPassword(KSTChat::SECURE_STORAGE_KEY, getUsername());
 }
 
 void KSTChat::saveUsernamePassword(const QString &newUsername, const QString &newPassword)
@@ -101,13 +102,23 @@ void KSTChat::saveUsernamePassword(const QString &newUsername, const QString &ne
 
     if ( oldUsername != newUsername )
     {
-        CredentialStore::instance()->deletePassword(KSTChat::SECURE_STORAGE_KEY,
-                                                    oldUsername);
+        deletePassword(KSTChat::SECURE_STORAGE_KEY, oldUsername);
     }
     LogParam::setKSTChatUsername(newUsername);
-    CredentialStore::instance()->savePassword(KSTChat::SECURE_STORAGE_KEY,
-                                              newUsername,
-                                              newPassword);
+    savePassword(KSTChat::SECURE_STORAGE_KEY,
+                 newUsername, newPassword);
+}
+
+void KSTChat::registerCredentials()
+{
+    // both storage keys belong to the same logical service
+    CredentialRegistry::instance().add(SECURE_STORAGE_KEY, []()
+    {
+        return QList<CredentialDescriptor>
+        {
+            { SECURE_STORAGE_KEY, [](){ return getUsername(); } }
+        };
+    });
 }
 
 void KSTChat::connectChat()

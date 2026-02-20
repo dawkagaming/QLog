@@ -467,6 +467,11 @@ void LogParam::setLoTWTQSLPath(const QString &path)
     setParam("services/lotw/callbook/tqsl", path);
 }
 
+bool LogParam::isLoTWTQSLPathKey(const QString &key)
+{
+    return key.compare("services/lotw/callbook/tqsl", Qt::CaseInsensitive) == 0;
+}
+
 QString LogParam::getPrimaryCallbook(const QString &defaultValue)
 {
     return getParam("callbook/primary", defaultValue).toString();
@@ -1135,6 +1140,36 @@ QString LogParam::getLogbookFilterClub()
 void LogParam::setLogbookFilterClub(const QString &name)
 {
     setParam("logbook/filter/club", name);
+}
+
+QByteArray LogParam::getEncryptedPasswords()
+{
+    return QByteArray::fromBase64(getParam("security/encryptedpasswords").toByteArray());
+}
+
+void LogParam::setEncryptedPasswords(const QByteArray &data)
+{
+    setParam("security/encryptedpasswords", data.toBase64());
+}
+
+void LogParam::removeEncryptedPasswords()
+{
+    removeParamGroup("security/encryptedpasswords");
+}
+
+QString LogParam::getSourcePlatform()
+{
+    return getParam("sourceplatform").toString();
+}
+
+void LogParam::setSourcePlatform(const QString &platform)
+{
+    setParam("sourceplatform", platform);
+}
+
+void LogParam::removeSourcePlatform()
+{
+    removeParamGroup("sourceplatform");
 }
 
 bool LogParam::getMainWindowAlertBeep()

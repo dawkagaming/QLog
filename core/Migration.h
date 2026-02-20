@@ -1,21 +1,20 @@
 #ifndef QLOG_CORE_MIGRATION_H
 #define QLOG_CORE_MIGRATION_H
 
-#include <QSqlQuery>
-#include <QObject>
-#include <QProgressDialog>
 #include "core/LOVDownloader.h"
 
-class QString;
+class QProgressDialog;
 
-class Migration : public QObject
+class DBSchemaMigration : public QObject
 {
     Q_OBJECT
 
 public:
-    Migration(QObject *parent = nullptr) : QObject(parent) {}
+    DBSchemaMigration(QObject *parent = nullptr) : QObject(parent) {}
     bool run();
-    static bool backupDatabase(bool force = false);
+    static bool backupAllQSOsToADX(bool force = false);
+
+    static constexpr int latestVersion = 36;
 
 private:
     bool functionMigration(int version);
@@ -42,8 +41,6 @@ private:
     bool setSelectedProfile(const QString &tablename, const QString &profileName);
     QString fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl);
     bool refreshUploadStatusTrigger();
-
-    static const int latestVersion = 35;
 
     friend class MigrationSqlTest_FriendAccessor;
 };

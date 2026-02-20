@@ -9,8 +9,6 @@
 
 #include "data/ProfileManager.h"
 
-#define DEFAULT_HAMLIB_RIG_MODEL 1
-
 class RigProfile
 {
 public:
@@ -22,7 +20,7 @@ public:
     };
 
     RigProfile() {
-                   model = DEFAULT_HAMLIB_RIG_MODEL; netport = 0; baudrate = 0;
+                   model = 1; netport = 0; baudrate = 0;
                    databits = 0; stopbits = 0.0; pollInterval = 0;
                    txFreqStart = 0.0; txFreqEnd = 0.0; getFreqInfo = false;
                    getModeInfo = false; getVFOInfo = false; getPWRInfo = false;
@@ -30,6 +28,7 @@ public:
                    getXITInfo = true; defaultPWR = 0.0, getPTTInfo = false;
                    QSYWiping = false, getKeySpeed = false, keySpeedSync = false;
                    driver = 0, dxSpot2Rig = false, civAddr = -1;
+                   shareRigctld = false; rigctldPort = 4532;
                  };
 
     QString profileName;
@@ -66,6 +65,10 @@ public:
     QString rts;
     QString dtr;
     qint16 civAddr; // -1 = AUTO; otherwise address
+    bool shareRigctld;
+    quint16 rigctldPort;
+    QString rigctldPath;  // empty = autodetect
+    QString rigctldArgs;  // additional arguments
 
     bool operator== (const RigProfile &profile);
     bool operator!= (const RigProfile &profile);

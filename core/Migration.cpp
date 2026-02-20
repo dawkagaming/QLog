@@ -12,6 +12,7 @@
 #include "service/hrdlog/HRDLog.h"
 #include "logformat/AdxFormat.h"
 #include "ui/DxWidget.h"
+#include "core/LogDatabase.h"
 
 MODULE_IDENTIFICATION("qlog.core.migration");
 
@@ -19,7 +20,7 @@ MODULE_IDENTIFICATION("qlog.core.migration");
  * Migrate the database to the latest schema version.
  * Returns true on success.
  */
-bool Migration::run() {
+bool DBSchemaMigration::run() {
     FCT_IDENTIFICATION;
 
     int currentVersion = getVersion();
@@ -38,7 +39,7 @@ bool Migration::run() {
     }
 
     qCDebug(runtime) << "Backup before migration";
-    backupDatabase(true);
+    backupAllQSOsToADX(true);
 
     qCDebug(runtime) << "Starting database migration";
 
@@ -63,6 +64,9 @@ bool Migration::run() {
             qCritical() << QSqlDatabase::database().lastError();
             return false;
         }
+        // Re-register custom SQL functions after connection reopen
+        // (sqlite3_create_function bindings are lost on close/open)
+        LogDatabase::instance()->createSQLFunctions();
         progress.setValue(currentVersion);
     }
 
@@ -82,7 +86,7 @@ bool Migration::run() {
     return true;
 }
 
-bool Migration::backupDatabase(bool force)
+bool DBSchemaMigration::backupAllQSOsToADX(bool force)
 {
     FCT_IDENTIFICATION;
 
@@ -185,7 +189,7 @@ bool Migration::backupDatabase(bool force)
 /**
  * Returns the current user_version of the database.
  */
-int Migration::getVersion() {
+int DBSchemaMigration::getVersion() {
     FCT_IDENTIFICATION;
 
     QSqlQuery query("SELECT version FROM schema_versions "
@@ -200,7 +204,7 @@ int Migration::getVersion() {
  * Changes the user_version of the database to version.
  * Returns true of the operation was successful.
  */
-bool Migration::setVersion(int version) {
+bool DBSchemaMigration::setVersion(int version) {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << version;
@@ -227,7 +231,7 @@ bool Migration::setVersion(int version) {
  * Migrate the database to the given version.
  * Returns true if the operation was successful.
  */
-bool Migration::migrate(int toVersion) {
+bool DBSchemaMigration::migrate(int toVersion) {
     FCT_IDENTIFICATION;
 
     qCDebug(runtime) << "migrate to" << toVersion;
@@ -254,7 +258,7 @@ bool Migration::migrate(int toVersion) {
     }
 }
 
-bool Migration::runSqlFile(QString filename) {
+bool DBSchemaMigration::runSqlFile(QString filename) {
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << filename;
@@ -283,7 +287,7 @@ bool Migration::runSqlFile(QString filename) {
     return true;
 }
 
-bool Migration::functionMigration(int version)
+bool DBSchemaMigration::functionMigration(int version)
 {
     FCT_IDENTIFICATION;
 
@@ -327,7 +331,7 @@ bool Migration::functionMigration(int version)
     return ret;
 }
 
-int Migration::tableRows(const QString &name)
+int DBSchemaMigration::tableRows(const QString &name)
 {
     FCT_IDENTIFICATION;
 
@@ -338,7 +342,7 @@ int Migration::tableRows(const QString &name)
     return i;
 }
 
-bool Migration::updateExternalResource()
+bool DBSchemaMigration::updateExternalResource()
 {
     FCT_IDENTIFICATION;
 
@@ -369,7 +373,7 @@ bool Migration::updateExternalResource()
     return true;
 }
 
-void Migration::updateExternalResourceProgress(QProgressDialog& progress,
+void DBSchemaMigration::updateExternalResourceProgress(QProgressDialog& progress,
                                                LOVDownloader& downloader,
                                                const LOVDownloader::SourceType & sourceType,
                                                const QString &counter)
@@ -432,7 +436,7 @@ void Migration::updateExternalResourceProgress(QProgressDialog& progress,
  * 1) Update contact to move all non-intl to intl fields
  * 2) transform intl field to non-intl field by calloni removeAccents
  */
-bool Migration::fixIntlFields()
+bool DBSchemaMigration::fixIntlFields()
 {
     FCT_IDENTIFICATION;
 
@@ -501,14 +505,14 @@ bool Migration::fixIntlFields()
     return true;
 }
 
-bool Migration::insertUUID()
+bool DBSchemaMigration::insertUUID()
 {
     FCT_IDENTIFICATION;
 
     return LogParam::setLogID(QUuid::createUuid().toString());
 }
 
-bool Migration::fillMyDXCC()
+bool DBSchemaMigration::fillMyDXCC()
 {
     FCT_IDENTIFICATION;
 
@@ -569,7 +573,7 @@ bool Migration::fillMyDXCC()
     return true;
 }
 
-bool Migration::createTriggers()
+bool DBSchemaMigration::createTriggers()
 {
     FCT_IDENTIFICATION;
 
@@ -618,7 +622,7 @@ bool Migration::createTriggers()
     return true;
 }
 
-bool Migration::importQSLCards2DB()
+bool DBSchemaMigration::importQSLCards2DB()
 {
     FCT_IDENTIFICATION;
 
@@ -678,7 +682,7 @@ bool Migration::importQSLCards2DB()
     return true;
 }
 
-bool Migration::fillCQITUZStationProfiles()
+bool DBSchemaMigration::fillCQITUZStationProfiles()
 {
     FCT_IDENTIFICATION;
 
@@ -734,7 +738,7 @@ bool Migration::fillCQITUZStationProfiles()
     return true;
 }
 
-bool Migration::resetConfigs()
+bool DBSchemaMigration::resetConfigs()
 {
     FCT_IDENTIFICATION;
 
@@ -749,7 +753,7 @@ bool Migration::resetConfigs()
     return true;
 }
 
-bool Migration::profiles2DB()
+bool DBSchemaMigration::profiles2DB()
 {
     FCT_IDENTIFICATION;
 
@@ -786,7 +790,7 @@ bool Migration::profiles2DB()
     return true;
 }
 
-bool Migration::removeSettings2DB()
+bool DBSchemaMigration::removeSettings2DB()
 {
     // all platform-independent settings are already in the DB,
     // no unusual errors occur. It's time to delete old values
@@ -897,7 +901,7 @@ bool Migration::removeSettings2DB()
     return true;
 }
 
-bool Migration::settings2DB()
+bool DBSchemaMigration::settings2DB()
 {
     FCT_IDENTIFICATION;
 
@@ -1131,7 +1135,7 @@ bool Migration::settings2DB()
     return true;
 }
 
-bool Migration::setSelectedProfile(const QString &tablename, const QString &profileName)
+bool DBSchemaMigration::setSelectedProfile(const QString &tablename, const QString &profileName)
 {
     FCT_IDENTIFICATION;
 
@@ -1159,7 +1163,7 @@ bool Migration::setSelectedProfile(const QString &tablename, const QString &prof
     return true;
 }
 
-QString Migration::fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl)
+QString DBSchemaMigration::fixIntlField(QSqlQuery &query, const QString &columName, const QString &columnNameIntl)
 {
     FCT_IDENTIFICATION;
 
@@ -1179,7 +1183,7 @@ QString Migration::fixIntlField(QSqlQuery &query, const QString &columName, cons
     return retValue;
 }
 
-bool Migration::refreshUploadStatusTrigger()
+bool DBSchemaMigration::refreshUploadStatusTrigger()
 {
     FCT_IDENTIFICATION;
 

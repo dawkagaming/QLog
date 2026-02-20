@@ -37,6 +37,7 @@ QStringList LotwUploader::uploadedFields =
 };
 
 const QString LotwBase::SECURE_STORAGE_KEY = "LoTW";
+REGISTRATION_SECURE_SERVICE(LotwBase);
 
 const QString LotwBase::getUsername()
 {
@@ -45,12 +46,11 @@ const QString LotwBase::getUsername()
     return LogParam::getLoTWCallbookUsername();
 }
 
-const QString LotwBase::getPassword()
+const QString LotwBase::getPasswd()
 {
     FCT_IDENTIFICATION;
 
-    return CredentialStore::instance()->getPassword(LotwBase::SECURE_STORAGE_KEY,
-                                                    getUsername());
+    return getPassword(LotwBase::SECURE_STORAGE_KEY, getUsername());
 }
 
 void LotwBase::saveUsernamePassword(const QString &newUsername, const QString &newPassword)
@@ -60,15 +60,12 @@ void LotwBase::saveUsernamePassword(const QString &newUsername, const QString &n
     const QString &oldUsername = getUsername();
     if ( oldUsername != newUsername )
     {
-        CredentialStore::instance()->deletePassword(LotwBase::SECURE_STORAGE_KEY,
-                                                    oldUsername);
+        deletePassword(LotwBase::SECURE_STORAGE_KEY, oldUsername);
     }
 
     LogParam::setLoTWCallbookUsername(newUsername);
-    CredentialStore::instance()->savePassword(LotwBase::SECURE_STORAGE_KEY,
-                                              newUsername,
-                                              newPassword);
-
+    savePassword(LotwBase::SECURE_STORAGE_KEY,
+                 newUsername, newPassword);
 }
 
 const QString LotwBase::getTQSLPath(const QString &defaultPath)
@@ -94,6 +91,18 @@ void LotwBase::saveTQSLPath(const QString &newPath)
 #else
     LogParam::setLoTWTQSLPath(newPath);
 #endif
+}
+
+void LotwBase::registerCredentials()
+{
+    // both storage keys belong to the same logical service
+    CredentialRegistry::instance().add(SECURE_STORAGE_KEY, []()
+    {
+        return QList<CredentialDescriptor>
+        {
+            { SECURE_STORAGE_KEY, [](){ return getUsername(); } }
+        };
+    });
 }
 
 LotwUploader::LotwUploader(QObject *parent) :
@@ -355,7 +364,7 @@ void LotwQSLDownloader::get(QList<QPair<QString, QString>> params)
     FCT_IDENTIFICATION;
 
     const QString &username = getUsername();
-    const QString &password = getPassword();
+    const QString &password = getPasswd();
 
     QUrlQuery query;
     query.setQueryItems(params);

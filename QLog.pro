@@ -34,6 +34,10 @@ DEFINES += VERSION=\\\"$$VERSION\\\"
 #ZLIBINCLUDEPATH =
 #ZLIBLIBPATH =
 
+# Define paths to OpenSSL - Leave empty if system libraries should be used
+#OPENSSLINCLUDEPATH =
+#OPENSSLLIBPATH =
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -55,13 +59,17 @@ SOURCES += \
         core/AppGuard.cpp \
         core/CallbookManager.cpp \
         core/CredentialStore.cpp \
+        core/FileCompressor.cpp \
         core/FldigiTCPServer.cpp \
         core/LOVDownloader.cpp \
+        core/LogDatabase.cpp \
         core/LogLocale.cpp \
         core/LogParam.cpp \
         core/MembershipQE.cpp \
         core/Migration.cpp \
         core/NetworkNotification.cpp \
+        core/PasswordCipher.cpp \
+        core/PlatformParameterManager.cpp \
         core/PotaQE.cpp \
         core/PropConditions.cpp \
         core/QSLStorage.cpp \
@@ -113,6 +121,7 @@ SOURCES += \
         models/WsjtxTableModel.cpp \
         rig/Rig.cpp \
         rig/RigCaps.cpp \
+        rig/RigctldManager.cpp \
         rig/drivers/FlrigRigDrv.cpp \
         rig/drivers/GenericRigDrv.cpp \
         rig/drivers/HamlibRigDrv.cpp \
@@ -150,6 +159,11 @@ SOURCES += \
         ui/DxccTableWidget.cpp \
         ui/EditActivitiesDialog.cpp \
         ui/ExportDialog.cpp \
+        ui/ExportPasswordDialog.cpp \
+        ui/LoadDatabaseDialog.cpp \
+        ui/PlatformSettingsDialog.cpp \
+        ui/QSLGalleryDialog.cpp \
+        ui/RigctldAdvancedDialog.cpp \
         ui/ImportDialog.cpp \
         ui/InputPasswordDialog.cpp \
         ui/KSTChatWidget.cpp \
@@ -191,13 +205,17 @@ HEADERS += \
         core/AppGuard.h \
         core/CallbookManager.h \
         core/CredentialStore.h \
+        core/FileCompressor.h \
         core/FldigiTCPServer.h \
         core/LOVDownloader.h \
+        core/LogDatabase.h \
         core/LogLocale.h \
         core/LogParam.h \
         core/MembershipQE.h \
         core/Migration.h \
         core/NetworkNotification.h \
+        core/PasswordCipher.h \
+        core/PlatformParameterManager.h \
         core/PotaQE.h \
         core/PropConditions.h \
         core/QSLStorage.h \
@@ -265,6 +283,7 @@ HEADERS += \
         models/WsjtxTableModel.h \
         rig/Rig.h \
         rig/RigCaps.h \
+        rig/RigctldManager.h \
         rig/drivers/FlrigRigDrv.h \
         rig/drivers/GenericRigDrv.h \
         rig/drivers/HamlibRigDrv.h \
@@ -303,6 +322,11 @@ HEADERS += \
         ui/DxccTableWidget.h \
         ui/EditActivitiesDialog.h \
         ui/ExportDialog.h \
+        ui/ExportPasswordDialog.h \
+        ui/LoadDatabaseDialog.h \
+        ui/PlatformSettingsDialog.h \
+        ui/QSLGalleryDialog.h \
+        ui/RigctldAdvancedDialog.h \
         ui/ImportDialog.h \
         ui/InputPasswordDialog.h \
         ui/KSTChatWidget.h \
@@ -362,6 +386,11 @@ FORMS += \
         ui/DxWidget.ui \
         ui/EditActivitiesDialog.ui \
         ui/ExportDialog.ui \
+        ui/ExportPasswordDialog.ui \
+        ui/LoadDatabaseDialog.ui \
+        ui/PlatformSettingsDialog.ui \
+        ui/QSLGalleryDialog.ui \
+        ui/RigctldAdvancedDialog.ui \
         ui/ImportDialog.ui \
         ui/InputPasswordDialog.ui \
         ui/KSTChatWidget.ui \
@@ -462,6 +491,10 @@ isEmpty(HAMLIBVERSION_PATCH){
    INCLUDEPATH += $$ZLIBINCLUDEPATH
 }
 
+!isEmpty(OPENSSLINCLUDEPATH) {
+   INCLUDEPATH += $$OPENSSLINCLUDEPATH
+}
+
 !isEmpty(HAMLIBLIBPATH) {
    LIBS += -L$$HAMLIBLIBPATH
 }
@@ -476,6 +509,10 @@ isEmpty(HAMLIBVERSION_PATCH){
 
 !isEmpty(ZLIBLIBPATH) {
    LIBS += -L$$ZLIBLIBPATH
+}
+
+!isEmpty(OPENSSLLIBPATH) {
+   LIBS += -L$$OPENSSLLIBPATH
 }
 
 unix:!macx {
@@ -500,7 +537,7 @@ unix:!macx {
    INSTALLS += target desktop icon metainfo
 
    INCLUDEPATH += /usr/local/include
-   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz
+   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz -lssl -lcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 }
@@ -513,7 +550,7 @@ macx: {
    }
 
    INCLUDEPATH += /usr/local/include /opt/homebrew/include /opt/local/include
-   LIBS += -L/usr/local/lib -L/opt/homebrew/lib -lhamlib -lsqlite3 -lz -L/opt/local/lib
+   LIBS += -L/usr/local/lib -L/opt/homebrew/lib -lhamlib -lsqlite3 -lz -L/opt/local/lib -lssl -lcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
    DISTFILES +=
@@ -540,7 +577,7 @@ win32: {
    QMAKE_TARGET_COMPANY = OK1MLG
    QMAKE_TARGET_DESCRIPTION = Hamradio logging
 
-   LIBS += -lws2_32 -llibhamlib-4 -lzlib
+   LIBS += -lws2_32 -llibhamlib-4 -lzlib -llibssl -llibcrypto
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 

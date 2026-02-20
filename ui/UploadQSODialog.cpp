@@ -69,7 +69,7 @@ UploadQSODialog::UploadQSODialog(QWidget *parent) :
                                          "qrzcom_qso_upload_date",
                                          ui->qrzCheckbox,
                                          ui->qrzNumberLabel,
-                                        !QRZBase::getLogbookAPIKey().isEmpty()));
+                                        !QRZBase::getLogbookAPIKey(QRZBase::getInternalAPIUsername()).isEmpty()));
 
     onlineServices.insert(WAVELOGID, UploadTask(WAVELOGID,
                                          tr("Wavelog"),

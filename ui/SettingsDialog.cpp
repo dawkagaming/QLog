@@ -38,6 +38,7 @@
 #include "ui/component/StyleItemDelegate.h"
 #include "data/SerialPort.h"
 #include "service/cloudlog/Cloudlog.h"
+#include "ui/RigctldAdvancedDialog.h"
 
 #define STACKED_WIDGET_SERIAL_SETTING  0
 #define STACKED_WIDGET_NETWORK_SETTING 1
@@ -517,6 +518,12 @@ void SettingsDialog::addRigProfile()
     profile.keySpeedSync = ui->rigKeySpeedSyncCheckBox->isChecked();
     profile.dxSpot2Rig = ui->rigDXSpots2RigCheckBox->isChecked();
 
+    // Rigctld sharing settings
+    profile.shareRigctld = ui->rigShareCheckBox->isChecked();
+    profile.rigctldPort = ui->rigSharePortSpinBox->value();
+    profile.rigctldPath = rigctldPath;
+    profile.rigctldArgs = rigctldArgs;
+
     rigProfManager->addProfile(profile.profileName, profile);
 
     refreshRigProfilesView();
@@ -613,7 +620,14 @@ void SettingsDialog::doubleClickRigProfile(QModelIndex i)
 
     ui->rigCIVAddrSpinBox->setValue(( profile.civAddr >= 0 ) ? profile.civAddr : CIVADDR_DISABLED_VALUE);
 
+    // Rigctld sharing settings
+    ui->rigShareCheckBox->setChecked(profile.shareRigctld);
+    ui->rigSharePortSpinBox->setValue(profile.rigctldPort);
+    rigctldPath = profile.rigctldPath;
+    rigctldArgs = profile.rigctldArgs;
+
     setUIBasedOnRigCaps(caps);
+    updateRigShareEnabled();
 
     ui->rigAddProfileButton->setText(tr("Modify"));
 }
@@ -660,7 +674,14 @@ void SettingsDialog::clearRigProfileForm()
     ui->rigPTTPortEdit->clear();
     ui->rigCIVAddrSpinBox->setValue(CIVADDR_DISABLED_VALUE);
 
+    // Rigctld sharing settings
+    ui->rigShareCheckBox->setChecked(false);
+    ui->rigSharePortSpinBox->setValue(4532);
+    rigctldPath.clear();
+    rigctldArgs.clear();
+
     rigChanged(ui->rigModelSelect->currentIndex());
+    updateRigShareEnabled();
 }
 
 void SettingsDialog::rigRXOffsetChanged(int)
@@ -759,7 +780,7 @@ void SettingsDialog::rigInterfaceChanged(int)
     }
 
     rigTypeModel->select(driverID);
-    ui->rigModelSelect->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? ui->rigModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL)
+    ui->rigModelSelect->setCurrentIndex(( driverID == Rig::HAMLIB_DRIVER ) ? ui->rigModelSelect->findData(Rig::DEFAULT_MODEL)
                                                                            : 0 );
     ui->rigPTTTypeCombo->clear();
     int noneIndex = ui->rigRTSCombo->findData(SerialPort::SERIAL_SIGNAL_NONE);
@@ -968,7 +989,7 @@ void SettingsDialog::rotInterfaceChanged(int)
 
     if ( driverID == Rotator::HAMLIB_DRIVER )
     {
-        ui->rotModelSelect->setCurrentIndex(ui->rotModelSelect->findData(DEFAULT_HAMLIB_RIG_MODEL));
+        ui->rotModelSelect->setCurrentIndex(ui->rotModelSelect->findData(Rig::DEFAULT_MODEL));
         ui->rotNetPortSpin->setValue(ROT_NET_DEFAULT_PORT);
     }
     else
@@ -2303,6 +2324,61 @@ void SettingsDialog::rigFlowControlChanged(int)
     ui->rigRTSCombo->setEnabled(!isHWControlEnabled);
 }
 
+void SettingsDialog::showRigctldAdvanced()
+{
+    FCT_IDENTIFICATION;
+
+    RigctldAdvancedDialog dialog(this);
+    dialog.setPath(rigctldPath);
+    dialog.setArgs(rigctldArgs);
+
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        rigctldPath = dialog.getPath();
+        rigctldArgs = dialog.getArgs();
+    }
+}
+
+void SettingsDialog::rigShareChanged(int)
+{
+    FCT_IDENTIFICATION;
+
+    updateRigShareEnabled();
+}
+
+void SettingsDialog::updateRigShareEnabled()
+{
+    FCT_IDENTIFICATION;
+
+    Rig::DriverID driverID = static_cast<Rig::DriverID>(ui->rigInterfaceCombo->currentData().toInt());
+    int portType = ui->rigPortTypeCombo->currentIndex();
+
+    // Share rigctld is only available for Hamlib driver with serial connection
+    bool canShare = (driverID == Rig::HAMLIB_DRIVER) && (portType == RIGPORT_SERIAL_INDEX);
+
+    ui->rigShareCheckBox->setEnabled(canShare);
+    ui->rigSharePortSpinBox->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
+    ui->rigShareAdvancedButton->setEnabled(canShare && ui->rigShareCheckBox->isChecked());
+
+    if (!canShare)
+    {
+        ui->rigShareCheckBox->setChecked(false);
+
+        if (driverID != Rig::HAMLIB_DRIVER)
+        {
+            ui->rigShareCheckBox->setToolTip(tr("Rig sharing is only available for Hamlib driver"));
+        }
+        else
+        {
+            ui->rigShareCheckBox->setToolTip(tr("Rig sharing is not available for network connection"));
+        }
+    }
+    else
+    {
+        ui->rigShareCheckBox->setToolTip(tr("Start rigctld daemon to share rig with other applications (e.g. WSJT-X)"));
+    }
+}
+
 void SettingsDialog::qrzAddCallsignAPIKey()
 {
     FCT_IDENTIFICATION;
@@ -2366,10 +2442,10 @@ void SettingsDialog::readSettings()
     ui->secondaryCallbookCombo->setCurrentIndex(secondaryCallbookIndex);
 
     ui->hamQthUsernameEdit->setText(HamQTHBase::getUsername());
-    ui->hamQthPasswordEdit->setText(HamQTHBase::getPassword());
+    ui->hamQthPasswordEdit->setText(HamQTHBase::getPasswd());
 
     ui->qrzUsernameEdit->setText(QRZBase::getUsername());
-    ui->qrzPasswordEdit->setText(QRZBase::getPassword());
+    ui->qrzPasswordEdit->setText(QRZBase::getPasswd(QRZBase::getUsername()));
 
     ui->webLookupURLEdit->setText(GenericCallbook::getWebLookupURL("", QString(), false));
 
@@ -2377,21 +2453,21 @@ void SettingsDialog::readSettings()
     /* LoTW */
     /********/
     ui->lotwUsernameEdit->setText(LotwBase::getUsername());
-    ui->lotwPasswordEdit->setText(LotwBase::getPassword());
+    ui->lotwPasswordEdit->setText(LotwBase::getPasswd());
     ui->tqslPathEdit->setText(LotwBase::getTQSLPath());
 
     /***********/
     /* ClubLog */
     /***********/
     ui->clublogEmailEdit->setText(ClubLogBase::getEmail());
-    ui->clublogPasswordEdit->setText(ClubLogBase::getPassword());
+    ui->clublogPasswordEdit->setText(ClubLogBase::getPasswd());
     ui->clublogUploadImmediatelyCheckbox->setChecked(ClubLogBase::isUploadImmediatelyEnabled());
 
     /********/
     /* eQSL */
     /********/
     ui->eqslUsernameEdit->setText(EQSLBase::getUsername());
-    ui->eqslPasswordEdit->setText(EQSLBase::getPassword());
+    ui->eqslPasswordEdit->setText(EQSLBase::getPasswd());
 
     /**********/
     /* HRDLog */
@@ -2403,7 +2479,7 @@ void SettingsDialog::readSettings()
     /***********/
     /* QRZ.COM */
     /***********/
-    ui->qrzApiKeyEdit->setText(QRZBase::getLogbookAPIKey());
+    ui->qrzApiKeyEdit->setText(QRZBase::getLogbookAPIKey(QRZBase::getInternalAPIUsername()));
     generateQRZAPICallsignTable();
 
     /***********/
@@ -2423,7 +2499,7 @@ void SettingsDialog::readSettings()
     /* ON4KST Chat */
     /***************/
     ui->kstUsernameEdit->setText(KSTChat::getUsername());
-    ui->kstPasswordEdit->setText(KSTChat::getPassword());
+    ui->kstPasswordEdit->setText(KSTChat::getPasswd());
 
     /***********/
     /* MEMBERS */
@@ -2527,7 +2603,7 @@ void SettingsDialog::writeSettings()
     /***********/
     /* QRZ.COM */
     /***********/
-    QRZBase::saveLogbookAPIKey(ui->qrzApiKeyEdit->text());
+    QRZBase::saveLogbookAPIKey(ui->qrzApiKeyEdit->text(), QRZBase::getInternalAPIUsername());
     saveQRZAPICallsignTable();
 
     /***********/
