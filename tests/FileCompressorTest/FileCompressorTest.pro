@@ -13,5 +13,11 @@ HEADERS += \
     ../../core/FileCompressor.h
 
 # zlib
+!isEmpty(ZLIBINCLUDEPATH) {
+    INCLUDEPATH += $$ZLIBINCLUDEPATH
+}
+!isEmpty(ZLIBLIBPATH) {
+    LIBS += -L$$ZLIBLIBPATH
+}
 unix: LIBS += -lz
 win32: LIBS += -lzlib
