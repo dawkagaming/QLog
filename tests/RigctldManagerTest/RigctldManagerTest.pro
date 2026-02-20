@@ -15,6 +15,7 @@ SOURCES += \
 
 HEADERS += \
     ../../rig/RigctldManager.h \
+    ../../data/SerialPort.h \
     data/RigProfile.h \
     core/debug.h
 
