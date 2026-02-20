@@ -13,11 +13,11 @@ HEADERS += \
     ../../core/PasswordCipher.h
 
 # OpenSSL
-!isEmpty(OPENSSL_INCLUDE) {
-    INCLUDEPATH += $$OPENSSL_INCLUDE
+!isEmpty(OPENSSLINCLUDEPATH) {
+    INCLUDEPATH += $$OPENSSLINCLUDEPATH
 }
-!isEmpty(OPENSSL_LIBPATH) {
-    LIBS += -L$$OPENSSL_LIBPATH
+!isEmpty(OPENSSLLIBPATH) {
+    LIBS += -L$$OPENSSLLIBPATH
 }
 
 win32 {

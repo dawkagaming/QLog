@@ -30,11 +30,11 @@ equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
 equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 
 # OpenSSL (for PasswordCipher)
-!isEmpty(OPENSSL_INCLUDE) {
-    INCLUDEPATH += $$OPENSSL_INCLUDE
+!isEmpty(OPENSSLINCLUDEPATH) {
+    INCLUDEPATH += $$OPENSSLINCLUDEPATH
 }
-!isEmpty(OPENSSL_LIBPATH) {
-    LIBS += -L$$OPENSSL_LIBPATH
+!isEmpty(OPENSSLLIBPATH) {
+    LIBS += -L$$OPENSSLLIBPATH
 }
 
 win32 {
