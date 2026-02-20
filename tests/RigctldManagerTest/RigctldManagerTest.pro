@@ -21,3 +21,8 @@ HEADERS += \
 !isEmpty(HAMLIBINCLUDEPATH) {
     INCLUDEPATH += $$HAMLIBINCLUDEPATH
 }
+
+# pthreads (needed by hamlib on Windows)
+!isEmpty(PTHREADINCLUDEPATH) {
+    INCLUDEPATH += $$PTHREADINCLUDEPATH
+}
