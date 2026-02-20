@@ -10,6 +10,7 @@ INCLUDEPATH += $$PWD/../..
 SOURCES += \
     tst_rigctldmanager.cpp \
     ../../rig/RigctldManager.cpp \
+    ../../data/SerialPort.cpp \
     test_stubs.cpp
 
 HEADERS += \
