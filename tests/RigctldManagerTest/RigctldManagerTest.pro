@@ -16,3 +16,8 @@ HEADERS += \
     ../../rig/RigctldManager.h \
     data/RigProfile.h \
     core/debug.h
+
+# Hamlib
+!isEmpty(HAMLIBINCLUDEPATH) {
+    INCLUDEPATH += $$HAMLIBINCLUDEPATH
+}
