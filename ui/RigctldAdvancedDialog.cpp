@@ -11,7 +11,8 @@ MODULE_IDENTIFICATION("qlog.ui.rigctldadvanceddialog");
 
 RigctldAdvancedDialog::RigctldAdvancedDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::RigctldAdvancedDialog)
+    ui(new Ui::RigctldAdvancedDialog),
+    m_versionUpdateTimer(new QTimer(this))
 {
     FCT_IDENTIFICATION;
 
@@ -22,6 +23,13 @@ RigctldAdvancedDialog::RigctldAdvancedDialog(QWidget *parent) :
     ui->autoButton->setEnabled(false);
     ui->pathEdit->setPlaceholderText(tr("Cannot be changed"));
 #endif
+
+    m_versionUpdateTimer->setSingleShot(true);
+    m_versionUpdateTimer->setInterval(500);
+    connect(m_versionUpdateTimer, &QTimer::timeout, this, &RigctldAdvancedDialog::updateVersionLabel);
+    connect(ui->pathEdit, &QLineEdit::textChanged, this, [this]() {
+        m_versionUpdateTimer->start();
+    });
 
     updateVersionLabel();
 }
@@ -34,7 +42,10 @@ RigctldAdvancedDialog::~RigctldAdvancedDialog()
 
 void RigctldAdvancedDialog::setPath(const QString &path)
 {
+    ui->pathEdit->blockSignals(true);
     ui->pathEdit->setText(path);
+    ui->pathEdit->blockSignals(false);
+    updateVersionLabel();
 }
 
 QString RigctldAdvancedDialog::getPath() const
@@ -60,14 +71,13 @@ void RigctldAdvancedDialog::autoDetectPath()
 
     if ( detectedPath.isEmpty() )
     {
+        updateVersionLabel();
         QMessageBox::warning(this, tr("Auto Detect"),
                              tr("rigctld was not found on this system.\n"
                                 "Please install Hamlib or specify the path manually."));
     }
     else
-        ui->pathEdit->setText(detectedPath);
-
-    updateVersionLabel();
+        setPath(detectedPath);
 }
 
 void RigctldAdvancedDialog::browsePath()
@@ -87,10 +97,7 @@ void RigctldAdvancedDialog::browsePath()
                                                 folder,
                                                 filter);
     if ( !path.isEmpty() )
-    {
-        ui->pathEdit->setText(path);
-        updateVersionLabel();
-    }
+        setPath(path);
 }
 
 void RigctldAdvancedDialog::updateVersionLabel()
@@ -102,10 +109,11 @@ void RigctldAdvancedDialog::updateVersionLabel()
 
     // When autodetect, resolve the path to show it to the user
     const QString resolvedPath = isAutoDetect ? RigctldManager::findRigctldPath() : path;
+    const QString NOTFOUND = QString("<span style=\"color: red;\">✗ %1</span>").arg(tr("Not found"));
 
     if ( resolvedPath.isEmpty() )
     {
-        ui->versionValueLabel->setText(tr("Not found"));
+        ui->versionValueLabel->setText(NOTFOUND);
         return;
     }
 
@@ -113,13 +121,12 @@ void RigctldAdvancedDialog::updateVersionLabel()
 
     if ( !version.isValid() )
     {
-        ui->versionValueLabel->setText(tr("Not found"));
+        ui->versionValueLabel->setText(NOTFOUND);
         return;
     }
 
-    const QString versionStr = QString("%1.%2.%3").arg(version.major)
-                                                   .arg(version.minor)
-                                                   .arg(version.patch);
+    const QString versionStr = QString("<span style=\"color: green;\">✓ %1.%2.%3</span>")
+                                                   .arg(version.major, version.minor, version.patch);
 
     if ( isAutoDetect )
         ui->versionValueLabel->setText(QString("%1 (%2)").arg(versionStr, resolvedPath));

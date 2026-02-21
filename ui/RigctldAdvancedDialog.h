@@ -2,6 +2,7 @@
 #define QLOG_UI_RIGCTLDADVANCEDDIALOG_H
 
 #include <QDialog>
+#include <QTimer>
 
 namespace Ui {
 class RigctldAdvancedDialog;
@@ -24,11 +25,11 @@ public:
 private slots:
     void autoDetectPath();
     void browsePath();
-
-private:
     void updateVersionLabel();
 
+private:
     Ui::RigctldAdvancedDialog *ui;
+    QTimer *m_versionUpdateTimer;
 };
 
 #endif // QLOG_UI_RIGCTLDADVANCEDDIALOG_H

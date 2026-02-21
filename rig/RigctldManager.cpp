@@ -256,7 +256,7 @@ RigctldVersion RigctldManager::getVersion(const QString &rigctldPath)
     qCDebug(runtime) << "rigctld version output:" << output;
 
     // "rigctld Hamlib 4.5.5"
-    QRegularExpression re("(\\d+)\\.(\\d+)\\.(\\d+)");
+    QRegularExpression re("rigct\\S*\\s+\\S+\\s+(\\d+)\\.(\\d+)\\.(\\d+)");
     QRegularExpressionMatch match = re.match(output); // clazy:exclude=use-static-qregularexpression
 
     if ( match.hasMatch() )
