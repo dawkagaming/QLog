@@ -10,6 +10,14 @@
 
 class QNetworkAccessManager;
 
+struct TQSLVersion
+{
+    int major = -1;
+    int minor = -1;
+    int patch = -1;
+    bool isValid() const { return major >= 0; }
+};
+
 class LotwBase : public SecureServiceBase<LotwBase>
 {
 protected:
@@ -24,6 +32,7 @@ public:
     static const QString getUsername();
     static const QString getPasswd();
     static const QString getTQSLPath(const QString &defaultPath = QDir::rootPath());
+    static TQSLVersion getTQSLVersion(const QString &tqslPath = QString());
 
     static void saveUsernamePassword(const QString&, const QString&);
     static void saveTQSLPath(const QString&);

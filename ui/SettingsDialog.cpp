@@ -77,7 +77,8 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui(new Ui::SettingsDialog),
     sotaFallback(false),
     potaFallback(false),
-    wwffFallback(false)
+    wwffFallback(false),
+    m_tqslVersionTimer(new QTimer(this))
 {
     FCT_IDENTIFICATION;
 
@@ -96,9 +97,18 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->tqslPathEdit->setVisible(false);
     ui->tqslPathButton->setVisible(false);
     ui->lotwtqslPathLabel->setVisible(false);
+    ui->tqslVersionLabel->setVisible(false);
+    ui->tqslVersionValueLabel->setVisible(false);
 #else
     ui->lotwTextMessage->setVisible(false);
 #endif
+
+    m_tqslVersionTimer->setSingleShot(true);
+    m_tqslVersionTimer->setInterval(500);
+    connect(m_tqslVersionTimer, &QTimer::timeout, this, &SettingsDialog::updateTQSLVersionLabel);
+    connect(ui->tqslPathEdit, &QLineEdit::textChanged, this, [this]() {
+        m_tqslVersionTimer->start();
+    });
 
     RotTypeModel* rotTypeModel = new RotTypeModel(ui->rotModelSelect);
     ui->rotModelSelect->setModel(rotTypeModel);
@@ -1970,6 +1980,28 @@ void SettingsDialog::tqslPathBrowse()
     }
 }
 
+void SettingsDialog::updateTQSLVersionLabel()
+{
+    FCT_IDENTIFICATION;
+
+    const QString path = ui->tqslPathEdit->text().trimmed();
+    const QString NOTFOUND = QString("<span style=\"color: red;\">✗ %1</span>").arg(tr("Not found"));
+
+    const TQSLVersion version = LotwBase::getTQSLVersion(path);
+
+    if ( !version.isValid() )
+    {
+        ui->tqslVersionValueLabel->setText(NOTFOUND);
+        return;
+    }
+
+    ui->tqslVersionValueLabel->setText(
+        QString("<span style=\"color: green;\">✓ %1.%2.%3</span>")
+            .arg(version.major)
+            .arg(version.minor)
+            .arg(version.patch));
+}
+
 void SettingsDialog::stationCallsignChanged()
 {
     FCT_IDENTIFICATION;
@@ -2455,6 +2487,7 @@ void SettingsDialog::readSettings()
     ui->lotwUsernameEdit->setText(LotwBase::getUsername());
     ui->lotwPasswordEdit->setText(LotwBase::getPasswd());
     ui->tqslPathEdit->setText(LotwBase::getTQSLPath());
+    updateTQSLVersionLabel();
 
     /***********/
     /* ClubLog */

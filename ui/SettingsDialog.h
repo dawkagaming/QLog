@@ -5,6 +5,7 @@
 #include <QModelIndex>
 #include <QSqlTableModel>
 #include <QCompleter>
+#include <QTimer>
 #include <hamlib/rig.h>
 #include <QLineEdit>
 #include <QComboBox>
@@ -96,6 +97,7 @@ public slots:
     void rotStackWidgetChanged(int);
     void cwKeyStackWidgetChanged(int);
     void tqslPathBrowse();
+    void updateTQSLVersionLabel();
     void stationCallsignChanged();
     void adjustLocatorTextColor();
     void adjustVUCCLocatorTextColor();
@@ -162,6 +164,7 @@ private:
     bool wwffFallback;
     QString rigctldPath;
     QString rigctldArgs;
+    QTimer *m_tqslVersionTimer;
 };
 
 #endif // QLOG_UI_SETTINGSDIALOG_H

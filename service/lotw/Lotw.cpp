@@ -7,6 +7,8 @@
 #include <QSqlError>
 #include <QTemporaryFile>
 #include <QMessageBox>
+#include <QProcess>
+#include <QRegularExpression>
 #include "Lotw.h"
 #include "logformat/AdiFormat.h"
 #include "core/debug.h"
@@ -91,6 +93,48 @@ void LotwBase::saveTQSLPath(const QString &newPath)
 #else
     LogParam::setLoTWTQSLPath(newPath);
 #endif
+}
+
+TQSLVersion LotwBase::getTQSLVersion(const QString &tqslPath)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << tqslPath;
+
+    TQSLVersion version;
+
+    const QString path = tqslPath.trimmed().isEmpty() ? QString("tqsl") : tqslPath.trimmed();
+
+    QProcess process;
+    process.setProcessChannelMode(QProcess::MergedChannels);
+    process.start(path, QStringList("--version"));
+
+    if ( !process.waitForFinished(2000) )
+    {
+        qCDebug(runtime) << "tqsl --version timed out";
+        return version;
+    }
+
+    const QString output = QString::fromLocal8Bit(process.readAllStandardOutput()).trimmed();
+    qCDebug(runtime) << "tqsl version output:" << output;
+
+    // "TQSL Version 2.7.2 [unknown]"
+    QRegularExpression re("TQSL\\s+Version\\s+(\\d+)\\.(\\d+)\\.(\\d+)");
+    QRegularExpressionMatch match = re.match(output); // clazy:exclude=use-static-qregularexpression
+
+    if ( match.hasMatch() )
+    {
+        version.major = match.captured(1).toInt();
+        version.minor = match.captured(2).toInt();
+        version.patch = match.captured(3).toInt();
+        qCDebug(runtime) << "Parsed TQSL version:" << version.major << version.minor << version.patch;
+    }
+    else
+    {
+        qCDebug(runtime) << "Failed to parse TQSL version from output:" << output;
+    }
+
+    return version;
 }
 
 void LotwBase::registerCredentials()
