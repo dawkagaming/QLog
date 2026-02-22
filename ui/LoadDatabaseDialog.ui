@@ -26,7 +26,7 @@
       <item>
        <widget class="QLabel" name="warningLabel">
         <property name="text">
-         <string>⚠ &lt;b&gt;Current database will be DELETED!&lt;/b&gt;&lt;br&gt;⚠ &lt;b&gt;All stored passwords will be DELETED!&lt;/b&gt;&lt;br&gt;⚠ &lt;b&gt;The application will restart after loading&lt;/b&gt;.&lt;p&gt;To preserve data, use Dump Database or Export QSOs first.&lt;/p&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;Current database will be DELETED!&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;All stored passwords will be DELETED!&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;The application will restart after loading&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;To preserve data, use Pack Data &amp;amp; Settings or Export QSOs first.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
