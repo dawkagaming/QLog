@@ -100,9 +100,19 @@ UploadQSODialog::UploadQSODialog(QWidget *parent) :
 
     // First entry is empty (no -l argument will be passed to TQSL).
     tqslLocations = LotwBase::getTQSLStationLocations();
-    ui->lotwLocationCombo->addItem(tr("Unspecified"));
+    ui->lotwLocationCombo->addItem(tr("Unspecified"), QString());
     for ( const TQSLStationLocation &loc : static_cast<const QList<TQSLStationLocation>>(tqslLocations) )
-        ui->lotwLocationCombo->addItem(loc.name);
+    {
+        QString displayText = loc.name;
+        QStringList details;
+        if ( !loc.callsign.isEmpty() )
+            details << loc.callsign;
+        if ( !loc.grid.isEmpty() )
+            details << loc.grid.toUpper();
+        if ( !details.isEmpty() )
+            displayText += " (" + details.join(", ") + ")";
+        ui->lotwLocationCombo->addItem(displayText, loc.name);
+    }
 
     connect(ui->lotwLocationCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &UploadQSODialog::updateLotwLocationWarning);
@@ -206,7 +216,7 @@ void UploadQSODialog::loadDialogState()
     ui->myStationProfileCheckbox->setChecked(LogParam::getUploadQSOFilterType() == 1);
     ui->wavelogStationIDSpin->setValue(LogParam::getCloudlogStationID());
 
-    const int locIdx = ui->lotwLocationCombo->findText(LogParam::getUploadLoTWLocation());
+    const int locIdx = ui->lotwLocationCombo->findData(LogParam::getUploadLoTWLocation());
     ui->lotwLocationCombo->setCurrentIndex(locIdx >= 0 ? locIdx : 0);
 
     updateLotwLocationWarning();
@@ -228,7 +238,7 @@ void UploadQSODialog::saveDialogState()
     LogParam::setUploadeqslQTHProfile(ui->eqslQTHProfileEdit->text());
     LogParam::setUploadQSOFilterType(ui->myCallsignCheckbox->isChecked() ? 0 : 1);
     LogParam::setCloudlogStationID(ui->wavelogStationIDSpin->value());
-    LogParam::setUploadLoTWLocation(ui->lotwLocationCombo->currentText());
+    LogParam::setUploadLoTWLocation(ui->lotwLocationCombo->currentData().toString());
 }
 
 void UploadQSODialog::processNextUploader()
@@ -380,7 +390,7 @@ void UploadQSODialog::processNextUploader()
     {
         // Pass the selected TQSL location as -l argument; index 0 = let TQSL choose
         if ( ui->lotwLocationCombo->currentIndex() > 0)
-            uploadConfig = LotwUploader::generateUploadConfigMap(ui->lotwLocationCombo->currentText());
+            uploadConfig = LotwUploader::generateUploadConfigMap(ui->lotwLocationCombo->currentData().toString());
         break;
     }
     case EQSLID:
@@ -677,7 +687,7 @@ void UploadQSODialog::updateLotwLocationWarning()
         return;
     }
 
-    const QString selectedName = ui->lotwLocationCombo->currentText();
+    const QString selectedName = ui->lotwLocationCombo->currentData().toString();
     const QString selectedCallsign = ui->myCallsignCombo->currentText().toUpper().trimmed();
 
     for ( const TQSLStationLocation &loc : static_cast<const QList<TQSLStationLocation>>(tqslLocations) )
