@@ -126,7 +126,9 @@ void RigctldAdvancedDialog::updateVersionLabel()
     }
 
     const QString versionStr = QString("<span style=\"color: green;\">✓ %1.%2.%3</span>")
-                                                   .arg(version.major, version.minor, version.patch);
+                                                   .arg(version.major)
+                                                   .arg(version.minor)
+                                                   .arg(version.patch);
 
     if ( isAutoDetect )
         ui->versionValueLabel->setText(QString("%1 (%2)").arg(versionStr, resolvedPath));
