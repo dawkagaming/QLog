@@ -660,6 +660,7 @@ void UploadQSODialog::executeQuery()
     ui->detailQSOView->setModel(detailQSOsModel);
     ui->detailQSOView->resizeColumnsToContents();
     updateQSONumbers();
+    updateLotwLocationWarning();
     qCDebug(runtime) << "finiched";
 }
 
@@ -681,29 +682,71 @@ void UploadQSODialog::updateLotwLocationWarning()
 {
     FCT_IDENTIFICATION;
 
+    // selected "Unspecified" – nothing to validate
     if ( ui->lotwLocationCombo->currentIndex() <= 0 )
     {
         ui->lotwLocationWarningLabel->setVisible(false);
         return;
     }
 
+    QString filterCallsign;
+    QString filterGrid;
+    bool checkGrid = false;
+
+    if ( ui->myCallsignCheckbox->isChecked() )
+    {
+        filterCallsign = ui->myCallsignCombo->currentText().toUpper().trimmed();
+        // myGridCombo index 0 means "Any" – skip the grid check in that case
+        checkGrid = ui->myGridCombo->currentIndex() > 0;
+        if ( checkGrid )
+            filterGrid = ui->myGridCombo->currentText().toUpper().trimmed();
+    }
+    else
+    {
+        // Station Profile mode
+        const StationProfile &profile = StationProfilesManager::instance()->getProfile(ui->myStationProfileCombo->currentText());
+        filterCallsign = profile.callsign.toUpper().trimmed();
+        checkGrid = !profile.locator.trimmed().isEmpty();
+        if ( checkGrid )
+            filterGrid = profile.locator.toUpper().trimmed();
+    }
+
     const QString selectedName = ui->lotwLocationCombo->currentData().toString();
-    const QString selectedCallsign = ui->myCallsignCombo->currentText().toUpper().trimmed();
 
     for ( const TQSLStationLocation &loc : static_cast<const QList<TQSLStationLocation>>(tqslLocations) )
     {
         if ( loc.name != selectedName )
             continue;
 
-        const bool mismatch = !loc.callsign.isEmpty()
-                              && loc.callsign.toUpper() != selectedCallsign;
+        const bool callsignMismatch = !loc.callsign.isEmpty()
+                                      && !filterCallsign.isEmpty()
+                                      && loc.callsign.toUpper() != filterCallsign;
 
-        if ( mismatch )
+        // Compare only the 4-character grid square prefix
+        const bool gridMismatch = checkGrid
+                                  && !loc.grid.isEmpty()
+                                  && loc.grid.toUpper().left(4) != filterGrid.left(4);
+
+        if ( callsignMismatch && gridMismatch )
+        {
             ui->lotwLocationWarningLabel->setText(
-                        QString("⚠ ") + tr("Location callsign (%1) does not match selected callsign (%2)")
-                                        .arg(loc.callsign, ui->myCallsignCombo->currentText()));
+                QString("⚠ ") + tr("Location callsign (%1) and grid (%2) do not match selected filters")
+                                .arg(loc.callsign, loc.grid.toUpper()));
+        }
+        else if ( callsignMismatch )
+        {
+            ui->lotwLocationWarningLabel->setText(
+                QString("⚠ ") + tr("Location callsign (%1) does not match selected callsign (%2)")
+                                .arg(loc.callsign, filterCallsign));
+        }
+        else if ( gridMismatch )
+        {
+            ui->lotwLocationWarningLabel->setText(
+                QString("⚠ ") + tr("Location grid (%1) does not match selected grid (%2)")
+                                .arg(loc.grid.toUpper(), filterGrid));
+        }
 
-        ui->lotwLocationWarningLabel->setVisible(mismatch);
+        ui->lotwLocationWarningLabel->setVisible(callsignMismatch || gridMismatch);
         return;
     }
 
