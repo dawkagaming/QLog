@@ -227,7 +227,7 @@ QString LotwBase::getTQSLStationDataPath()
     return {};
 }
 
-QStringList LotwBase::getTQSLStationLocations()
+QList<TQSLStationLocation> LotwBase::getTQSLStationLocations()
 {
     FCT_IDENTIFICATION;
 
@@ -243,21 +243,41 @@ QStringList LotwBase::getTQSLStationLocations()
         return {};
     }
 
-    QStringList locations;
+    QList<TQSLStationLocation> locations;
     QXmlStreamReader xml(&file);
+    TQSLStationLocation current;
+    bool inStationData = false;
 
     while ( !xml.atEnd() && !xml.hasError() )
     {
-        if ( xml.readNext() == QXmlStreamReader::StartElement
-             && xml.name() == QLatin1String("StationData"))
+        const auto tokenType = xml.readNext();
+
+        if ( tokenType == QXmlStreamReader::StartElement )
         {
-            const QString name = xml.attributes().value("name").toString();
-            if (!name.isEmpty())
-                locations << name;
+            if ( xml.name().compare(QLatin1String("StationData"), Qt::CaseInsensitive) == 0 )
+            {
+                current = TQSLStationLocation{};
+                current.name = xml.attributes().value("name").toString();
+                inStationData = true;
+            }
+            else if ( inStationData )
+            {
+                if ( xml.name().compare(QLatin1String("CALL"), Qt::CaseInsensitive) == 0 )
+                    current.callsign = xml.readElementText();
+                else if ( xml.name().compare(QLatin1String("GRIDSQUARE"), Qt::CaseInsensitive) == 0 )
+                    current.grid = xml.readElementText();
+            }
+        }
+        else if ( tokenType == QXmlStreamReader::EndElement
+                  && xml.name().compare(QLatin1String("StationData"), Qt::CaseInsensitive) == 0 )
+        {
+            if ( !current.name.isEmpty() )
+                locations << current;
+            inStationData = false;
         }
     }
 
-    qCDebug(runtime) << "TQSL locations:" << locations;
+    qCDebug(runtime) << "TQSL locations count:" << locations.size();
     return locations;
 }
 

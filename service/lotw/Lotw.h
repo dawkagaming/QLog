@@ -18,6 +18,13 @@ struct TQSLVersion
     bool isValid() const { return major >= 0; }
 };
 
+struct TQSLStationLocation
+{
+    QString name;
+    QString callsign;
+    QString grid;
+};
+
 class LotwBase : public SecureServiceBase<LotwBase>
 {
 protected:
@@ -35,7 +42,7 @@ public:
     static QString findTQSLPath();
     static TQSLVersion getTQSLVersion(const QString &tqslPath = QString());
     static QString getTQSLStationDataPath();
-    static QStringList getTQSLStationLocations();
+    static QList<TQSLStationLocation> getTQSLStationLocations();
 
     static void saveUsernamePassword(const QString&, const QString&);
     static void saveTQSLPath(const QString&);

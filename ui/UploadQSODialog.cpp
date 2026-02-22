@@ -99,8 +99,13 @@ UploadQSODialog::UploadQSODialog(QWidget *parent) :
     setWavelogSettingVisible(false);
 
     // First entry is empty (no -l argument will be passed to TQSL).
+    tqslLocations = LotwBase::getTQSLStationLocations();
     ui->lotwLocationCombo->addItem(tr("Unspecified"));
-    ui->lotwLocationCombo->addItems(LotwBase::getTQSLStationLocations());
+    for ( const TQSLStationLocation &loc : static_cast<const QList<TQSLStationLocation>>(tqslLocations) )
+        ui->lotwLocationCombo->addItem(loc.name);
+
+    connect(ui->lotwLocationCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &UploadQSODialog::updateLotwLocationWarning);
 
     loadDialogState();
     getWavelogStationID();
@@ -203,6 +208,8 @@ void UploadQSODialog::loadDialogState()
 
     const int locIdx = ui->lotwLocationCombo->findText(LogParam::getUploadLoTWLocation());
     ui->lotwLocationCombo->setCurrentIndex(locIdx >= 0 ? locIdx : 0);
+
+    updateLotwLocationWarning();
 }
 
 void UploadQSODialog::saveDialogState()
@@ -657,6 +664,40 @@ void UploadQSODialog::handleCallsignChange(const QString &myCallsign)
     ui->myGridCombo->setCurrentIndex(0);
     executeQuery();
     ui->myGridLabel->blockSignals(false);
+    updateLotwLocationWarning();
+}
+
+void UploadQSODialog::updateLotwLocationWarning()
+{
+    FCT_IDENTIFICATION;
+
+    if ( ui->lotwLocationCombo->currentIndex() <= 0 )
+    {
+        ui->lotwLocationWarningLabel->setVisible(false);
+        return;
+    }
+
+    const QString selectedName = ui->lotwLocationCombo->currentText();
+    const QString selectedCallsign = ui->myCallsignCombo->currentText().toUpper().trimmed();
+
+    for ( const TQSLStationLocation &loc : static_cast<const QList<TQSLStationLocation>>(tqslLocations) )
+    {
+        if ( loc.name != selectedName )
+            continue;
+
+        const bool mismatch = !loc.callsign.isEmpty()
+                              && loc.callsign.toUpper() != selectedCallsign;
+
+        if ( mismatch )
+            ui->lotwLocationWarningLabel->setText(
+                        QString("⚠ ") + tr("Location callsign (%1) does not match selected callsign (%2)")
+                                        .arg(loc.callsign, ui->myCallsignCombo->currentText()));
+
+        ui->lotwLocationWarningLabel->setVisible(mismatch);
+        return;
+    }
+
+    ui->lotwLocationWarningLabel->setVisible(false);
 }
 
 void UploadQSODialog::updateWavelogStationLabel()
