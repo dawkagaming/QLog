@@ -3799,22 +3799,44 @@
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <widget class="QLineEdit" name="tqslPathEdit">
-               <property name="readOnly">
-                <bool>true</bool>
-               </property>
                <property name="placeholderText">
-                <string>Use default path</string>
+                <string>Leave empty for auto-detection</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="tqslPathButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Browse</string>
                </property>
                <property name="icon">
                 <iconset theme="folder-open">
                  <normaloff>.</normaloff>.</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="tqslAutoButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Auto-detect TQSL path</string>
+               </property>
+               <property name="text">
+                <string>Auto-Detect</string>
                </property>
               </widget>
              </item>
@@ -5004,6 +5026,7 @@
   <tabstop>lotwPasswordEdit</tabstop>
   <tabstop>tqslPathEdit</tabstop>
   <tabstop>tqslPathButton</tabstop>
+  <tabstop>tqslAutoButton</tabstop>
   <tabstop>qrzApiKeyEdit</tabstop>
   <tabstop>qrzCallsignApiKeyTableView</tabstop>
   <tabstop>qrzCallsignApiKeyAddButton</tabstop>
@@ -5597,6 +5620,22 @@
    <hints>
     <hint type="sourcelabel">
      <x>711</x>
+     <y>546</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>424</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tqslAutoButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>tqslAutoDetect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>780</x>
      <y>546</y>
     </hint>
     <hint type="destinationlabel">
@@ -6223,6 +6262,7 @@
   <slot>addAntProfile()</slot>
   <slot>delAntProfile()</slot>
   <slot>tqslPathBrowse()</slot>
+  <slot>tqslAutoDetect()</slot>
   <slot>addStationProfile()</slot>
   <slot>deleteStationProfile()</slot>
   <slot>doubleClickStationProfile(QModelIndex)</slot>

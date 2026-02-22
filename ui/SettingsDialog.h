@@ -97,6 +97,7 @@ public slots:
     void rotStackWidgetChanged(int);
     void cwKeyStackWidgetChanged(int);
     void tqslPathBrowse();
+    void tqslAutoDetect();
     void updateTQSLVersionLabel();
     void stationCallsignChanged();
     void adjustLocatorTextColor();

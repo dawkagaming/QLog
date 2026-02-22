@@ -94,11 +94,10 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
 
 #ifdef QLOG_FLATPAK
     ui->lotwTextMessage->setVisible(true);
-    ui->tqslPathEdit->setVisible(false);
-    ui->tqslPathButton->setVisible(false);
-    ui->lotwtqslPathLabel->setVisible(false);
-    ui->tqslVersionLabel->setVisible(false);
-    ui->tqslVersionValueLabel->setVisible(false);
+    ui->tqslPathEdit->setEnabled(false);
+    ui->tqslPathEdit->setPlaceholderText(tr("Cannot be changed"));
+    ui->tqslPathButton->setEnabled(false);
+    ui->tqslAutoButton->setEnabled(false);
 #else
     ui->lotwTextMessage->setVisible(false);
 #endif
@@ -1980,14 +1979,41 @@ void SettingsDialog::tqslPathBrowse()
     }
 }
 
+void SettingsDialog::tqslAutoDetect()
+{
+    FCT_IDENTIFICATION;
+
+    const QString detectedPath = LotwBase::findTQSLPath();
+
+    if ( detectedPath.isEmpty() )
+    {
+        updateTQSLVersionLabel();
+        QMessageBox::warning(this, tr("Auto Detect"),
+                             tr("TQSL was not found on this system.\n"
+                                "Please install TQSL or specify the path manually."));
+    }
+    else
+    {
+        ui->tqslPathEdit->setText(detectedPath);
+    }
+}
+
 void SettingsDialog::updateTQSLVersionLabel()
 {
     FCT_IDENTIFICATION;
 
     const QString path = ui->tqslPathEdit->text().trimmed();
+    const bool isAutoDetect = path.isEmpty();
+    const QString resolvedPath = isAutoDetect ? LotwBase::findTQSLPath() : path;
     const QString NOTFOUND = QString("<span style=\"color: red;\">✗ %1</span>").arg(tr("Not found"));
 
-    const TQSLVersion version = LotwBase::getTQSLVersion(path);
+    if ( resolvedPath.isEmpty() )
+    {
+        ui->tqslVersionValueLabel->setText(NOTFOUND);
+        return;
+    }
+
+    const TQSLVersion version = LotwBase::getTQSLVersion(resolvedPath);
 
     if ( !version.isValid() )
     {
@@ -1995,11 +2021,15 @@ void SettingsDialog::updateTQSLVersionLabel()
         return;
     }
 
-    ui->tqslVersionValueLabel->setText(
-        QString("<span style=\"color: green;\">✓ %1.%2.%3</span>")
-            .arg(version.major)
-            .arg(version.minor)
-            .arg(version.patch));
+    const QString versionStr = QString("<span style=\"color: green;\">✓ %1.%2.%3</span>")
+                                   .arg(version.major)
+                                   .arg(version.minor)
+                                   .arg(version.patch);
+
+    if ( isAutoDetect )
+        ui->tqslVersionValueLabel->setText(QString("%1 (%2)").arg(versionStr, resolvedPath));
+    else
+        ui->tqslVersionValueLabel->setText(versionStr);
 }
 
 void SettingsDialog::stationCallsignChanged()

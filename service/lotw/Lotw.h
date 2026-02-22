@@ -32,7 +32,10 @@ public:
     static const QString getUsername();
     static const QString getPasswd();
     static const QString getTQSLPath(const QString &defaultPath = QDir::rootPath());
+    static QString findTQSLPath();
     static TQSLVersion getTQSLVersion(const QString &tqslPath = QString());
+    static QString getTQSLStationDataPath();
+    static QStringList getTQSLStationLocations();
 
     static void saveUsernamePassword(const QString&, const QString&);
     static void saveTQSLPath(const QString&);
@@ -45,10 +48,14 @@ class LotwUploader : public GenericQSOUploader, private LotwBase
 public:
     static QStringList uploadedFields;
 
+    static QVariantMap generateUploadConfigMap(const QString &location)
+    {
+        return QVariantMap({{"tqsl_location", location}});
+    }
     explicit LotwUploader(QObject *parent = nullptr);
     virtual ~LotwUploader();
 
-    void uploadAdif(const QByteArray &);
+    void uploadAdif(const QByteArray &, const QString &location = QString());
     virtual void uploadQSOList(const QList<QSqlRecord>& qsos, const QVariantMap &addlParams) override;
 
 public slots:

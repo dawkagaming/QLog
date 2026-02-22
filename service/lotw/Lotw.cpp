@@ -9,6 +9,10 @@
 #include <QMessageBox>
 #include <QProcess>
 #include <QRegularExpression>
+#include <QStandardPaths>
+#include <QFile>
+#include <QDir>
+#include <QXmlStreamReader>
 #include "Lotw.h"
 #include "logformat/AdiFormat.h"
 #include "core/debug.h"
@@ -95,6 +99,48 @@ void LotwBase::saveTQSLPath(const QString &newPath)
 #endif
 }
 
+QString LotwBase::findTQSLPath()
+{
+    FCT_IDENTIFICATION;
+
+    // Platform-specific well-known paths
+    const QStringList platformPaths =
+    {
+#ifdef Q_OS_WIN
+        "C:/Program Files/ARRL/TQSL/tqsl.exe",
+        "C:/Program Files (x86)/ARRL/TQSL/tqsl.exe",
+        QDir::homePath() + "/AppData/Local/Programs/TQSL/tqsl.exe"
+#elif defined(Q_OS_MACOS)
+        "/Applications/tqsl.app/Contents/MacOS/tqsl",
+        "/Applications/TQSL.app/Contents/MacOS/tqsl"
+#else
+        "/usr/bin/tqsl",
+        "/usr/local/bin/tqsl",
+        "/opt/tqsl/bin/tqsl"
+#endif
+    };
+
+    for ( const QString &p : platformPaths )
+    {
+        if ( QFile::exists(p) )
+        {
+            qCDebug(runtime) << "Found TQSL at:" << p;
+            return p;
+        }
+    }
+
+    // Last resort: search in $PATH
+    const QString path = QStandardPaths::findExecutable("tqsl");
+    if ( !path.isEmpty() )
+    {
+        qCDebug(runtime) << "Found TQSL in PATH:" << path;
+        return path;
+    }
+
+    qCWarning(runtime) << "TQSL not found";
+    return QString();
+}
+
 TQSLVersion LotwBase::getTQSLVersion(const QString &tqslPath)
 {
     FCT_IDENTIFICATION;
@@ -103,7 +149,13 @@ TQSLVersion LotwBase::getTQSLVersion(const QString &tqslPath)
 
     TQSLVersion version;
 
-    const QString path = tqslPath.trimmed().isEmpty() ? QString("tqsl") : tqslPath.trimmed();
+    const QString path = tqslPath.trimmed().isEmpty() ? findTQSLPath() : tqslPath.trimmed();
+
+    if ( path.isEmpty() )
+    {
+        qCDebug(runtime) << "TQSL not found";
+        return version;
+    }
 
     QProcess process;
     process.setProcessChannelMode(QProcess::MergedChannels);
@@ -149,6 +201,66 @@ void LotwBase::registerCredentials()
     });
 }
 
+QString LotwBase::getTQSLStationDataPath()
+{
+    FCT_IDENTIFICATION;
+
+    // QStandardPaths::GenericDataLocation is redirected by Flatpak to
+    // ~/.var/app/<app-id>/data, where the bundled TQSL stores its data.
+    // On a standard install TQSL uses the legacy ~/.tqsl/ directory.
+    const QStringList candidates = {
+        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+            + "/tqsl/station_data",
+        QDir::homePath() + "/.tqsl/station_data"
+    };
+
+    for ( const QString &path : candidates )
+    {
+        if ( QFile::exists(path) )
+        {
+            qCDebug(runtime) << "Found TQSL station_data at:" << path;
+            return path;
+        }
+    }
+
+    qCDebug(runtime) << "TQSL station_data not found";
+    return {};
+}
+
+QStringList LotwBase::getTQSLStationLocations()
+{
+    FCT_IDENTIFICATION;
+
+    const QString path = getTQSLStationDataPath();
+
+    if ( path.isEmpty() )
+        return {};
+
+    QFile file(path);
+    if ( !file.open(QIODevice::ReadOnly) )
+    {
+        qCDebug(runtime) << "Cannot open TQSL station_data:" << path;
+        return {};
+    }
+
+    QStringList locations;
+    QXmlStreamReader xml(&file);
+
+    while ( !xml.atEnd() && !xml.hasError() )
+    {
+        if ( xml.readNext() == QXmlStreamReader::StartElement
+             && xml.name() == QLatin1String("StationData"))
+        {
+            const QString name = xml.attributes().value("name").toString();
+            if (!name.isEmpty())
+                locations << name;
+        }
+    }
+
+    qCDebug(runtime) << "TQSL locations:" << locations;
+    return locations;
+}
+
 LotwUploader::LotwUploader(QObject *parent) :
     GenericQSOUploader(uploadedFields, parent),
     LotwBase()
@@ -161,7 +273,7 @@ LotwUploader::~LotwUploader()
     FCT_IDENTIFICATION;
 }
 
-void LotwUploader::uploadAdif(const QByteArray &data)
+void LotwUploader::uploadAdif(const QByteArray &data, const QString &location)
 {
     FCT_IDENTIFICATION;
 
@@ -171,6 +283,10 @@ void LotwUploader::uploadAdif(const QByteArray &data)
 
     QStringList args;
     args << "-d" << "-q" << "-u" << file.fileName();
+
+    // Pass -l <location> only when the user explicitly selected a location
+    if ( !location.trimmed().isEmpty() )
+        args << "-l" << location.trimmed();
 
     QProcess *tqslProcess = new QProcess();
 
@@ -268,12 +384,13 @@ void LotwUploader::uploadAdif(const QByteArray &data)
     tqslProcess->start(getTQSLPath("tqsl"),args);
 }
 
-void LotwUploader::uploadQSOList(const QList<QSqlRecord> &qsos, const QVariantMap &)
+void LotwUploader::uploadQSOList(const QList<QSqlRecord> &qsos, const QVariantMap &addlParams)
 {
     FCT_IDENTIFICATION;
 
     QByteArray data = generateADIF(qsos);
-    uploadAdif(data);
+    const QString location = addlParams["tqsl_location"].toString();
+    uploadAdif(data, location);
 }
 
 LotwQSLDownloader::LotwQSLDownloader(QObject *parent) :

@@ -287,6 +287,16 @@ void LogParam::setUploadQSOFilterType(int filterID)
     setParam("uploadqso/filtertype", filterID);
 }
 
+QString LogParam::getUploadLoTWLocation()
+{
+    return getParam("uploadqso/lotw/last_location").toString();
+}
+
+void LogParam::setUploadLoTWLocation(const QString &location)
+{
+    setParam("uploadqso/lotw/last_location", location);
+}
+
 bool LogParam::getDownloadQSLServiceState(const QString &name)
 {
     return getParam("downloadqsl/" + name + "/enabled", false).toBool();

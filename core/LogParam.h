@@ -89,6 +89,8 @@ public:
     static void setUploadServiceState(const QString& name, bool state);
     static int getUploadQSOFilterType();
     static void setUploadQSOFilterType(int filterID);
+    static QString getUploadLoTWLocation();
+    static void setUploadLoTWLocation(const QString &location);
 
     /*********************
      * DownloadQSL Dialog

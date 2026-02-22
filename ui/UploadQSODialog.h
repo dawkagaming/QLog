@@ -29,6 +29,7 @@ private slots:
     void showQSODetails();
     void setEQSLSettingVisible(bool visible);
     void setClublogSettingVisible(bool visible);
+    void setLotwSettingVisible(bool visible);
     void setWavelogSettingVisible(bool visible);
     void startUploadQueue();
     void executeQuery();

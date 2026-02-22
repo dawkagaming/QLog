@@ -94,8 +94,14 @@ UploadQSODialog::UploadQSODialog(QWidget *parent) :
 
     setEQSLSettingVisible(false);
     setClublogSettingVisible(false);
+    setLotwSettingVisible(false);
     setQSODetailVisible(false);
     setWavelogSettingVisible(false);
+
+    // First entry is empty (no -l argument will be passed to TQSL).
+    ui->lotwLocationCombo->addItem(tr("Unspecified"));
+    ui->lotwLocationCombo->addItems(LotwBase::getTQSLStationLocations());
+
     loadDialogState();
     getWavelogStationID();
     ui->myCallsignCombo->blockSignals(false);
@@ -133,6 +139,14 @@ void UploadQSODialog::setClublogSettingVisible(bool visible)
     FCT_IDENTIFICATION;
 
     ui->clublogGroup->setVisible(visible);
+    adjustSize();
+}
+
+void UploadQSODialog::setLotwSettingVisible(bool visible)
+{
+    FCT_IDENTIFICATION;
+
+    ui->lotwGroup->setVisible(visible);
     adjustSize();
 }
 
@@ -186,6 +200,9 @@ void UploadQSODialog::loadDialogState()
     ui->eqslQTHProfileEdit->setText(LogParam::getUploadeqslQTHProfile());
     ui->myStationProfileCheckbox->setChecked(LogParam::getUploadQSOFilterType() == 1);
     ui->wavelogStationIDSpin->setValue(LogParam::getCloudlogStationID());
+
+    const int locIdx = ui->lotwLocationCombo->findText(LogParam::getUploadLoTWLocation());
+    ui->lotwLocationCombo->setCurrentIndex(locIdx >= 0 ? locIdx : 0);
 }
 
 void UploadQSODialog::saveDialogState()
@@ -204,6 +221,7 @@ void UploadQSODialog::saveDialogState()
     LogParam::setUploadeqslQTHProfile(ui->eqslQTHProfileEdit->text());
     LogParam::setUploadQSOFilterType(ui->myCallsignCheckbox->isChecked() ? 0 : 1);
     LogParam::setCloudlogStationID(ui->wavelogStationIDSpin->value());
+    LogParam::setUploadLoTWLocation(ui->lotwLocationCombo->currentText());
 }
 
 void UploadQSODialog::processNextUploader()
@@ -351,6 +369,13 @@ void UploadQSODialog::processNextUploader()
     // Special params for selected services
     switch ( currentTask.getServiceID() )
     {
+    case LOTWID:
+    {
+        // Pass the selected TQSL location as -l argument; index 0 = let TQSL choose
+        if ( ui->lotwLocationCombo->currentIndex() > 0)
+            uploadConfig = LotwUploader::generateUploadConfigMap(ui->lotwLocationCombo->currentText());
+        break;
+    }
     case EQSLID:
         uploadConfig = EQSLUploader::generateUploadConfigMap(ui->eqslQTHProfileEdit->text(),
                                                              ui->eqslQSLNone->isChecked(),
