@@ -468,7 +468,7 @@ void AwardsDialog::awardTableDoubleClicked(QModelIndex idx)
         else if ( awardSelected == "waz" )   addlFilters << QString("cqz = '%1'").arg(col1Value);
         else if ( awardSelected == "wpx" )   addlFilters << QString("pfx = '%1'").arg(col1Value);
         else if ( awardSelected == "potah" ) addlFilters << QString("pota_ref LIKE '%%1%'").arg(col1Value);
-        else if ( awardSelected == "potaa" ) addlFilters << QString("my_pota_ref LIKE = '%%1%'").arg(col1Value);
+        else if ( awardSelected == "potaa" ) addlFilters << QString("my_pota_ref LIKE '%%1%'").arg(col1Value);
         else if ( awardSelected == "sota" )  addlFilters << QString("sota_ref = '%1'").arg(col1Value);
         else if ( awardSelected == "wwff" )  addlFilters << QString("wwff_ref = '%1'").arg(col1Value);
 
