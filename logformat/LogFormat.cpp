@@ -156,6 +156,14 @@ void LogFormat::setUserFilter(const QString &value)
     userFilter = value;
 }
 
+void LogFormat::setFilterStationProfile(const StationProfile &profile)
+{
+    FCT_IDENTIFICATION;
+
+    filterStationProfile = profile;
+    filterStationProfileSet = true;
+}
+
 void LogFormat::setPotaOnly(bool only)
 {
     FCT_IDENTIFICATION;
@@ -188,6 +196,15 @@ QString LogFormat::getWhereClause()
 
     if ( filterPOTAOnly )
         whereClause << QLatin1String("(my_pota_ref is not NULL OR pota_ref is not NULL OR lower(sig)='pota' OR lower(my_sig)='pota')");
+
+    if ( filterStationProfileSet )
+    {
+        whereClause << QString("EXISTS ("
+                               "SELECT 1 FROM station_profiles"
+                               " WHERE station_profiles.profile_name = :stationProfileName"
+                               " AND %1"
+                               ")").arg(filterStationProfile.getContactInnerJoin());
+    }
 
     if ( !userFilter.isEmpty() )
         whereClause << QSOFilterManager::getWhereClause(userFilter);
@@ -226,6 +243,11 @@ void LogFormat::bindWhereClause(QSqlQuery &query)
         {
             query.bindValue(":qsl_sent_via", filterSendVia);
         }
+    }
+
+    if ( filterStationProfileSet )
+    {
+        query.bindValue(":stationProfileName", filterStationProfile.profileName);
     }
 }
 

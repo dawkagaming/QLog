@@ -35,6 +35,11 @@ ExportDialog::ExportDialog(QWidget *parent) :
 
     ui->userFilterComboBox->setModel(QSOFilterManager::QSOFilterModel("", ui->userFilterComboBox));
     ui->userFilterCheckBox->setEnabled(ui->userFilterComboBox->count() > 0);
+
+    const StationProfile &profile = StationProfilesManager::instance()->getCurProfile1();
+    ui->myStationProfileComboBox->setModel(new SqlListModel("SELECT DISTINCT profile_name FROM station_profiles ORDER BY profile_name", "", ui->myStationProfileComboBox));
+    int index = ui->myStationProfileComboBox->findText(profile.profileName);
+    ui->myStationProfileComboBox->setCurrentIndex( ( index >= 0 ) ? index : -1);
 }
 
 ExportDialog::ExportDialog(const QList<QSqlRecord>& qsos, QWidget *parent) :
@@ -92,12 +97,16 @@ void ExportDialog::toggleMyCallsign()
 {
     FCT_IDENTIFICATION;
     ui->myCallsignComboBox->setEnabled(ui->myCallsignCheckBox->isChecked());
+    if ( ui->myCallsignCheckBox->isChecked() )
+        ui->myStationProfileCheckbox->setChecked(false);
 }
 
 void ExportDialog::toggleMyGridsquare()
 {
     FCT_IDENTIFICATION;
     ui->myGridComboBox->setEnabled(ui->myGridCheckBox->isChecked());
+    if ( ui->myGridCheckBox->isChecked() )
+        ui->myStationProfileCheckbox->setChecked(false);
 }
 
 void ExportDialog::toggleQslSendVia()
@@ -119,6 +128,37 @@ void ExportDialog::toggleUserFilter()
     FCT_IDENTIFICATION;
 
     ui->userFilterComboBox->setEnabled(ui->userFilterCheckBox->isChecked());
+}
+
+void ExportDialog::toggleStationProfile()
+{
+    FCT_IDENTIFICATION;
+
+    bool isStationProfileActive = ui->myStationProfileCheckbox->isChecked();
+    ui->myStationProfileComboBox->setEnabled(isStationProfileActive);
+    if ( isStationProfileActive )
+    {
+        ui->myCallsignCheckBox->setChecked(false);
+        ui->myGridCheckBox->setChecked(false);
+    }
+
+    onStationProfileChange();
+}
+
+void ExportDialog::onStationProfileChange()
+{
+    FCT_IDENTIFICATION;
+
+    const StationProfile &selectedStationProfile = StationProfilesManager::instance()->getProfile(ui->myStationProfileComboBox->currentText());
+
+    if ( ui->myStationProfileCheckbox->isChecked() )
+    {
+        QString toolTip = tr("Export only QSOs matching this station profile") + "<br/>"
+                             + selectedStationProfile.toHTMLString();
+        ui->myStationProfileComboBox->setToolTip(toolTip);
+    }
+    else
+        ui->myStationProfileComboBox->setToolTip({});
 }
 
 void ExportDialog::runExport()
@@ -161,6 +201,13 @@ void ExportDialog::runExport()
 
     if ( ui->dateRangeCheckBox->isChecked() )
         format->setFilterDateRange(ui->startDateEdit->date(), ui->endDateEdit->date());
+
+    if ( ui->myStationProfileCheckbox->isChecked() )
+    {
+        const StationProfile &profile = StationProfilesManager::instance()->getProfile(
+            ui->myStationProfileComboBox->currentText());
+        format->setFilterStationProfile(profile);
+    }
 
     if ( ui->myCallsignCheckBox->isChecked() )
         format->setFilterMyCallsign(ui->myCallsignComboBox->currentText());
@@ -209,6 +256,8 @@ void ExportDialog::runExport()
     ui->exportedColumnsCombo->setEnabled(false);
     ui->userFilterCheckBox->setEnabled(false);
     ui->userFilterComboBox->setEnabled(false);
+    ui->myStationProfileCheckbox->setEnabled(false);
+    ui->myStationProfileComboBox->setEnabled(false);
     if ( exportedColumns.count() > 0 )
     {
         //translate column indexes to SQL column names
