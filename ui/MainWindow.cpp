@@ -1244,6 +1244,7 @@ void MainWindow::showLoadDB()
         if ( !QFile::copy(decompressedFile, pendingPath) )
         {
             qWarning() << "Copy also failed from" << decompressedFile << "to" << pendingPath;
+            QFile::remove(PlatformParameterManager::pendingParametersPath());
             QMessageBox::warning(this, tr("Load Database"),
                                  tr("Failed to prepare database for import."));
             CredentialStore::instance()->deleteImportPassphrase();
