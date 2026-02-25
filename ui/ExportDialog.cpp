@@ -26,7 +26,7 @@ ExportDialog::ExportDialog(QWidget *parent) :
     ui->myCallsignComboBox->setModel(new SqlListModel("SELECT DISTINCT UPPER(station_callsign) FROM contacts ORDER BY station_callsign", "", ui->myCallsignComboBox));
     ui->myCallsignComboBox->setCurrentText(StationProfilesManager::instance()->getCurProfile1().callsign.toUpper());
     ui->myGridComboBox->setModel(new SqlListModel("SELECT DISTINCT UPPER(my_gridsquare) FROM contacts WHERE station_callsign ='"
-                                                + ui->myCallsignComboBox->currentText()
+                                                + QString(ui->myCallsignComboBox->currentText()).replace("'", "''")
                                                 + "' ORDER BY my_gridsquare", "", ui->myGridComboBox));
     ui->startDateEdit->setDisplayFormat(locale.formatDateShortWithYYYY());
     ui->startDateEdit->setDate(QDate::currentDate());
@@ -310,7 +310,7 @@ void ExportDialog::myCallsignChanged(const QString &myCallsign)
     FCT_IDENTIFICATION;
 
     ui->myGridComboBox->setModel(new SqlListModel("SELECT DISTINCT UPPER(my_gridsquare) FROM contacts WHERE station_callsign ='"
-                                                  + myCallsign + "' ORDER BY my_gridsquare", "", ui->myGridComboBox));
+                                                  + QString(myCallsign).replace("'", "''") + "' ORDER BY my_gridsquare", "", ui->myGridComboBox));
 }
 
 void ExportDialog::showColumnsSetting()
