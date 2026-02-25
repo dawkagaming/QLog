@@ -1176,8 +1176,11 @@ void MainWindow::showDumpDB()
                                  tr("Database successfully dumped to\n%1").arg(filename));
     }
     else
+    {
+        QFile::remove(filename);
         QMessageBox::warning(this, tr("Dump Database"),
                              tr("Failed to compress the database."));
+    }
 }
 
 void MainWindow::showLoadDB()
