@@ -52,6 +52,11 @@ LogDatabase::LogDatabase()
     FCT_IDENTIFICATION;
 }
 
+bool LogDatabase::hadPasswordImportWarning() const
+{
+    return passwordImportWarning;
+}
+
 bool LogDatabase::createSQLFunctions()
 {
     FCT_IDENTIFICATION;
@@ -417,7 +422,10 @@ bool LogDatabase::processPendingImport()
         CredentialStore::instance()->deleteAllPasswords();
 
         if ( !CredentialStore::instance()->importPasswords(passphrase) )
-            qWarning() << "Password import failed";
+        {
+            qCWarning(runtime) << "Password import failed";
+            passwordImportWarning = true;
+        }
 
         CredentialStore::instance()->deleteImportPassphrase();
     }

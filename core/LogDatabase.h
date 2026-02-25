@@ -46,6 +46,10 @@ public:
     // Returns true if import was successful or no import was pending
     bool processPendingImport();
 
+    // Returns true if the last processPendingImport() failed to import passwords
+    // (passwords were deleted but could not be restored from the encrypted store)
+    bool hadPasswordImportWarning() const;
+
     bool atomicCopy(const QString &filename);
     bool openDatabase();
     bool schemaVersionUpgrade();
@@ -53,6 +57,7 @@ public:
 
 private:
     LogDatabase();
+    bool passwordImportWarning = false;
 };
 
 #endif // QLOG_CORE_LOGDATABASE_H

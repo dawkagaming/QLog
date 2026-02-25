@@ -412,6 +412,14 @@ int main(int argc, char* argv[])
                                   QMessageBox::tr("Failed to process pending database import."));
             return 1;
         }
+
+        if ( LogDatabase::instance()->hadPasswordImportWarning() )
+        {
+            QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
+                                 QMessageBox::tr("The database was imported successfully, but the stored passwords "
+                                                 "could not be restored (decryption failed or the data is corrupted). "
+                                                 "All service passwords have been cleared and must be re-entered in Settings."));
+        }
     }
     else
     {
