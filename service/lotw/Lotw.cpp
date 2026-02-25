@@ -208,10 +208,17 @@ QString LotwBase::getTQSLStationDataPath()
     // QStandardPaths::GenericDataLocation is redirected by Flatpak to
     // ~/.var/app/<app-id>/data, where the bundled TQSL stores its data.
     // On a standard install TQSL uses the legacy ~/.tqsl/ directory.
+    // On Windows, TQSL stores station_data in %APPDATA%\TrustedQSL\station_data.
     const QStringList candidates = {
+#ifdef Q_OS_WIN
+        QDir::cleanPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
+            + "/../TrustedQSL/station_data"),
+        QDir::homePath() + "/AppData/Roaming/TrustedQSL/station_data"
+#else
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
             + "/tqsl/station_data",
         QDir::homePath() + "/.tqsl/station_data"
+#endif
     };
 
     for ( const QString &path : candidates )
