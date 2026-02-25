@@ -37,7 +37,7 @@ QList<CredentialDescriptor> CredentialRegistry::allDescriptors() const
 
     QList<CredentialDescriptor> result;
 
-    for (const auto &fn : callbacks) result.append(fn());
+    for ( const std::function<QList<CredentialDescriptor>()> &fn : callbacks ) result.append(fn());
     return result;
 }
 

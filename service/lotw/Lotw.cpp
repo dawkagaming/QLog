@@ -250,7 +250,7 @@ QList<TQSLStationLocation> LotwBase::getTQSLStationLocations()
 
     while ( !xml.atEnd() && !xml.hasError() )
     {
-        const auto tokenType = xml.readNext();
+        const QXmlStreamReader::TokenType tokenType = xml.readNext();
 
         if ( tokenType == QXmlStreamReader::StartElement )
         {

@@ -296,7 +296,7 @@ bool FileCompressor::gzipFileWithProgress(const QString &sourceFile, const QStri
     progressDialog.setMinimumDuration(500);  // Show after 500ms
     progressDialog.setValue(0);
 
-    auto progressCallback = [&progressDialog](qint64 processed, qint64 total)
+    FileCompressor::ProgressCallback progressCallback = [&progressDialog](qint64 processed, qint64 total)
     {
         if ( total > 0 )
             progressDialog.setValue(static_cast<int>(processed * 100 / total));
@@ -321,7 +321,7 @@ bool FileCompressor::gunzipFileWithProgress(const QString &sourceFile, const QSt
     progressDialog.setMinimumDuration(500);  // Show after 500ms
     progressDialog.setValue(0);
 
-    auto progressCallback = [&progressDialog](qint64 processed, qint64 total)
+    FileCompressor::ProgressCallback progressCallback = [&progressDialog](qint64 processed, qint64 total)
     {
         if ( total > 0 )
             progressDialog.setValue(static_cast<int>(processed * 100 / total));

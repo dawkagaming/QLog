@@ -184,7 +184,7 @@ QSLStorage::FilterValues QSLStorage::getDistinctFilterValues() const
     ret.continents = continents.values();
 
     // Build sorted yearMonths map
-    for ( auto it = yearMonthSets.constBegin(); it != yearMonthSets.constEnd(); ++it )
+    for ( QMap<QString, QSet<QString>>::const_iterator it = yearMonthSets.constBegin(); it != yearMonthSets.constEnd(); ++it )
     {
         QStringList months = it.value().values();
         std::sort(months.begin(), months.end());

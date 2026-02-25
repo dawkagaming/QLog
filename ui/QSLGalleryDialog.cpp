@@ -677,7 +677,7 @@ void QSLGalleryDialog::toggleFavorite(QListWidgetItem *item)
         return;
 
     const qulonglong contactId = item->data(ContactIdRole).toULongLong();
-    const auto source = static_cast<QSLObject::SourceType>(item->data(SourceRole).toInt());
+    const QSLObject::SourceType source = static_cast<QSLObject::SourceType>(item->data(SourceRole).toInt());
     const QString name = item->data(NameRole).toString();
     const bool currentFav = item->data(FavoriteRole).toBool();
 
