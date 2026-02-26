@@ -227,6 +227,16 @@ bool LogParam::getBandmapCenterRX(const QString &widgetID)
     return getParam("bandmap/" + widgetID + "/centerrx", true).toBool();
 }
 
+bool LogParam::setBandmapShowEmergency(const QString &widgetID, bool show)
+{
+    return setParam("bandmap/" + widgetID + "/showemergency", show);
+}
+
+bool LogParam::getBandmapShowEmergency(const QString &widgetID)
+{
+    return getParam("bandmap/" + widgetID + "/showemergency", true).toBool();
+}
+
 QString LogParam::getUploadQSOLastCall()
 {
     return getParam("uploadqso/lastcall").toString();

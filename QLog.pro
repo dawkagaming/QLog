@@ -76,6 +76,7 @@ SOURCES += \
         core/QSOFilterManager.cpp \
         core/WsjtxUDPReceiver.cpp \
         core/debug.cpp \
+        core/EmergencyFrequency.cpp \
         core/main.cpp \
         core/zonedetect.c \
         cwkey/CWKeyer.cpp \
@@ -223,6 +224,7 @@ HEADERS += \
         core/QuadKeyCache.h \
         core/WsjtxUDPReceiver.h \
         core/debug.h \
+        core/EmergencyFrequency.h \
         core/zonedetect.h \
         cwkey/CWKeyer.h \
         cwkey/drivers/CWCatKey.h \

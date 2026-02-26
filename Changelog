@@ -6,6 +6,7 @@ TBC - 0.49.0
 - [NEW] - Settings - TQSL - Added Path auto-detect and validation
 - [NEW] - Upload QSO - Added LoTW Station Location Combo (PR #929 @TrgoSk @foldynl)
 - [NEW] - QSO Export - Added Station Profile Filter
+- [NEW] - BandMap shows emergency frequencies (issue #462)
 - LogbookWidget: Delete Performance Optimization
 - Fixed Awards POTA Activator Filter
 

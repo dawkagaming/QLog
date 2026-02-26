@@ -73,6 +73,8 @@ public:
     static int getBandmapAging(const QString& widgetID);
     static bool setBandmapCenterRX(const QString& widgetID, bool centerRX);
     static bool getBandmapCenterRX(const QString& widgetID);
+    static bool setBandmapShowEmergency(const QString& widgetID, bool show);
+    static bool getBandmapShowEmergency(const QString& widgetID);
 
     /*******************
      * UploadQSO Dialog
