@@ -4,4 +4,6 @@ ALTER TABLE rig_profiles ADD COLUMN rigctld_path TEXT;
 ALTER TABLE rig_profiles ADD COLUMN rigctld_args TEXT;
 ALTER TABLE contacts_qsl_cards ADD COLUMN favorite INTEGER DEFAULT 0;
 
+ALTER TABLE cwkey_profiles ADD paddle_only_sidetone INTEGER DEFAULT 0;
+
 INSERT INTO qso_filter_operators VALUES(7, "regexp");

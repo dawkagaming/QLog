@@ -17,7 +17,8 @@ QDataStream& operator<<(QDataStream& out, const CWKeyProfile& v)
         << v.baudrate
         << v.hostname
         << v.netport
-        << v.paddleSwap;
+        << v.paddleSwap
+        << v.paddleOnlySidetone;
 
     return out;
 }
@@ -33,6 +34,7 @@ QDataStream& operator>>(QDataStream& in, CWKeyProfile& v)
     in >> v.hostname;
     in >> v.netport;
     in >> v.paddleSwap;
+    in >> v.paddleOnlySidetone;
 
     return in;
 }
@@ -45,7 +47,7 @@ CWKeyProfilesManager::CWKeyProfilesManager() :
     QSqlQuery profileQuery;
 
     if ( ! profileQuery.prepare("SELECT profile_name, model, default_speed, "
-                                "       key_mode, port_pathname, baudrate, hostname, netport, paddle_swap "
+                                "       key_mode, port_pathname, baudrate, hostname, netport, paddle_swap, paddle_only_sidetone "
                                 "FROM cwkey_profiles") )
     {
         qWarning()<< "Cannot prepare select";
@@ -65,6 +67,7 @@ CWKeyProfilesManager::CWKeyProfilesManager() :
             profileDB.hostname =  profileQuery.value(6).toString();
             profileDB.netport =  profileQuery.value(7).toUInt();
             profileDB.paddleSwap = profileQuery.value(8).toBool();
+            profileDB.paddleOnlySidetone = profileQuery.value(9).toBool();
 
             addProfile(profileDB.profileName, profileDB);
         }
@@ -88,8 +91,8 @@ void CWKeyProfilesManager::save()
         return;
     }
 
-    if ( ! insertQuery.prepare("INSERT INTO cwkey_profiles(profile_name, model, default_speed, key_mode, port_pathname, baudrate, hostname, netport, paddle_swap) "
-                        "VALUES (:profile_name, :model, :default_speed, :key_mode, :port_pathname, :baudrate, :hostname, :netport, :paddle_swap)") )
+    if ( ! insertQuery.prepare("INSERT INTO cwkey_profiles(profile_name, model, default_speed, key_mode, port_pathname, baudrate, hostname, netport, paddle_swap, paddle_only_sidetone) "
+                        "VALUES (:profile_name, :model, :default_speed, :key_mode, :port_pathname, :baudrate, :hostname, :netport, :paddle_swap, :paddle_only_sidetone)") )
     {
         qWarning() << "Cannot prepare Insert statement";
         return;
@@ -111,6 +114,7 @@ void CWKeyProfilesManager::save()
             insertQuery.bindValue(":hostname", cwKeyProfile.hostname);
             insertQuery.bindValue(":netport", cwKeyProfile.netport);
             insertQuery.bindValue(":paddle_swap", cwKeyProfile.paddleSwap);
+            insertQuery.bindValue(":paddle_only_sidetone", cwKeyProfile.paddleOnlySidetone);
 
             if ( ! insertQuery.exec() )
             {
@@ -136,7 +140,8 @@ bool CWKeyProfile::operator==(const CWKeyProfile &profile)
             && profile.baudrate == this->baudrate
             && profile.hostname == this->hostname
             && profile.netport == this->netport
-            && profile.paddleSwap == this->paddleSwap);
+            && profile.paddleSwap == this->paddleSwap
+            && profile.paddleOnlySidetone == this->paddleOnlySidetone);
 }
 
 bool CWKeyProfile::operator!=(const CWKeyProfile &profile)

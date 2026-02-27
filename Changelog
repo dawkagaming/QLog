@@ -8,6 +8,7 @@ TBC - 0.49.0
 - [NEW] - QSO Export - Added Station Profile Filter
 - [NEW] - BandMap shows emergency frequencies (issue #462)
 - [NEW] - Added Speed Up Down Macros - WinKey and CWDaemon (issue #491)
+- [NEW] - Settings Winkey v2 - Added PaddleOnly Sidetone (issue #739)
 - LogbookWidget: Delete Performance Optimization
 - Fixed Awards POTA Activator Filter
 

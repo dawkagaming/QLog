@@ -1281,6 +1281,10 @@ void SettingsDialog::addCWKeyProfile()
                                  && ui->cwSwapPaddlesCheckbox->isEnabled()
                                  && ui->cwSwapPaddlesCheckbox->isChecked();
 
+    cwKeyNewProfile.paddleOnlySidetone = cwKeyNewProfile.model == CWKey::WINKEY_KEYER
+                                      && ui->cwPaddleOnlySidetoneCheckbox->isEnabled()
+                                      && ui->cwPaddleOnlySidetoneCheckbox->isChecked();
+
     if ( ! noMorseCATSupportRigs.isEmpty() )
     {
         QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
@@ -1370,6 +1374,7 @@ void SettingsDialog::doubleClickCWKeyProfile(QModelIndex i)
     ui->cwHostNameEdit->setText(profile.hostname);
     ui->cwNetPortSpin->setValue(profile.netport);
     ui->cwSwapPaddlesCheckbox->setChecked(profile.paddleSwap);
+    ui->cwPaddleOnlySidetoneCheckbox->setChecked(profile.paddleOnlySidetone);
 
     ui->cwAddProfileButton->setText(tr("Modify"));
 }
@@ -1388,6 +1393,7 @@ void SettingsDialog::clearCWKeyProfileForm()
     ui->cwHostNameEdit->clear();
     ui->cwNetPortSpin->setValue(CW_NET_CWDAEMON_PORT);
     ui->cwSwapPaddlesCheckbox->setChecked(false);
+    ui->cwPaddleOnlySidetoneCheckbox->setChecked(false);
 
     ui->cwAddProfileButton->setText(tr("Add"));
 }
@@ -1885,6 +1891,7 @@ void SettingsDialog::cwKeyChanged(int)
         ui->cwKeyModeSelect->setEnabled(false);
         ui->cwDefaulSpeed->setEnabled(true);
         ui->cwSwapPaddlesCheckbox->setEnabled(false);
+        ui->cwPaddleOnlySidetoneCheckbox->setEnabled(false);
 
         if ( currentType == CWKey::CWDAEMON_KEYER )
         {
@@ -1906,6 +1913,7 @@ void SettingsDialog::cwKeyChanged(int)
         ui->cwKeyModeSelect->setEnabled(true);
         ui->cwDefaulSpeed->setEnabled(true);
         ui->cwSwapPaddlesCheckbox->setEnabled(true);
+        ui->cwPaddleOnlySidetoneCheckbox->setEnabled(currentType == CWKey::WINKEY_KEYER);
     }
 
     ui->cwBaudSelect->setCurrentText(( currentType == CWKey::WINKEY_KEYER ) ? "1200"

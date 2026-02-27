@@ -15,6 +15,7 @@ public:
                       const CWKey::CWKeyModeID mode,
                       const qint32 defaultSpeed,
                       bool paddleSwap,
+                      bool paddleOnlySidetone,
                       QObject *parent = nullptr);
     virtual ~CWWinKey();
 
@@ -31,6 +32,7 @@ private:
     bool isInHostMode;
     bool xoff;
     bool paddleSwap;
+    bool paddleOnlySidetone;
 
     QMutex writeBufferMutex;
     QMutex commandMutex;
@@ -43,6 +45,7 @@ private:
     bool __sendStatusRequest();
     bool __setPOTRange();
     bool __setWPM(const qint16 wpm);
+    bool __setSidetone(bool enabled);
     void __close();
     unsigned char version;
 

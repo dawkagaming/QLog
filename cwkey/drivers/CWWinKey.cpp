@@ -14,12 +14,14 @@ CWWinKey::CWWinKey(const QString &portName,
                      const CWKey::CWKeyModeID mode,
                      const qint32 defaultSpeed,
                      bool paddleSwap,
+                     bool paddleOnlySidetone,
                      QObject *parent)
     : CWKey(mode, defaultSpeed, parent),
       CWKeySerialInterface(portName, baudrate, 5000),
       isInHostMode(false),
       xoff(false),
       paddleSwap(paddleSwap),
+      paddleOnlySidetone(paddleOnlySidetone),
       version(0)
 {
     FCT_IDENTIFICATION;
@@ -220,6 +222,9 @@ bool CWWinKey::open()
 
     /* Set POT Range */
     __setPOTRange();
+
+    /* Sidetone Setting */
+    __setSidetone(!paddleOnlySidetone);
 
     /* Set Default value */
     __setWPM(defaultWPMSpeed);
@@ -693,6 +698,55 @@ bool CWWinKey::__setPOTRange()
     {
         qWarning() << "Unexpected size of write response or communication error";
         qCDebug(runtime) << lastError();
+    }
+
+    return true;
+}
+
+bool CWWinKey::__setSidetone(bool enabled)
+{
+    FCT_IDENTIFICATION;
+
+    /*
+     * Sidetone Control command: 0x01 <nn>
+     * Available on WinKey v2+ only (WK2 sidetone is always enabled).
+     *
+     * nn bit layout (Table 1 from WinKey spec):
+     *   Bit 7     : Paddle Only Sidetone — when 1, sidetone is muted for CW
+     *               sourced from the host port; paddle entry still has sidetone.
+     *   Bits 6-4  : Unused, set to zero.
+     *   Bits 3-0  : Sidetone frequency N (Table 2):
+     *               0x1=4000Hz, 0x2=2000Hz, 0x3=1333Hz, 0x4=1000Hz,
+     *               0x5=800Hz,  0x6=666Hz,  0x7=571Hz,  0x8=500Hz,
+     *               0x9=444Hz,  0xA=400Hz
+     *
+     * enabled=false → Paddle Only Sidetone (0x80 | 0x05 = 0x85):
+     *                 host CW is muted, paddle sidetone remains at 800 Hz.
+     * enabled=true  → normal sidetone at 800 Hz (0x05).
+     */
+    if ( version < 20 )
+    {
+        qCDebug(runtime) << "Sidetone control not supported on WK1";
+        return false;
+    }
+
+    if ( !isInHostMode )
+    {
+        qCWarning(runtime) << "Key is not in Host Mode";
+        return false;
+    }
+
+    QByteArray cmd;
+    cmd.resize(2);
+    cmd[0] = 0x01;
+    cmd[1] = enabled ? 0x05 : 0x85; // 0x85 = Paddle Only bit (MSB) + 800 Hz
+
+    qint64 size = writeAsyncData(cmd);
+    if ( size != 2 )
+    {
+        qWarning() << "Unexpected size of write response or communication error";
+        qCDebug(runtime) << lastError();
+        return false;
     }
 
     return true;

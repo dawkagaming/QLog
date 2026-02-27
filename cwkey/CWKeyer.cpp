@@ -109,6 +109,7 @@ void CWKeyer::__openCWKey()
                               newProfile.keyMode,
                               newProfile.defaultSpeed,
                               newProfile.paddleSwap,
+                              newProfile.paddleOnlySidetone,
                               this);
         break;
     case CWKey::MORSEOVERCAT:

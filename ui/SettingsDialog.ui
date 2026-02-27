@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>867</width>
-    <height>821</height>
+    <height>822</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -710,20 +710,20 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
+                  <widget class="QComboBox" name="cwKeyModeSelect">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="1">
                   <layout class="QHBoxLayout" name="horizontalLayout_37">
                    <property name="spacing">
-                    <number>20</number>
+                    <number>12</number>
                    </property>
-                   <item>
-                    <widget class="QComboBox" name="cwKeyModeSelect">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                    </widget>
-                   </item>
                    <item>
                     <widget class="QCheckBox" name="cwSwapPaddlesCheckbox">
                      <property name="text">
@@ -731,16 +731,23 @@
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <widget class="QCheckBox" name="cwPaddleOnlySidetoneCheckbox">
+                     <property name="text">
+                      <string>Paddle Only Sidetone</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
-                 <item row="3" column="0">
+                 <item row="4" column="0">
                   <widget class="QLabel" name="cwDefaultSpeedLabel">
                    <property name="text">
                     <string>Default Speed</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="1">
+                 <item row="4" column="1">
                   <widget class="QSpinBox" name="cwDefaulSpeed">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
@@ -765,7 +772,7 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="1">
+                 <item row="5" column="1">
                   <spacer name="verticalSpacer_5">
                    <property name="orientation">
                     <enum>Qt::Vertical</enum>
@@ -778,7 +785,7 @@
                    </property>
                   </spacer>
                  </item>
-                 <item row="5" column="0" colspan="2">
+                 <item row="6" column="0" colspan="2">
                   <widget class="QStackedWidget" name="cwStackedWidget">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -4932,6 +4939,7 @@
   <tabstop>cwModelSelect</tabstop>
   <tabstop>cwKeyModeSelect</tabstop>
   <tabstop>cwSwapPaddlesCheckbox</tabstop>
+  <tabstop>cwPaddleOnlySidetoneCheckbox</tabstop>
   <tabstop>cwDefaulSpeed</tabstop>
   <tabstop>cwPortEdit</tabstop>
   <tabstop>cwBaudSelect</tabstop>

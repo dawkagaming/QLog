@@ -24,6 +24,7 @@ public:
         baudrate = 0;
         netport = 0;
         paddleSwap = false;
+        paddleOnlySidetone = false;
     };
 
     QString profileName;
@@ -35,6 +36,7 @@ public:
     QString hostname;
     quint16 netport;
     bool paddleSwap;
+    bool paddleOnlySidetone;
 
     bool operator== (const CWKeyProfile &profile);
     bool operator!= (const CWKeyProfile &profile);
