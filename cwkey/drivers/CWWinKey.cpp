@@ -257,9 +257,27 @@ bool CWWinKey::sendText(const QString &text)
     qCDebug(runtime) << "Waiting for WriteBuffer Mutex";
     writeBufferMutex.lock();
     qCDebug(runtime) << "Appending input string";
-    QString chpString(text);
-    chpString.replace("\n", "");
-    writeBuffer.append(chpString.toLocal8Bit().data());
+
+    int pos = 0;
+    QRegularExpressionMatchIterator it = speedMarkerRE().globalMatch(text);
+    while ( it.hasNext() )
+    {
+        QRegularExpressionMatch match = it.next();
+        QString segment = text.mid(pos, match.capturedStart() - pos);
+        segment.remove('\n');
+        writeBuffer.append(segment.toLatin1());
+
+        qint16 newWPM = applySpeedMarker(match.captured(1));
+        writeBuffer.append(static_cast<char>(0x1C)); // WinKey buffered speed change
+        writeBuffer.append(static_cast<char>(newWPM));
+        emit keyChangedWPMSpeed(newWPM);
+
+        pos = match.capturedEnd();
+    }
+    QString lastSegment = text.mid(pos);
+    lastSegment.remove('\n');
+    writeBuffer.append(lastSegment.toLatin1());
+
     writeBufferMutex.unlock();
 
     tryAsyncWrite();
@@ -370,9 +388,9 @@ void CWWinKey::handleReadyRead()
     else if ( (rcvByte & 0xC0) == 0x80 )
     {
         qint32 potValue = (rcvByte & 0x7F);
-        qint32 currentWPM = minWPMRange + potValue;
-        qCDebug(runtime) << "\tPot: " << potValue << "; WPM=" << currentWPM;
-        setWPM(currentWPM);
+        qint32 potWPM = minWPMRange + potValue;
+        qCDebug(runtime) << "\tPot: " << potValue << "; WPM=" << potWPM;
+        setWPM(potWPM);
     }
     else
     {
@@ -450,6 +468,7 @@ bool CWWinKey::__setWPM(const qint16 wpm)
         return false;
     }
 
+    currentWPM = wpm;
     return true;
 }
 

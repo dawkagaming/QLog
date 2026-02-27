@@ -63,11 +63,26 @@ bool CWDaemonKey::sendText(const QString &text)
         return false;
     }
 
-    QString chpString(text);
-    chpString.replace("\n", "");
+    int pos = 0;
+    QRegularExpressionMatchIterator it = speedMarkerRE().globalMatch(text);
+    while ( it.hasNext() )
+    {
+        QRegularExpressionMatch match = it.next();
+        QString segment = text.mid(pos, match.capturedStart() - pos);
+        segment.remove('\n');
+        if ( !segment.isEmpty() )
+            sendData(segment.toLatin1());
 
-    //do not solve possible socket errors - it is the UDP connection
-    return (sendData(chpString.toLatin1()) > 0) ? true : false;
+        setWPM(applySpeedMarker(match.captured(1)));
+
+        pos = match.capturedEnd();
+    }
+    QString lastSegment = text.mid(pos);
+    lastSegment.remove('\n');
+    if ( !lastSegment.isEmpty() )
+        sendData(lastSegment.toLatin1());
+
+    return true;
 }
 
 bool CWDaemonKey::setWPM(const qint16 wpm)
@@ -84,6 +99,7 @@ bool CWDaemonKey::setWPM(const qint16 wpm)
         return false;
     }
 
+    currentWPM = wpm;
     QString sentString(ESCChar + QString("2") + QString::number(wpm));
     emit keyChangedWPMSpeed(wpm);
     return (sendData(sentString.toLatin1()) > 0) ? true : false;

@@ -1086,7 +1086,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                    <property name="inputMask">
@@ -1156,7 +1158,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
@@ -1184,7 +1188,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
@@ -1212,7 +1218,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
@@ -1240,7 +1248,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
@@ -1268,7 +1278,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
@@ -1296,7 +1308,9 @@
 &lt;MYPWR&gt; = My Power in W
 &lt;EXCHSTR&gt; = Contest Exchange Message
 &lt;EXCHNR&gt; = Contest Exchange Serial Number
-&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T) 
+&lt;EXCHNRN&gt; = Contest Exchange Serial Number (9→N, 0→T)
+&lt;+&gt; = Speed +5 WPM (&lt;++&gt; = +10 WPM, etc.)
+&lt;-&gt; = Speed -5 WPM (&lt;--&gt; = -10 WPM, etc.)
 </string>
                    </property>
                   </widget>
