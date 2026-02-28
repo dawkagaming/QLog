@@ -15,6 +15,7 @@ CWWinKey::CWWinKey(const QString &portName,
                      const qint32 defaultSpeed,
                      bool paddleSwap,
                      bool paddleOnlySidetone,
+                     qint32 sidetoneFrequency,
                      QObject *parent)
     : CWKey(mode, defaultSpeed, parent),
       CWKeySerialInterface(portName, baudrate, 5000),
@@ -22,6 +23,7 @@ CWWinKey::CWWinKey(const QString &portName,
       xoff(false),
       paddleSwap(paddleSwap),
       paddleOnlySidetone(paddleOnlySidetone),
+      sidetoneFrequency(sidetoneFrequency),
       version(0)
 {
     FCT_IDENTIFICATION;
@@ -703,6 +705,22 @@ bool CWWinKey::__setPOTRange()
     return true;
 }
 
+QList<QPair<QString, int>> CWWinKey::sidetoneFrequencies()
+{
+    return {
+        {tr("4000 Hz"), 4000},
+        {tr("2000 Hz"), 2000},
+        {tr("1333 Hz"), 1333},
+        {tr("1000 Hz"), 1000},
+        {tr("800 Hz"),   800},
+        {tr("666 Hz"),   666},
+        {tr("571 Hz"),   571},
+        {tr("500 Hz"),   500},
+        {tr("444 Hz"),   444},
+        {tr("400 Hz"),   400}
+    };
+}
+
 bool CWWinKey::__setSidetone(bool enabled)
 {
     FCT_IDENTIFICATION;
@@ -712,7 +730,7 @@ bool CWWinKey::__setSidetone(bool enabled)
      * Available on WinKey v2+ only (WK2 sidetone is always enabled).
      *
      * nn bit layout (Table 1 from WinKey spec):
-     *   Bit 7     : Paddle Only Sidetone — when 1, sidetone is muted for CW
+     *   Bit 7     : Paddle Only Sidetone - when 1, sidetone is muted for CW
      *               sourced from the host port; paddle entry still has sidetone.
      *   Bits 6-4  : Unused, set to zero.
      *   Bits 3-0  : Sidetone frequency N (Table 2):
@@ -720,9 +738,9 @@ bool CWWinKey::__setSidetone(bool enabled)
      *               0x5=800Hz,  0x6=666Hz,  0x7=571Hz,  0x8=500Hz,
      *               0x9=444Hz,  0xA=400Hz
      *
-     * enabled=false → Paddle Only Sidetone (0x80 | 0x05 = 0x85):
-     *                 host CW is muted, paddle sidetone remains at 800 Hz.
-     * enabled=true  → normal sidetone at 800 Hz (0x05).
+     * enabled=false -> Paddle Only Sidetone (0x80 | freqCode):
+     *                  host CW is muted, paddle sidetone at configured frequency.
+     * enabled=true  -> normal sidetone at configured frequency (freqCode).
      */
     if ( version < 20 )
     {
@@ -736,10 +754,27 @@ bool CWWinKey::__setSidetone(bool enabled)
         return false;
     }
 
+    /* Convert Hz to WinKey frequency code (Table 2 of WinKey spec).
+     * sidetoneFrequency is stored in Hz; the combo shares Hz with CWDaemon. */
+    static const int hzToCode[][2] =
+    {
+        {4000, 1}, {2000, 2}, {1333, 3}, {1000, 4}, {800, 5},
+        {666,  6}, { 571, 7}, { 500, 8}, { 444, 9}, {400, 10}
+    };
+    int freqCode = 5; // fallback: 800 Hz
+    for ( const int (&pair)[2] : hzToCode )
+    {
+        if ( pair[0] == sidetoneFrequency )
+        {
+            freqCode = pair[1];
+            break;
+        }
+    }
+    unsigned char freqCodeByte = static_cast<unsigned char>(freqCode & 0x0F);
     QByteArray cmd;
     cmd.resize(2);
     cmd[0] = 0x01;
-    cmd[1] = enabled ? 0x05 : 0x85; // 0x85 = Paddle Only bit (MSB) + 800 Hz
+    cmd[1] = enabled ? freqCodeByte : static_cast<unsigned char>(0x80u | freqCodeByte);
 
     qint64 size = writeAsyncData(cmd);
     if ( size != 2 )

@@ -39,6 +39,7 @@
 #include "data/SerialPort.h"
 #include "service/cloudlog/Cloudlog.h"
 #include "ui/RigctldAdvancedDialog.h"
+#include "cwkey/drivers/CWWinKey.h"
 
 #define STACKED_WIDGET_SERIAL_SETTING  0
 #define STACKED_WIDGET_NETWORK_SETTING 1
@@ -302,6 +303,10 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     ui->cwKeyModeSelect->addItem(tr("IAMBIC B"), CWKey::IAMBIC_B);
     ui->cwKeyModeSelect->addItem(tr("Ultimate"), CWKey::ULTIMATE);
     ui->cwKeyModeSelect->setCurrentIndex(ui->cwKeyModeSelect->findData(CWKey::IAMBIC_B));
+
+    for ( const QPair<QString, int> &f : CWWinKey::sidetoneFrequencies() )
+        ui->cwSidetoneFreqCombo->addItem(f.first, f.second);
+    ui->cwSidetoneFreqCombo->setCurrentIndex(ui->cwSidetoneFreqCombo->findData(CWWinKey::defaultSidetoneFrequency()));
 
     ui->rigDTRCombo->addItem(tr("None"), SerialPort::SERIAL_SIGNAL_NONE);
     ui->rigDTRCombo->addItem(tr("High"), SerialPort::SERIAL_SIGNAL_HIGH);
@@ -1285,6 +1290,11 @@ void SettingsDialog::addCWKeyProfile()
                                       && ui->cwPaddleOnlySidetoneCheckbox->isEnabled()
                                       && ui->cwPaddleOnlySidetoneCheckbox->isChecked();
 
+    cwKeyNewProfile.sidetoneFrequency = ( cwKeyNewProfile.model == CWKey::WINKEY_KEYER
+                                          || cwKeyNewProfile.model == CWKey::CWDAEMON_KEYER )
+                                        ? ui->cwSidetoneFreqCombo->currentData().toInt()
+                                        : CWWinKey::defaultSidetoneFrequency();
+
     if ( ! noMorseCATSupportRigs.isEmpty() )
     {
         QMessageBox::warning(nullptr, QMessageBox::tr("QLog Warning"),
@@ -1375,6 +1385,10 @@ void SettingsDialog::doubleClickCWKeyProfile(QModelIndex i)
     ui->cwNetPortSpin->setValue(profile.netport);
     ui->cwSwapPaddlesCheckbox->setChecked(profile.paddleSwap);
     ui->cwPaddleOnlySidetoneCheckbox->setChecked(profile.paddleOnlySidetone);
+    {
+        int idx = ui->cwSidetoneFreqCombo->findData(profile.sidetoneFrequency);
+        ui->cwSidetoneFreqCombo->setCurrentIndex(idx >= 0 ? idx : ui->cwSidetoneFreqCombo->findData(CWWinKey::defaultSidetoneFrequency()));
+    }
 
     ui->cwAddProfileButton->setText(tr("Modify"));
 }
@@ -1394,6 +1408,7 @@ void SettingsDialog::clearCWKeyProfileForm()
     ui->cwNetPortSpin->setValue(CW_NET_CWDAEMON_PORT);
     ui->cwSwapPaddlesCheckbox->setChecked(false);
     ui->cwPaddleOnlySidetoneCheckbox->setChecked(false);
+    ui->cwSidetoneFreqCombo->setCurrentIndex(ui->cwSidetoneFreqCombo->findData(CWWinKey::defaultSidetoneFrequency()));
 
     ui->cwAddProfileButton->setText(tr("Add"));
 }
@@ -1892,6 +1907,7 @@ void SettingsDialog::cwKeyChanged(int)
         ui->cwDefaulSpeed->setEnabled(true);
         ui->cwSwapPaddlesCheckbox->setEnabled(false);
         ui->cwPaddleOnlySidetoneCheckbox->setEnabled(false);
+        ui->cwSidetoneFreqCombo->setEnabled(currentType == CWKey::CWDAEMON_KEYER);
 
         if ( currentType == CWKey::CWDAEMON_KEYER )
         {
@@ -1914,6 +1930,7 @@ void SettingsDialog::cwKeyChanged(int)
         ui->cwDefaulSpeed->setEnabled(true);
         ui->cwSwapPaddlesCheckbox->setEnabled(true);
         ui->cwPaddleOnlySidetoneCheckbox->setEnabled(currentType == CWKey::WINKEY_KEYER);
+        ui->cwSidetoneFreqCombo->setEnabled(currentType == CWKey::WINKEY_KEYER);
     }
 
     ui->cwBaudSelect->setCurrentText(( currentType == CWKey::WINKEY_KEYER ) ? "1200"

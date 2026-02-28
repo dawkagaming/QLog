@@ -25,6 +25,7 @@ public:
         netport = 0;
         paddleSwap = false;
         paddleOnlySidetone = false;
+        sidetoneFrequency = 800;
     };
 
     QString profileName;
@@ -37,6 +38,7 @@ public:
     quint16 netport;
     bool paddleSwap;
     bool paddleOnlySidetone;
+    qint32 sidetoneFrequency;
 
     bool operator== (const CWKeyProfile &profile);
     bool operator!= (const CWKeyProfile &profile);

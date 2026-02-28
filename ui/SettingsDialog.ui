@@ -710,20 +710,20 @@
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QComboBox" name="cwKeyModeSelect">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
                   <layout class="QHBoxLayout" name="horizontalLayout_37">
                    <property name="spacing">
                     <number>12</number>
                    </property>
+                   <item>
+                    <widget class="QComboBox" name="cwKeyModeSelect">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                    </widget>
+                   </item>
                    <item>
                     <widget class="QCheckBox" name="cwSwapPaddlesCheckbox">
                      <property name="text">
@@ -731,10 +731,34 @@
                      </property>
                     </widget>
                    </item>
+                  </layout>
+                 </item>
+                 <item row="3" column="1">
+                  <layout class="QHBoxLayout" name="horizontalLayout_43">
+                   <property name="spacing">
+                    <number>12</number>
+                   </property>
                    <item>
                     <widget class="QCheckBox" name="cwPaddleOnlySidetoneCheckbox">
                      <property name="text">
                       <string>Paddle Only Sidetone</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="cwSidetoneFreqLabel">
+                     <property name="text">
+                      <string>Sidetone Freq:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="cwSidetoneFreqCombo">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
                     </widget>
                    </item>
@@ -4940,7 +4964,9 @@
   <tabstop>cwKeyModeSelect</tabstop>
   <tabstop>cwSwapPaddlesCheckbox</tabstop>
   <tabstop>cwPaddleOnlySidetoneCheckbox</tabstop>
+  <tabstop>cwSidetoneFreqCombo</tabstop>
   <tabstop>cwDefaulSpeed</tabstop>
+
   <tabstop>cwPortEdit</tabstop>
   <tabstop>cwBaudSelect</tabstop>
   <tabstop>cwAddProfileButton</tabstop>

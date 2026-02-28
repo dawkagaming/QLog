@@ -16,6 +16,7 @@ public:
                       const qint32 defaultSpeed,
                       bool paddleSwap,
                       bool paddleOnlySidetone,
+                      qint32 sidetoneFrequency,
                       QObject *parent = nullptr);
     virtual ~CWWinKey();
 
@@ -27,12 +28,16 @@ public:
     virtual bool setWPM(const qint16 wpm) override;
     virtual bool immediatelyStop() override;
 
+    static QList<QPair<QString, int>> sidetoneFrequencies();
+    static int defaultSidetoneFrequency() { return 800; }
+
 private:
 
     bool isInHostMode;
     bool xoff;
     bool paddleSwap;
     bool paddleOnlySidetone;
+    qint32 sidetoneFrequency;
 
     QMutex writeBufferMutex;
     QMutex commandMutex;

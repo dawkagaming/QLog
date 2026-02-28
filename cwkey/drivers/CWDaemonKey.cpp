@@ -7,11 +7,13 @@ CWDaemonKey::CWDaemonKey(const QString &hostname,
                          const quint16 port,
                          const CWKey::CWKeyModeID mode,
                          const qint32 defaultSpeed,
+                         qint32 sidetoneFrequency,
                          QObject *parent) :
     CWKey(mode, defaultSpeed, parent),
     CWKeyUDPInterface(hostname, port),
     isOpen(false),
-    ESCChar(27)
+    ESCChar(27),
+    sidetoneFrequency(sidetoneFrequency)
 {
     FCT_IDENTIFICATION;
 
@@ -25,6 +27,12 @@ bool CWDaemonKey::open()
     FCT_IDENTIFICATION;
 
     isOpen = isSocketReady();
+
+    if ( isOpen && sidetoneFrequency > 0 )
+    {
+        QString toneCmd(ESCChar + QString("3") + QString::number(sidetoneFrequency));
+        sendData(toneCmd.toLatin1());
+    }
 
     return isOpen;
 }
