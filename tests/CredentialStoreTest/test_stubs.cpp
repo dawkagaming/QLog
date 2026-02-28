@@ -14,5 +14,5 @@ QString LogDatabase::currentPlatformId()
 // Stubs for BandPlan constants used in LogParam
 const QString BandPlan::MODE_GROUP_STRING_PHONE = QStringLiteral("PHONE");
 const QString BandPlan::MODE_GROUP_STRING_CW = QStringLiteral("CW");
-const QString BandPlan::MODE_GROUP_STRING_FT8 = QStringLiteral("FT8");
+const QString BandPlan::MODE_GROUP_STRING_FTx = QStringLiteral("FTx");
 const QString BandPlan::MODE_GROUP_STRING_DIGITAL = QStringLiteral("DIGITAL");

@@ -1908,8 +1908,15 @@ BandPlan::BandPlanMode DxWidget::modeGroupFromComment(const QString &comment) co
         )
         return BandPlan::BAND_MODE_FT8;
 
-    if ( tokenizedComment.contains("FT4", Qt::CaseInsensitive) )
-        return BandPlan::BAND_MODE_DIGITAL;
+    if ( tokenizedComment.contains("FT4", Qt::CaseInsensitive)
+         || tokenizedComment.contains("<FT4>", Qt::CaseInsensitive)
+       )
+        return BandPlan::BAND_MODE_FT4;
+
+    if ( tokenizedComment.contains("FT2", Qt::CaseInsensitive)
+        || tokenizedComment.contains("<FT2>", Qt::CaseInsensitive )
+       )
+        return BandPlan::BAND_MODE_FT2;
 
     if ( tokenizedComment.contains("MSK144", Qt::CaseInsensitive) )
         return BandPlan::BAND_MODE_DIGITAL;

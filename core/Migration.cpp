@@ -1083,7 +1083,7 @@ bool DBSchemaMigration::settings2DB()
         if ( settings.value("dxc/filter_mode_cw",true).toBool() ) value.append("|" + BandPlan::MODE_GROUP_STRING_CW);
         if ( settings.value("dxc/filter_mode_phone",true).toBool() ) value.append("|" + BandPlan::MODE_GROUP_STRING_PHONE);
         if ( settings.value("dxc/filter_mode_digital",true).toBool() ) value.append("|" + BandPlan::MODE_GROUP_STRING_DIGITAL);
-        if ( settings.value("dxc/filter_mode_ft8",true).toBool() ) value.append("|" + BandPlan::MODE_GROUP_STRING_FT8);
+        if ( settings.value("dxc/filter_mode_ft8",true).toBool() ) value.append("|" + BandPlan::MODE_GROUP_STRING_FTx);
         LogParam::setDXCFilterModeRE(value);
     }
 

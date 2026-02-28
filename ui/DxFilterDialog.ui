@@ -127,7 +127,7 @@
              </widget>
             </item>
             <item row="0" column="3">
-             <widget class="QCheckBox" name="ft8checkbox">
+             <widget class="QCheckBox" name="ftxcheckbox">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -135,7 +135,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>FT8</string>
+               <string>FTx (FT8/FT4)</string>
               </property>
              </widget>
             </item>
@@ -471,7 +471,7 @@
   <tabstop>cwcheckbox</tabstop>
   <tabstop>phonecheckbox</tabstop>
   <tabstop>digitalcheckbox</tabstop>
-  <tabstop>ft8checkbox</tabstop>
+  <tabstop>ftxcheckbox</tabstop>
   <tabstop>afcheckbox</tabstop>
   <tabstop>ancheckbox</tabstop>
   <tabstop>nacheckbox</tabstop>

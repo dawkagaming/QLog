@@ -27,77 +27,91 @@ static const BandModeRange r1BandModeTable[] =
     // 160m
     {1.800, 1.838, BandPlan::BAND_MODE_CW},
     {1.838, 1.840, BandPlan::BAND_MODE_DIGITAL},
-    {1.840, 1.842, BandPlan::BAND_MODE_FT8},
-    {1.842, 2.000, BandPlan::BAND_MODE_LSB},
+    {1.840, 1.843, BandPlan::BAND_MODE_FT8},
+    {1.843, 2.000, BandPlan::BAND_MODE_LSB},
 
     // 80m
     {3.500, 3.570, BandPlan::BAND_MODE_CW},
     {3.570, 3.573, BandPlan::BAND_MODE_DIGITAL},
-    {3.573, 3.575, BandPlan::BAND_MODE_FT8},
-    {3.575, 3.600, BandPlan::BAND_MODE_DIGITAL},
+    {3.573, 3.576, BandPlan::BAND_MODE_FT8},
+    {3.576, 3.579, BandPlan::BAND_MODE_FT4},
+    {3.579, 3.600, BandPlan::BAND_MODE_DIGITAL},
     {3.600, 4.000, BandPlan::BAND_MODE_LSB},
 
     // 60m
-    {5.3515, 5.354, BandPlan::BAND_MODE_CW},
-    {5.354, 5.500, BandPlan::BAND_MODE_LSB},
+    {5.3515, 5.356, BandPlan::BAND_MODE_CW},
+    {5.356, 5.361, BandPlan::BAND_MODE_FT8},
+    {5.361, 5.500, BandPlan::BAND_MODE_LSB},
 
     // 40m
     {7.000, 7.040, BandPlan::BAND_MODE_CW},
-    {7.040, 7.060, BandPlan::BAND_MODE_DIGITAL},
+    {7.040, 7.047, BandPlan::BAND_MODE_DIGITAL},
+    {7.047, 7.050, BandPlan::BAND_MODE_FT4},
+    {7.050, 7.060, BandPlan::BAND_MODE_DIGITAL},
     {7.060, 7.074, BandPlan::BAND_MODE_LSB},
-    {7.074, 7.076, BandPlan::BAND_MODE_FT8},
-    {7.076, 7.300, BandPlan::BAND_MODE_LSB},
+    {7.074, 7.077, BandPlan::BAND_MODE_FT8},
+    {7.077, 7.300, BandPlan::BAND_MODE_LSB},
 
     // 30m
     {10.100, 10.130, BandPlan::BAND_MODE_CW},
     {10.130, 10.136, BandPlan::BAND_MODE_DIGITAL},
-    {10.136, 10.138, BandPlan::BAND_MODE_FT8},
-    {10.138, 10.150, BandPlan::BAND_MODE_DIGITAL},
+    {10.136, 10.139, BandPlan::BAND_MODE_FT8},
+    {10.139, 10.140, BandPlan::BAND_MODE_DIGITAL},
+    {10.140, 10.143, BandPlan::BAND_MODE_FT4},
+    {10.143, 10.150, BandPlan::BAND_MODE_DIGITAL},
 
     // 20m
     {14.000, 14.070, BandPlan::BAND_MODE_CW},
     {14.070, 14.074, BandPlan::BAND_MODE_DIGITAL},
-    {14.074, 14.076, BandPlan::BAND_MODE_FT8},
-    {14.076, 14.099, BandPlan::BAND_MODE_DIGITAL},
+    {14.074, 14.080, BandPlan::BAND_MODE_FT8},
+    {14.080, 14.083, BandPlan::BAND_MODE_FT4},
+    {14.083, 14.099, BandPlan::BAND_MODE_DIGITAL},
     {14.099, 14.101, BandPlan::BAND_MODE_CW},
     {14.101, 14.350, BandPlan::BAND_MODE_USB},
 
     // 17m
     {18.068, 18.095, BandPlan::BAND_MODE_CW},
     {18.095, 18.100, BandPlan::BAND_MODE_DIGITAL},
-    {18.100, 18.102, BandPlan::BAND_MODE_FT8},
-    {18.102, 18.109, BandPlan::BAND_MODE_DIGITAL},
+    {18.100, 18.103, BandPlan::BAND_MODE_FT8},
+    {18.103, 18.106, BandPlan::BAND_MODE_FT4},
+    {18.106, 18.109, BandPlan::BAND_MODE_DIGITAL},
     {18.109, 18.111, BandPlan::BAND_MODE_CW},
     {18.111, 18.168, BandPlan::BAND_MODE_USB},
 
     // 15m
     {21.000, 21.070, BandPlan::BAND_MODE_CW},
     {21.070, 21.074, BandPlan::BAND_MODE_DIGITAL},
-    {21.074, 21.076, BandPlan::BAND_MODE_FT8},
-    {21.076, 21.149, BandPlan::BAND_MODE_DIGITAL},
+    {21.074, 21.077, BandPlan::BAND_MODE_FT8},
+    {21.077, 21.140, BandPlan::BAND_MODE_DIGITAL},
+    {21.140, 21.143, BandPlan::BAND_MODE_FT4},
+    {21.143, 21.149, BandPlan::BAND_MODE_DIGITAL},
     {21.149, 21.151, BandPlan::BAND_MODE_CW},
     {21.151, 21.450, BandPlan::BAND_MODE_USB},
 
     // 12m
     {24.890, 24.915, BandPlan::BAND_MODE_CW},
-    {24.915, 24.917, BandPlan::BAND_MODE_FT8},
-    {24.917, 24.929, BandPlan::BAND_MODE_DIGITAL},
+    {24.915, 24.919, BandPlan::BAND_MODE_FT8},
+    {24.919, 24.922, BandPlan::BAND_MODE_FT4},
+    {24.922, 24.929, BandPlan::BAND_MODE_DIGITAL},
     {24.929, 24.931, BandPlan::BAND_MODE_CW},
     {24.931, 24.990, BandPlan::BAND_MODE_USB},
 
     // 10m
     {28.000, 28.070, BandPlan::BAND_MODE_CW},
     {28.070, 28.074, BandPlan::BAND_MODE_DIGITAL},
-    {28.074, 28.076, BandPlan::BAND_MODE_FT8},
-    {28.076, 28.190, BandPlan::BAND_MODE_DIGITAL},
+    {28.074, 28.077, BandPlan::BAND_MODE_FT8},
+    {28.077, 28.180, BandPlan::BAND_MODE_DIGITAL},
+    {28.180, 28.183, BandPlan::BAND_MODE_FT4},
+    {28.183, 28.190, BandPlan::BAND_MODE_DIGITAL},
     {28.190, 28.225, BandPlan::BAND_MODE_CW},
     {28.225, 29.700, BandPlan::BAND_MODE_USB},
 
     // 6m
     {50.000, 50.100, BandPlan::BAND_MODE_CW},
     {50.100, 50.313, BandPlan::BAND_MODE_USB},
-    {50.313, 50.315, BandPlan::BAND_MODE_FT8},
-    {50.315, 50.400, BandPlan::BAND_MODE_DIGITAL},
+    {50.313, 50.318, BandPlan::BAND_MODE_FT8},
+    {50.318, 50.321, BandPlan::BAND_MODE_FT4},
+    {50.321, 50.400, BandPlan::BAND_MODE_DIGITAL},
     {50.400, 50.500, BandPlan::BAND_MODE_CW},
     {50.500, 54.000, BandPlan::BAND_MODE_PHONE},
 
@@ -108,7 +122,9 @@ static const BandModeRange r1BandModeTable[] =
 
     // 2m
     {144.000, 144.100, BandPlan::BAND_MODE_CW},
-    {144.100, 144.174, BandPlan::BAND_MODE_USB},
+    {144.100, 144.120, BandPlan::BAND_MODE_USB},
+    {144.120, 144.123, BandPlan::BAND_MODE_FT4},
+    {144.123, 144.174, BandPlan::BAND_MODE_USB},
     {144.174, 144.176, BandPlan::BAND_MODE_FT8},
     {144.176, 144.360, BandPlan::BAND_MODE_USB},
     {144.360, 144.400, BandPlan::BAND_MODE_DIGITAL},
@@ -180,7 +196,10 @@ const QString BandPlan::bandMode2BandModeGroupString(const BandPlanMode &bandPla
 
     case BAND_MODE_DIGITAL: return BandPlan::MODE_GROUP_STRING_DIGITAL;
 
-    case BAND_MODE_FT8: return BandPlan::MODE_GROUP_STRING_FT8;
+    case BAND_MODE_FT8:
+    case BAND_MODE_FT4:
+    case BAND_MODE_FT2:
+        return BandPlan::MODE_GROUP_STRING_FTx;
 
     case BAND_MODE_PHONE:
     case BAND_MODE_LSB:
@@ -215,6 +234,8 @@ const QString BandPlan::bandPlanMode2ExpectedMode(const BandPlanMode &bandPlanMo
     case BAND_MODE_LSB: {submode = "LSB"; return "SSB";}
     case BAND_MODE_USB: {submode = "USB"; return "SSB";}
     case BAND_MODE_FT8: {return "FT8";}
+    case BAND_MODE_FT4: {submode = "FT4";return "MFSK";}
+    case BAND_MODE_FT2: // not currently specified - use USB
     case BAND_MODE_DIGITAL: {submode = "USB"; return "SSB";} // imprecise, but let's try this
     //case BAND_MODE_PHONE: // it can be FM, SSB, AM - no Mode Change
     default:
@@ -406,8 +427,22 @@ const QString BandPlan::modeToModeGroup(const QString &mode)
 {
     FCT_IDENTIFICATION;
 
-    return ( mode == "FT8" ) ? BandPlan::MODE_GROUP_STRING_FT8
-                             : BandPlan::modeToDXCCModeGroup(mode);
+    return isFTxMode(mode) ? BandPlan::MODE_GROUP_STRING_FTx
+                           : BandPlan::modeToDXCCModeGroup(mode);
+}
+
+bool BandPlan::isFTxMode(const QString &mode)
+{
+    return mode == "FT8"
+        || mode == "FT4"
+        || mode == "FT2";
+}
+
+bool BandPlan::isFTxBandMode(BandPlanMode mode)
+{
+    return mode == BAND_MODE_FT8
+        || mode == BAND_MODE_FT4
+        || mode == BAND_MODE_FT2;
 }
 
 BandPlan::BandPlan()
@@ -417,5 +452,5 @@ BandPlan::BandPlan()
 
 const QString BandPlan::MODE_GROUP_STRING_CW = "CW";
 const QString BandPlan::MODE_GROUP_STRING_DIGITAL = "DIGITAL";
-const QString BandPlan::MODE_GROUP_STRING_FT8 = "FT8";
+const QString BandPlan::MODE_GROUP_STRING_FTx = "FTx";
 const QString BandPlan::MODE_GROUP_STRING_PHONE = "PHONE";

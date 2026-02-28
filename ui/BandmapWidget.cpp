@@ -733,7 +733,7 @@ void BandmapWidget::updateSpotsStatusWhenQSOAdded(const QSqlRecord &record)
         spot.status = Data::dxccNewStatusWhenQSOAdded(spot.status,
                                                       spot.dxcc.dxcc,
                                                       spot.band,
-                                                      ( ( spot.modeGroupString == BandPlan::MODE_GROUP_STRING_FT8 )
+                                                      ( ( spot.modeGroupString == BandPlan::MODE_GROUP_STRING_FTx )
                                                            ? BandPlan::MODE_GROUP_STRING_DIGITAL
                                                            : dxccModeGroup ),
                                                       dxcc,

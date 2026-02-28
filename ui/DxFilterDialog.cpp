@@ -62,7 +62,7 @@ DxFilterDialog::DxFilterDialog(QWidget *parent) :
     ui->cwcheckbox->setChecked(moderegexp.contains("|" + BandPlan::MODE_GROUP_STRING_CW));
     ui->phonecheckbox->setChecked(moderegexp.contains("|" + BandPlan::MODE_GROUP_STRING_PHONE));
     ui->digitalcheckbox->setChecked(moderegexp.contains("|" + BandPlan::MODE_GROUP_STRING_DIGITAL));
-    ui->ft8checkbox->setChecked(moderegexp.contains("|" + BandPlan::MODE_GROUP_STRING_FT8));
+    ui->ftxcheckbox->setChecked(moderegexp.contains("|" + BandPlan::MODE_GROUP_STRING_FTx));
 
     /************************/
     /* Continent Checkboxes */
@@ -139,8 +139,8 @@ void DxFilterDialog::accept()
     QString moderegexp("NOTHING");
     if ( ui->cwcheckbox->isChecked() ) moderegexp.append("|" + BandPlan::MODE_GROUP_STRING_CW);
     if ( ui->phonecheckbox->isChecked() ) moderegexp.append("|" + BandPlan::MODE_GROUP_STRING_PHONE);
-    if ( ui->digitalcheckbox->isChecked() ) moderegexp.append("|" + BandPlan::BandPlan::MODE_GROUP_STRING_DIGITAL);
-    if ( ui->ft8checkbox->isChecked() ) moderegexp.append("|" + BandPlan::BandPlan::MODE_GROUP_STRING_FT8);
+    if ( ui->digitalcheckbox->isChecked() ) moderegexp.append("|" + BandPlan::MODE_GROUP_STRING_DIGITAL);
+    if ( ui->ftxcheckbox->isChecked() ) moderegexp.append("|" + BandPlan::MODE_GROUP_STRING_FTx);
     LogParam::setDXCFilterModeRE(moderegexp);
 
     /************************/

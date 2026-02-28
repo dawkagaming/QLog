@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>867</width>
-    <height>822</height>
+    <width>808</width>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -4966,7 +4966,6 @@
   <tabstop>cwPaddleOnlySidetoneCheckbox</tabstop>
   <tabstop>cwSidetoneFreqCombo</tabstop>
   <tabstop>cwDefaulSpeed</tabstop>
-
   <tabstop>cwPortEdit</tabstop>
   <tabstop>cwBaudSelect</tabstop>
   <tabstop>cwAddProfileButton</tabstop>

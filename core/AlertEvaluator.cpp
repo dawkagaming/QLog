@@ -285,8 +285,8 @@ bool AlertRule::match(const WsjtxEntry &wsjtx) const
 
     if ( mode != "*" )
     {
-        const QString &group = (wsjtx.decodedMode == QLatin1String("FT8"))
-            ? BandPlan::MODE_GROUP_STRING_FT8
+        const QString &group = BandPlan::isFTxMode(wsjtx.decodedMode)
+            ? BandPlan::MODE_GROUP_STRING_FTx
             : BandPlan::MODE_GROUP_STRING_DIGITAL;
         if ( !mode.contains(QLatin1Char('|') + group) ) return fail();
     }
