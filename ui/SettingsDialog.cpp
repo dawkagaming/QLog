@@ -75,6 +75,7 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     cwKeyProfManager(CWKeyProfilesManager::instance()),
     cwShortcutProfManager(CWShortcutProfilesManager::instance()),
     rotUsrButtonsProfManager(RotUsrButtonsProfilesManager::instance()),
+    countyCompleter(nullptr),
     ui(new Ui::SettingsDialog),
     sotaFallback(false),
     potaFallback(false),
@@ -266,6 +267,13 @@ SettingsDialog::SettingsDialog(MainWindow *parent) :
     sigCompleter->setFilterMode(Qt::MatchStartsWith);
     sigCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     ui->stationSIGEdit->setCompleter(sigCompleter);
+
+    connect(ui->stationCountryCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, [this](int row)
+    {
+        const QModelIndex &idx = ui->stationCountryCombo->model()->index(row, 0);
+        updateCountyCompleter(ui->stationCountryCombo->model()->data(idx).toInt());
+    });
 
     ui->primaryCallbookCombo->addItem(tr("Disabled"), QVariant(GenericCallbook::CALLBOOK_NAME));
     ui->primaryCallbookCombo->addItem(tr("HamQTH"),   QVariant(HamQTHCallbook::CALLBOOK_NAME));
@@ -1741,6 +1749,8 @@ void SettingsDialog::doubleClickStationProfile(QModelIndex i)
     if ( countryIndex.size() >= 1 )
         ui->stationCountryCombo->setCurrentIndex(countryIndex.at(0).row());
 
+    updateCountyCompleter(profile.dxcc);
+
     ui->stationAddProfileButton->setText(tr("Modify"));
 }
 
@@ -3042,6 +3052,19 @@ void SettingsDialog::saveQRZAPICallsignTable()
         QRZBase::setLogbookAPIAddlCallsigns(newAddlCallsignsAPIList);
 }
 
+void SettingsDialog::updateCountyCompleter(int dxcc)
+{
+    FCT_IDENTIFICATION;
+
+    ui->stationCountyEdit->setCompleter(nullptr);
+    delete countyCompleter;
+    countyCompleter = nullptr;
+    if ( dxcc == 0 )
+        return;
+    countyCompleter = Data::createCountyCompleter(dxcc, this);
+    ui->stationCountyEdit->setCompleter(countyCompleter);
+}
+
 SettingsDialog::~SettingsDialog() {
     FCT_IDENTIFICATION;
 
@@ -3050,5 +3073,7 @@ SettingsDialog::~SettingsDialog() {
     sotaCompleter->deleteLater();
     iotaCompleter->deleteLater();
     sigCompleter->deleteLater();
+    if ( countyCompleter )
+        countyCompleter->deleteLater();
     delete ui;
 }

@@ -46,6 +46,7 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     ui(new Ui::NewContactWidget),
     uiDynamic(new NewContactDynamicWidgets(true, this)),
     prop_cond(nullptr),
+    countyCompleter(nullptr),
     QSOFreq(0.0),
     bandwidthFilter(BANDWIDTH_UNKNOWN),
     rigOnline(false),
@@ -196,6 +197,8 @@ NewContactWidget::NewContactWidget(QWidget *parent) :
     sotaCompleter->setFilterMode(Qt::MatchStartsWith);
     sotaCompleter->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     uiDynamic->sotaEdit->setCompleter(nullptr);
+
+    uiDynamic->countyEdit->setCompleter(nullptr);
 
     sigCompleter = new QCompleter(uiDynamic->sigEdit);
     sigCompleter->setCaseSensitivity(Qt::CaseInsensitive);
@@ -498,6 +501,7 @@ void NewContactWidget::setDxccInfo(const DxccEntity &curr)
         ui->flagView->setPixmap((!dxccEntity.flag.isEmpty() ) ? QPixmap(QString(":/flags/64/%1.png").arg(dxccEntity.flag))
                                                               : QPixmap() );
         updateDxccStatus();
+        updateCountyCompleter(dxccEntity.dxcc);
     }
     else
     {
@@ -512,6 +516,7 @@ void NewContactWidget::setDxccInfo(const DxccEntity &curr)
         ui->dxccStatus->clear();
 
         emit newTarget(qQNaN(), qQNaN());
+        updateCountyCompleter(0);
     }
 }
 
@@ -531,6 +536,16 @@ void NewContactWidget::setDxccInfo(const QString &callsign)
         entity = Data::instance()->lookupDxcc(callsign.toUpper());
 
     setDxccInfo(entity);
+}
+
+void NewContactWidget::updateCountyCompleter(int dxcc)
+{
+    FCT_IDENTIFICATION;
+
+    uiDynamic->countyEdit->setCompleter(nullptr);
+    delete countyCompleter;
+    countyCompleter = ( dxcc != 0 ) ? Data::createCountyCompleter(dxcc, this) : nullptr;
+    uiDynamic->countyEdit->setCompleter(countyCompleter);
 }
 
 void NewContactWidget::useFieldsFromPrevQSO(const QString &callsign, const QString &grid)

@@ -140,6 +140,7 @@ private:
     void generateMembershipCheckboxes();
     void generateQRZAPICallsignTable();
     void saveQRZAPICallsignTable();
+    void updateCountyCompleter(int dxcc);
 
     const int CIVADDR_DISABLED_VALUE = -1;
 
@@ -157,6 +158,7 @@ private:
     QCompleter *wwffCompleter;
     MultiselectCompleter *potaCompleter;
     QCompleter *sigCompleter;
+    QCompleter *countyCompleter;
     QList<QCheckBox*> memberListCheckBoxes;
     Ui::SettingsDialog *ui;
     LogLocale locale;

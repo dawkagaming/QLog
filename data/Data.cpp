@@ -1,6 +1,7 @@
 #include <QJsonDocument>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QCompleter>
 #include <QColor>
 #include "Data.h"
 #include "data/Callsign.h"
@@ -961,6 +962,41 @@ void Data::loadPOTA()
         const QString &reference = query.value(0).toString();
         potaRefID.insert(reference, QString());
     }
+}
+
+QCompleter* Data::createCountyCompleter(int dxcc, QObject *parent)
+{
+    FCT_IDENTIFICATION;
+
+    QSqlQuery query;
+
+    if ( dxcc != 0 )
+    {
+        query.prepare("SELECT code FROM adif_enum_secondary_subdivision "
+                      "WHERE dxcc = :dxcc ORDER BY code");
+        query.bindValue(":dxcc", dxcc);
+    }
+    else
+        query.prepare("SELECT code FROM adif_enum_secondary_subdivision ORDER BY code");
+
+    if ( !query.exec() )
+    {
+        qCWarning(runtime) << query.lastError().text();
+        return nullptr;
+    }
+
+    QStringList list;
+    while ( query.next() )
+        list << query.value(0).toString();
+
+    if ( list.isEmpty() )
+        return nullptr;
+
+    QCompleter *completer = new QCompleter(list, parent);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    completer->setFilterMode(Qt::MatchStartsWith);
+    completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
+    return completer;
 }
 
 void Data::loadTZ()
