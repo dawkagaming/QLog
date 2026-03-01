@@ -227,6 +227,13 @@ if errorlevel 1 (
   goto :fail
 )
 
+copy /Y "%HAMLIBBINPATH%\rigctld.exe" "%DEPLOY_DIR%"
+
+if errorlevel 1 (
+  echo ERROR: Cannot copy rigctld.exe to "%DEPLOY_DIR%"
+  goto :fail
+)
+
 rem  ****************
 rem  Copy QtKeychain
 rem  ****************
