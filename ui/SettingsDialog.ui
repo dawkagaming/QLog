@@ -1756,7 +1756,7 @@
                       <enum>Qt::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Minimum</enum>
+                      <enum>QSizePolicy::Expanding</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6372,8 +6372,8 @@
   <slot>showRigctldAdvanced()</slot>
  </slots>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>
