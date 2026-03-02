@@ -110,6 +110,21 @@ Installation package is available via GitHub [Releases](https://github.com/foldy
 
 MacOS DMG: https://github.com/aa5sh/QLog/releases
 
+## Disclaimer Regarding Forks and Clones
+
+This project is released as open source and may be forked or modified in accordance with its license.
+
+If you are using a fork, clone, or any modified version of this project that is not maintained in this official repository, please note:
+
+- We do **not** provide support for any forks, clones, or modified versions of this project.
+- This includes support requests related to "core features" as changes introduced in forks may directly or indirectly affect their behavior.
+- Any issues, bug reports, or feature requests concerning a forked or modified version must be directed to the maintainer of that specific repository.
+
+Support is provided exclusively for the original, unmodified version of the project distributed from this official source.
+
+By using a fork or modified version, you acknowledge that compatibility, stability, and functionality may differ from the original project, and responsibility
+for such differences lies solely with the maintainer of that fork.
+
 ## Compilation
 
 ### General
