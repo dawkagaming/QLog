@@ -32,43 +32,46 @@ public:
                  };
 
     QString profileName;
-    qint32 model;
     QString portPath;
     QString hostname;
-    quint16 netport;
-    quint32 baudrate;
-    quint8 databits;
-    float stopbits;
     QString flowcontrol;
     QString parity;
-    quint32 pollInterval;
     double ritOffset;
     double xitOffset;
+    double defaultPWR;
+    QString assignedCWKey;
+    QString pttType;
+    QString pttPortPath;
+    QString rts;
+    QString dtr;
+    QString rigctldPath;  // empty = autodetect
+    QString rigctldArgs;  // additional arguments
+
+    qint32 model;
+    quint32 baudrate;
+    float stopbits;
+    quint32 pollInterval;
     float txFreqStart;
     float txFreqEnd;
+    qint32 driver;
+
+    quint16 netport;
+    qint16 civAddr; // -1 = AUTO; otherwise address
+    quint16 rigctldPort;
+
+    quint8 databits;
     bool getFreqInfo;
     bool getModeInfo;
     bool getVFOInfo;
     bool getPWRInfo;
     bool getRITInfo;
     bool getXITInfo;
-    double defaultPWR;
     bool getPTTInfo;
     bool QSYWiping;
     bool getKeySpeed;
-    QString assignedCWKey;
     bool keySpeedSync;
-    qint32 driver;
     bool dxSpot2Rig;
-    QString pttType;
-    QString pttPortPath;
-    QString rts;
-    QString dtr;
-    qint16 civAddr; // -1 = AUTO; otherwise address
     bool shareRigctld;
-    quint16 rigctldPort;
-    QString rigctldPath;  // empty = autodetect
-    QString rigctldArgs;  // additional arguments
 
     bool operator== (const RigProfile &profile);
     bool operator!= (const RigProfile &profile);
