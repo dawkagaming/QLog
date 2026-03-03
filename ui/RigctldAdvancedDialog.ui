@@ -19,7 +19,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="pathLabel">
        <property name="text">
-        <string>Rigctld Path :</string>
+        <string>Rigctld Path:</string>
        </property>
       </widget>
      </item>

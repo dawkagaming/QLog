@@ -1113,7 +1113,7 @@ void MainWindow::showDumpDB()
 
     if ( !CredentialStore::instance()->exportPasswords(password) )
     {
-        QMessageBox::warning(this, tr("Dump Database"),
+        QMessageBox::warning(this, tr("Pack Data && Settings"),
                              tr("Failed to encrypt credentials."));
         return;
     }
@@ -1121,7 +1121,7 @@ void MainWindow::showDumpDB()
     const QString documentsPath = QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 
     QString filename = QFileDialog::getSaveFileName(this,
-                                                    tr("Save Database Dump"),
+                                                    tr("Pack Data && Settings"),
                                                     documentsPath,
                                                     tr("Database files (*.dbe);;All files (*)"));
 
@@ -1142,7 +1142,7 @@ void MainWindow::showDumpDB()
     {
         LogParam::removeEncryptedPasswords();
         LogParam::removeSourcePlatform();
-        QMessageBox::warning(this, tr("Dump Database"),
+        QMessageBox::warning(this, tr("Pack Data && Settings"),
                              tr("Failed to create temporary file."));
         return;
     }
@@ -1158,7 +1158,7 @@ void MainWindow::showDumpDB()
     if ( !ok )
     {
         QFile::remove(tempPath);
-        QMessageBox::warning(this, tr("Dump Database"),
+        QMessageBox::warning(this, tr("Pack Data && Settings"),
                              tr("Failed to dump the database."));
         return;
     }
@@ -1172,13 +1172,13 @@ void MainWindow::showDumpDB()
         if ( deletePasswords )
             CredentialStore::instance()->deleteAllPasswords();
 
-        QMessageBox::information(this, tr("Dump Database"),
+        QMessageBox::information(this, tr("Pack Data && Settings"),
                                  tr("Database successfully dumped to\n%1").arg(filename));
     }
     else
     {
         QFile::remove(filename);
-        QMessageBox::warning(this, tr("Dump Database"),
+        QMessageBox::warning(this, tr("Pack Data && Settings"),
                              tr("Failed to compress the database."));
     }
 }
@@ -1245,7 +1245,7 @@ void MainWindow::showLoadDB()
         {
             qWarning() << "Copy also failed from" << decompressedFile << "to" << pendingPath;
             QFile::remove(PlatformParameterManager::pendingParametersPath());
-            QMessageBox::warning(this, tr("Load Database"),
+            QMessageBox::warning(this, tr("Unpack Data && Settings"),
                                  tr("Failed to prepare database for import."));
             CredentialStore::instance()->deleteImportPassphrase();
             QFile::remove(decompressedFile);
