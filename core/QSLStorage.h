@@ -85,7 +85,7 @@ public:
 
     struct FilterValues
     {
-        QStringList countries;
+        QMap<QString, int> countries; // localizedName -> dxcc_id
         QMap<QString, QStringList> yearMonths; // year -> sorted list of months ("01".."12")
         QStringList bands;
         QStringList modes;
@@ -95,7 +95,7 @@ public:
     FilterValues getDistinctFilterValues() const;
 
     QList<QSLGalleryItem> getGalleryItems() const;
-    QList<QSLGalleryItem> getGalleryItemsByCountry(const QString &country) const;
+    QList<QSLGalleryItem> getGalleryItemsByDxcc(int dxcc) const;
     QList<QSLGalleryItem> getGalleryItemsByYear(const QString &year) const;
     QList<QSLGalleryItem> getGalleryItemsByYearMonth(const QString &year, const QString &month) const;
     QList<QSLGalleryItem> getGalleryItemsFavorite() const;

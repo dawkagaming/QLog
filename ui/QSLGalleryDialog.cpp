@@ -216,12 +216,18 @@ void QSLGalleryDialog::buildFilterTree()
     countryRoot->setIcon(0, QApplication::style()->standardIcon(QStyle::SP_DirIcon));
     countryRoot->setFlags(countryRoot->flags() & ~Qt::ItemIsSelectable);
 
-    for ( const QString &country : filters.countries )
+    QList<QString> sortedCountries = filters.countries.keys();
+    std::sort(sortedCountries.begin(), sortedCountries.end(), [](const QString &a, const QString &b)
+    {
+        return a.localeAwareCompare(b) < 0;
+    });
+
+    for ( const QString &country : static_cast<const QList<QString>&>(sortedCountries) )
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(countryRoot);
         item->setText(0, country);
         item->setData(0, Qt::UserRole, FILTER_COUNTRY);
-        item->setData(0, Qt::UserRole + 1, country);
+        item->setData(0, Qt::UserRole + 1, filters.countries.value(country));
     }
 
     // "By Date" branch (year -> months)
@@ -234,7 +240,7 @@ void QSLGalleryDialog::buildFilterTree()
     QStringList years = filters.yearMonths.keys();
     std::sort(years.begin(), years.end(), std::greater<QString>());
 
-    for ( const QString &year : years )
+    for ( const QString &year : static_cast<const QStringList&>(years) )
     {
         QTreeWidgetItem *yearItem = new QTreeWidgetItem(dateRoot);
         yearItem->setText(0, year);
@@ -334,8 +340,8 @@ void QSLGalleryDialog::loadGallery()
 
     case FILTER_COUNTRY:
     {
-        const QString country = current->data(0, Qt::UserRole + 1).toString();
-        items = qslStorage.getGalleryItemsByCountry(country);
+        const int dxcc = current->data(0, Qt::UserRole + 1).toInt();
+        items = qslStorage.getGalleryItemsByDxcc(dxcc);
         break;
     }
 
