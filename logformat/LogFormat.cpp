@@ -11,6 +11,7 @@
 #include "data/Gridsquare.h"
 #include "data/Callsign.h"
 #include "data/BandPlan.h"
+#include "service/lotw/Lotw.h"
 #include "models/LogbookModel.h"
 #include "core/QSOFilterManager.h"
 
@@ -796,6 +797,10 @@ void LogFormat::runQSLImport(QSLFrom fromService)
     model.setTable("contacts");
     QSqlRecord QSLRecord = model.record(0);
 
+    // Cache for mode to dxcc group lookups; avoids repeated DB queries for the same
+    // mode value when processing large imports (LoTW fallback path only).
+    QMap<QString, QString> modeGroupCache;
+
     while ( true )
     {
         QSLRecord.clearValues();
@@ -828,17 +833,52 @@ void LogFormat::runQSLImport(QSLFrom fromService)
             continue;
         }
 
-        // It is important to use callsign index here
-        QString matchFilter = QString("callsign=upper('%1') AND upper(mode)=upper('%2') AND upper(band)=upper('%3') AND COALESCE(sat_name, '') = upper('%4') AND ABS(JULIANDAY(start_time)-JULIANDAY(datetime('%5')))*24*60<30")
-                .arg(call.toString(),
-                     mode.toString(),
-                     band.toString(),
-                     satName.toString(),
-                     start_time.toDateTime().toTimeZone(QTimeZone::utc()).toString("yyyy-MM-dd hh:mm:ss"));
+        const QString startTimeStr = start_time.toDateTime().toTimeZone(QTimeZone::utc()).toString("yyyy-MM-dd hh:mm:ss");
 
-        /* set filter */
-        model.setFilter(matchFilter);
+        // Common filter conditions — shared by all match attempts
+        const QString baseFilter = QString(
+            "callsign=upper('%1') AND upper(band)=upper('%2') AND "
+            "COALESCE(sat_name, '') = upper('%3') AND "
+            "ABS(JULIANDAY(start_time)-JULIANDAY(datetime('%4')))*24*60<30"
+        ).arg(call.toString(), band.toString(), satName.toString(), startTimeStr);
+
+        // First attempt: exact mode match (used for eQSL; also the fast path for LoTW)
+        model.setFilter(baseFilter + QString(" AND upper(mode)=upper('%1')").arg(mode.toString()));
         model.select();
+
+        // LoTW fallback: LoTW confirms QSOs when both sides specify modes in the same
+        // group (CW / PHONE / DATA).
+
+        // Two submitted descriptions of a QSO match if
+
+        // https://lotw.arrl.org/lotw-help/frequently-asked-questions/#datamatch
+        // your QSO description specifies a callsign that matches the Callsign Certificate specified by the Station Location your QSO partner used to digitally sign the QSO
+        // your QSO partner's QSO description specifies a callsign that matches the Callsign Certificate specified by the Station Location you used to digitally sign the QSO
+        // both QSO descriptions specify start times within 30 minutes of each other
+        // both QSO descriptions specify the same band
+        // both QSO descriptions specify the same mode (an exact mode match), or must specify modes belonging to the same Mode Group
+        // for satellite QSOs, both QSO descriptions must specify the same satellite, and a propagation mode of SAT
+        if ( model.rowCount() != 1 && fromService == LOTW )
+        {
+            const QString modeStr = mode.toString();
+            QString dxccGroup = LotwBase::lotwGroupNameToDxcc(modeStr);
+
+            if ( dxccGroup.isEmpty() )
+            {
+                if ( !modeGroupCache.contains(modeStr) )
+                    modeGroupCache.insert(modeStr, BandPlan::modeToDXCCModeGroup(modeStr));
+                dxccGroup = modeGroupCache.value(modeStr);
+            }
+
+            if ( !dxccGroup.isEmpty() )
+            {
+                qCDebug(runtime) << "LoTW: mode group fallback" << mode << "->" << dxccGroup;
+                model.setFilter(baseFilter + QString(
+                    " AND (SELECT dxcc FROM modes WHERE upper(name)=upper(mode) LIMIT 1) = '%1'"
+                ).arg(dxccGroup));
+                model.select();
+            }
+        }
 
         if ( model.rowCount() != 1 )
         {

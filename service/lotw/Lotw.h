@@ -46,6 +46,20 @@ public:
 
     static void saveUsernamePassword(const QString&, const QString&);
     static void saveTQSLPath(const QString&);
+
+    // Returns the QLog dxcc group ("CW", "PHONE", "DIGITAL") for the given
+    // LoTW generic mode group name, or an empty string for specific mode names.
+    static QString lotwGroupNameToDxcc(const QString &lotwMode)
+    {
+        static const QMap<QString, QString> map =
+        {
+            { "DATA",  "DIGITAL" },
+            { "PHONE", "PHONE"   },
+            { "CW",    "CW"      },
+            { "IMAGE", "DIGITAL" }
+        };
+        return map.value(lotwMode.toUpper());
+    }
 };
 
 class LotwUploader : public GenericQSOUploader, private LotwBase

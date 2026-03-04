@@ -13,6 +13,7 @@ TBC - 0.49.0
 - [NEW] - All County fields contain Completer for Ukraine, US, Japan, NZ, Spanish, Russia (PR #785 @aa5sh @foldynl)
 - [NEW] - Added County Awards for Ukraine, US, Japan, NZ, Spanish, Russia (PR #785 @aa5sh @foldynl)
 - [CHANGED] - Generic FTx for FT8/FT4 (FT2) in Alert and DXC filter (issue #937)
+- [CHANGED] - LoTW QSL matching algorithm uses Mode and Mode Group matching (issue #942)
 - LogbookWidget: Delete Performance Optimization
 - Fixed Awards POTA Activator Filter
 
