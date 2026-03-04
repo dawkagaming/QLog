@@ -179,11 +179,17 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
     if ( statusFromCache )
         return *statusFromCache;
 
+    // FTx modes (FT8, FT4, FT2) are stored in contacts with modes.dxcc = 'DIGITAL',
+    // so we use DIGITAL as the effective mode group when querying for FTx.
+    const QString modeForQuery = ( mode == BandPlan::MODE_GROUP_STRING_FTx )
+                                 ? BandPlan::MODE_GROUP_STRING_DIGITAL
+                                 : mode;
+
     QString sql_mode(":mode");
 
-    if ( mode != BandPlan::MODE_GROUP_STRING_CW
-         && mode != BandPlan::MODE_GROUP_STRING_PHONE
-         && mode != BandPlan::MODE_GROUP_STRING_DIGITAL )
+    if ( modeForQuery != BandPlan::MODE_GROUP_STRING_CW
+         && modeForQuery != BandPlan::MODE_GROUP_STRING_PHONE
+         && modeForQuery != BandPlan::MODE_GROUP_STRING_DIGITAL )
     {
         sql_mode = "(SELECT modes.dxcc FROM modes WHERE modes.name = :mode LIMIT 1) ";
     }
@@ -229,7 +235,7 @@ DxccStatus Data::dxccStatus(int dxcc, const QString &band, const QString &mode)
 
     query.bindValue(":dxcc", dxcc);
     query.bindValue(":band", band);
-    query.bindValue(":mode", mode);
+    query.bindValue(":mode", modeForQuery);
 
     if ( ! query.exec() )
     {
@@ -758,11 +764,16 @@ qulonglong Data::countDupe(const QString &callsign,
     if ( dupeType >= DupeType::EACH_BAND)
         whereClause << QLatin1String("band = :band");
 
+    // FTx modes are stored with modes.dxcc = 'DIGITAL', so map FTx to DIGITAL.
+    const QString modeForQuery = ( mode == BandPlan::MODE_GROUP_STRING_FTx )
+                                 ? BandPlan::MODE_GROUP_STRING_DIGITAL
+                                 : mode;
+
     if ( dupeType >= DupeType::EACH_BAND_MODE )
     {
-        QString sql_mode = (mode != BandPlan::MODE_GROUP_STRING_CW &&
-                            mode != BandPlan::MODE_GROUP_STRING_PHONE &&
-                            mode != BandPlan::MODE_GROUP_STRING_DIGITAL)
+        QString sql_mode = (modeForQuery != BandPlan::MODE_GROUP_STRING_CW &&
+                            modeForQuery != BandPlan::MODE_GROUP_STRING_PHONE &&
+                            modeForQuery != BandPlan::MODE_GROUP_STRING_DIGITAL)
                             ? "(SELECT modes.dxcc FROM modes WHERE modes.name = :mode LIMIT 1)"
                             : ":mode";
         whereClause << QString("m.dxcc = %1").arg(sql_mode);
@@ -784,7 +795,7 @@ qulonglong Data::countDupe(const QString &callsign,
     query.bindValue(":callsign", callsign);
     query.bindValue(":date", dupeStartTime);
     query.bindValue(":band", band);
-    query.bindValue(":mode", mode);
+    query.bindValue(":mode", modeForQuery);
     query.bindValue(":contestid", contestID);
 
     if ( ! query.exec() )
