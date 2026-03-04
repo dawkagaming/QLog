@@ -196,8 +196,10 @@ void KSTChat::recalculateDupe()
     if ( !contact )
         return;
 
+    const QString &modeGroupString = BandPlan::modeToDXCCModeGroup(contact->getMode());
+
     for ( KSTUsersInfo &user: userList )
-        user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), contact->getMode());
+        user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), modeGroupString);
 
     emit usersListUpdated();
 }
@@ -596,8 +598,9 @@ void KSTChat::finalizeShowUsersCommand(const QStringList &buffer)
             user.status = DxccStatus::UnknownStatus;
             if ( contact )
             {
-                user.status = Data::instance()->dxccStatus(user.dxcc.dxcc, contact->getBand(), contact->getMode());
-                user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), contact->getMode());
+                const QString &modeGroup = BandPlan::modeToDXCCModeGroup(contact->getMode());
+                user.status = Data::instance()->dxccStatus(user.dxcc.dxcc, contact->getBand(), modeGroup);
+                user.dupeCount = Data::countDupe(user.callsign, contact->getBand(), modeGroup);
             }
             userList << user;
         }
