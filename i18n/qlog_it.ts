@@ -3231,57 +3231,57 @@
 <context>
     <name>Data</name>
     <message>
-        <location filename="../data/Data.cpp" line="562"/>
+        <location filename="../data/Data.cpp" line="568"/>
         <source>New Entity</source>
         <translation>Nuova Entità</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="564"/>
+        <location filename="../data/Data.cpp" line="570"/>
         <source>New Band</source>
         <translation>Nuova Banda</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="566"/>
+        <location filename="../data/Data.cpp" line="572"/>
         <source>New Mode</source>
         <translation>Nuovo Modo</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="568"/>
+        <location filename="../data/Data.cpp" line="574"/>
         <source>New Band&amp;Mode</source>
         <translation>Nuovi  Banda&amp;Modo</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="570"/>
+        <location filename="../data/Data.cpp" line="576"/>
         <source>New Slot</source>
         <translation>Nuovo Slot</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="572"/>
+        <location filename="../data/Data.cpp" line="578"/>
         <source>Confirmed</source>
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="574"/>
+        <location filename="../data/Data.cpp" line="580"/>
         <source>Worked</source>
         <translation>Lavorato</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="631"/>
+        <location filename="../data/Data.cpp" line="637"/>
         <source>Hz</source>
         <translation>Hz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="638"/>
+        <location filename="../data/Data.cpp" line="644"/>
         <source>kHz</source>
         <translation>kHz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="645"/>
+        <location filename="../data/Data.cpp" line="651"/>
         <source>GHz</source>
         <translation>GHz</translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="650"/>
+        <location filename="../data/Data.cpp" line="656"/>
         <source>MHz</source>
         <translation>MHz</translation>
     </message>
@@ -4901,12 +4901,12 @@ Questa password sarà necessaria in seguito per ripristinarle.</translation>
 <context>
     <name>KSTChat</name>
     <message>
-        <location filename="../service/kstchat/KSTChat.cpp" line="401"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="403"/>
         <source>Unknown User</source>
         <translation>Utente sconosciuto</translation>
     </message>
     <message>
-        <location filename="../service/kstchat/KSTChat.cpp" line="407"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="409"/>
         <source>Invalid password</source>
         <translation>password non corretta</translation>
     </message>
@@ -5256,67 +5256,67 @@ Questa password sarà necessaria in seguito per ripristinarle.</translation>
 <context>
     <name>LogFormat</name>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="374"/>
-        <location filename="../logformat/LogFormat.cpp" line="660"/>
+        <location filename="../logformat/LogFormat.cpp" line="375"/>
+        <location filename="../logformat/LogFormat.cpp" line="661"/>
         <source>Cannot find My DXCC Entity Info</source>
         <translation>Impossibile trovare le informazioni sulla mia entità DXCC</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="432"/>
+        <location filename="../logformat/LogFormat.cpp" line="433"/>
         <source>A minimal set of fields not present (start_time, call, band, mode, station_callsign)</source>
         <translation>Un minimo set di campi non presenti (start_time, call, band, mode, station_callsign)</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="453"/>
+        <location filename="../logformat/LogFormat.cpp" line="454"/>
         <source>Outside the selected Date Range</source>
         <translation>Otre il range di Data selezionata</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="481"/>
-        <location filename="../logformat/LogFormat.cpp" line="508"/>
+        <location filename="../logformat/LogFormat.cpp" line="482"/>
+        <location filename="../logformat/LogFormat.cpp" line="509"/>
         <source>Duplicate</source>
         <translation>Duplicato</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="536"/>
+        <location filename="../logformat/LogFormat.cpp" line="537"/>
         <source>Cannot find DXCC Entity Info</source>
         <translation>Impossibile trovare le informazioni sull&apos;entità DXCC</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="562"/>
+        <location filename="../logformat/LogFormat.cpp" line="563"/>
         <source>DXCC Info is missing</source>
         <translation>Le informazioni DXCC mancano</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="604"/>
-        <location filename="../logformat/LogFormat.cpp" line="624"/>
-        <location filename="../logformat/LogFormat.cpp" line="644"/>
+        <location filename="../logformat/LogFormat.cpp" line="605"/>
+        <location filename="../logformat/LogFormat.cpp" line="625"/>
+        <location filename="../logformat/LogFormat.cpp" line="645"/>
         <source>no Station Callsign present</source>
         <translation>Nominativo di Stazione assente</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="746"/>
+        <location filename="../logformat/LogFormat.cpp" line="747"/>
         <source>Cannot insert to database</source>
         <translation>Impossibile inserire nel Database</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="758"/>
+        <location filename="../logformat/LogFormat.cpp" line="759"/>
         <source>Imported</source>
         <translation>Importato</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="969"/>
-        <location filename="../logformat/LogFormat.cpp" line="1057"/>
+        <location filename="../logformat/LogFormat.cpp" line="1009"/>
+        <location filename="../logformat/LogFormat.cpp" line="1097"/>
         <source>DXCC State:</source>
         <translation>Stato DXCC:</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1181"/>
+        <location filename="../logformat/LogFormat.cpp" line="1221"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1184"/>
+        <location filename="../logformat/LogFormat.cpp" line="1224"/>
         <source>Warning</source>
         <translation>Attenzione</translation>
     </message>
@@ -8168,42 +8168,42 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="321"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="551"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="553"/>
         <location filename="../ui/DxWidget.cpp" line="1184"/>
         <source>Connection Refused</source>
         <translation>Connessione rifiutata</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="325"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="554"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="556"/>
         <location filename="../ui/DxWidget.cpp" line="1187"/>
         <source>Host closed the connection</source>
         <translation>Host ha chiuso la connessione</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="330"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="559"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="561"/>
         <location filename="../ui/DxWidget.cpp" line="1192"/>
         <source>Host not found</source>
         <translation>Host non trovato</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="333"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="562"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="564"/>
         <location filename="../ui/DxWidget.cpp" line="1195"/>
         <source>Timeout</source>
         <translation>Timeout</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="337"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="567"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="569"/>
         <location filename="../ui/DxWidget.cpp" line="1199"/>
         <source>Network Error</source>
         <translation>Errore di rete</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="340"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="571"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="573"/>
         <location filename="../ui/DxWidget.cpp" line="1202"/>
         <source>Internal Error</source>
         <translation>Errore Interno</translation>
@@ -8469,7 +8469,7 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     </message>
     <message numerus="yes">
         <location filename="../ui/QSLGalleryDialog.cpp" line="175"/>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="428"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="434"/>
         <source>%n QSL card(s)</source>
         <translation type="unfinished">
             <numerusform>%n scheda(e) QSL</numerusform>
@@ -8492,57 +8492,57 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Per paese</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="229"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="235"/>
         <source>By Date</source>
         <translation>Per data</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="258"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="264"/>
         <source>By Band</source>
         <translation>Per banda</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="272"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="278"/>
         <source>By Mode</source>
         <translation>Per modalità</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="286"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="292"/>
         <source>By Continent</source>
         <translation>Per continente</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="573"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="579"/>
         <source>Remove from Favorites</source>
         <translation>Rimuovi dai preferiti</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="573"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="579"/>
         <source>Add to Favorites</source>
         <translation>Aggiungi ai preferiti</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="575"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="581"/>
         <source>Open</source>
         <translation>Apri</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="576"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="582"/>
         <source>Save...</source>
         <translation>Salva…</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="653"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="659"/>
         <source>Save QSL Card</source>
         <translation>Salva scheda QSL</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="701"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="707"/>
         <source>Export QSL Cards</source>
         <translation>Esporta schede QSL</translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="745"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="751"/>
         <source>Exported %1 of %2 cards</source>
         <translation>Esportate %1 di %2 schede</translation>
     </message>

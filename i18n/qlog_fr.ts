@@ -3231,57 +3231,57 @@
 <context>
     <name>Data</name>
     <message>
-        <location filename="../data/Data.cpp" line="562"/>
+        <location filename="../data/Data.cpp" line="568"/>
         <source>New Entity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="564"/>
+        <location filename="../data/Data.cpp" line="570"/>
         <source>New Band</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="566"/>
+        <location filename="../data/Data.cpp" line="572"/>
         <source>New Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="568"/>
+        <location filename="../data/Data.cpp" line="574"/>
         <source>New Band&amp;Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="570"/>
+        <location filename="../data/Data.cpp" line="576"/>
         <source>New Slot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="572"/>
+        <location filename="../data/Data.cpp" line="578"/>
         <source>Confirmed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="574"/>
+        <location filename="../data/Data.cpp" line="580"/>
         <source>Worked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="631"/>
+        <location filename="../data/Data.cpp" line="637"/>
         <source>Hz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="638"/>
+        <location filename="../data/Data.cpp" line="644"/>
         <source>kHz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="645"/>
+        <location filename="../data/Data.cpp" line="651"/>
         <source>GHz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data/Data.cpp" line="650"/>
+        <location filename="../data/Data.cpp" line="656"/>
         <source>MHz</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4888,12 +4888,12 @@ The password will be needed to restore them later.</source>
 <context>
     <name>KSTChat</name>
     <message>
-        <location filename="../service/kstchat/KSTChat.cpp" line="401"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="403"/>
         <source>Unknown User</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../service/kstchat/KSTChat.cpp" line="407"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="409"/>
         <source>Invalid password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5243,67 +5243,67 @@ The password will be needed to restore them later.</source>
 <context>
     <name>LogFormat</name>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="374"/>
-        <location filename="../logformat/LogFormat.cpp" line="660"/>
+        <location filename="../logformat/LogFormat.cpp" line="375"/>
+        <location filename="../logformat/LogFormat.cpp" line="661"/>
         <source>Cannot find My DXCC Entity Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="432"/>
+        <location filename="../logformat/LogFormat.cpp" line="433"/>
         <source>A minimal set of fields not present (start_time, call, band, mode, station_callsign)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="453"/>
+        <location filename="../logformat/LogFormat.cpp" line="454"/>
         <source>Outside the selected Date Range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="481"/>
-        <location filename="../logformat/LogFormat.cpp" line="508"/>
+        <location filename="../logformat/LogFormat.cpp" line="482"/>
+        <location filename="../logformat/LogFormat.cpp" line="509"/>
         <source>Duplicate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="536"/>
+        <location filename="../logformat/LogFormat.cpp" line="537"/>
         <source>Cannot find DXCC Entity Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="562"/>
+        <location filename="../logformat/LogFormat.cpp" line="563"/>
         <source>DXCC Info is missing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="604"/>
-        <location filename="../logformat/LogFormat.cpp" line="624"/>
-        <location filename="../logformat/LogFormat.cpp" line="644"/>
+        <location filename="../logformat/LogFormat.cpp" line="605"/>
+        <location filename="../logformat/LogFormat.cpp" line="625"/>
+        <location filename="../logformat/LogFormat.cpp" line="645"/>
         <source>no Station Callsign present</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="746"/>
+        <location filename="../logformat/LogFormat.cpp" line="747"/>
         <source>Cannot insert to database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="758"/>
+        <location filename="../logformat/LogFormat.cpp" line="759"/>
         <source>Imported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="969"/>
-        <location filename="../logformat/LogFormat.cpp" line="1057"/>
+        <location filename="../logformat/LogFormat.cpp" line="1009"/>
+        <location filename="../logformat/LogFormat.cpp" line="1097"/>
         <source>DXCC State:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1181"/>
+        <location filename="../logformat/LogFormat.cpp" line="1221"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../logformat/LogFormat.cpp" line="1184"/>
+        <location filename="../logformat/LogFormat.cpp" line="1224"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8271,42 +8271,42 @@ You can leave fields empty and configure them later in Settings.</source>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="321"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="551"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="553"/>
         <location filename="../ui/DxWidget.cpp" line="1184"/>
         <source>Connection Refused</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="325"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="554"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="556"/>
         <location filename="../ui/DxWidget.cpp" line="1187"/>
         <source>Host closed the connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="330"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="559"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="561"/>
         <location filename="../ui/DxWidget.cpp" line="1192"/>
         <source>Host not found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="333"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="562"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="564"/>
         <location filename="../ui/DxWidget.cpp" line="1195"/>
         <source>Timeout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="337"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="567"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="569"/>
         <location filename="../ui/DxWidget.cpp" line="1199"/>
         <source>Network Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="340"/>
-        <location filename="../service/kstchat/KSTChat.cpp" line="571"/>
+        <location filename="../service/kstchat/KSTChat.cpp" line="573"/>
         <location filename="../ui/DxWidget.cpp" line="1202"/>
         <source>Internal Error</source>
         <translation type="unfinished"></translation>
@@ -8452,7 +8452,7 @@ You can leave fields empty and configure them later in Settings.</source>
     </message>
     <message numerus="yes">
         <location filename="../ui/QSLGalleryDialog.cpp" line="175"/>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="428"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="434"/>
         <source>%n QSL card(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
@@ -8475,57 +8475,57 @@ You can leave fields empty and configure them later in Settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="229"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="235"/>
         <source>By Date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="258"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="264"/>
         <source>By Band</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="272"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="278"/>
         <source>By Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="286"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="292"/>
         <source>By Continent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="573"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="579"/>
         <source>Remove from Favorites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="573"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="579"/>
         <source>Add to Favorites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="575"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="581"/>
         <source>Open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="576"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="582"/>
         <source>Save...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="653"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="659"/>
         <source>Save QSL Card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="701"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="707"/>
         <source>Export QSL Cards</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ui/QSLGalleryDialog.cpp" line="745"/>
+        <location filename="../ui/QSLGalleryDialog.cpp" line="751"/>
         <source>Exported %1 of %2 cards</source>
         <translation type="unfinished"></translation>
     </message>
