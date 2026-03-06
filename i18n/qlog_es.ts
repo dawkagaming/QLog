@@ -8507,9 +8507,9 @@ Puede dejar los campos vacíos y configurarlos más tarde en Configuración.</tr
         <location filename="../ui/QSLGalleryDialog.cpp" line="175"/>
         <location filename="../ui/QSLGalleryDialog.cpp" line="434"/>
         <source>%n QSL card(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n tarjeta(s) QSL</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n tarjeta(s) QSL</numerusform>
         </translation>
     </message>
     <message>

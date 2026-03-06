@@ -8471,9 +8471,9 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <location filename="../ui/QSLGalleryDialog.cpp" line="175"/>
         <location filename="../ui/QSLGalleryDialog.cpp" line="434"/>
         <source>%n QSL card(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n scheda(e) QSL</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n scheda(e) QSL</numerusform>
         </translation>
     </message>
     <message>

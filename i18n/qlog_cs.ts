@@ -8482,8 +8482,8 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <source>%n QSL card(s)</source>
         <translation>
             <numerusform>%n QSL lístek</numerusform>
+            <numerusform>%n QSL lísteky</numerusform>
             <numerusform>%n QSL lísteků</numerusform>
-            <numerusform></numerusform>
         </translation>
     </message>
     <message>

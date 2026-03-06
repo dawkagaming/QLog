@@ -8472,9 +8472,9 @@ Sie können Felder leer lassen und später in den Einstellungen konfigurieren.</
         <location filename="../ui/QSLGalleryDialog.cpp" line="175"/>
         <location filename="../ui/QSLGalleryDialog.cpp" line="434"/>
         <source>%n QSL card(s)</source>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%n QSL-Karte(n)</numerusform>
-            <numerusform></numerusform>
+            <numerusform>%n QSL-Karte(n)</numerusform>
         </translation>
     </message>
     <message>
