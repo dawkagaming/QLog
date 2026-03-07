@@ -22,11 +22,7 @@ PlatformSettingsDialog::PlatformSettingsDialog(QWidget *parent) :
 
     // Set column resize modes
     ui->settingsTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    ui->settingsTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Interactive);
-    ui->settingsTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
-
-    // Set reasonable initial width for Imported Value column
-    ui->settingsTable->setColumnWidth(1, 180);
+    ui->settingsTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
 
     // Add Continue button
     continueButton = ui->buttonBox->addButton(tr("Continue"), QDialogButtonBox::AcceptRole);
@@ -59,12 +55,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         QTableWidgetItem *nameItem = new QTableWidgetItem(p.displayName);
         ui->settingsTable->setItem(row, 0, nameItem);
 
-        // Imported value (with tooltip for long paths)
-        QTableWidgetItem *importedItem = new QTableWidgetItem(p.currentValue);
-        importedItem->setToolTip(p.currentValue);
-        ui->settingsTable->setItem(row, 1, importedItem);
-
-        // New value - editable with browse button
+        // Value - editable with browse button, imported value as placeholder
         QWidget *editWidget = new QWidget(this);
         QHBoxLayout *layout = new QHBoxLayout(editWidget);
         layout->setContentsMargins(2, 2, 2, 2);
@@ -72,6 +63,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
 
         QLineEdit *lineEdit = new QLineEdit(this);
         lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
+        lineEdit->setPlaceholderText(p.currentValue);
         layout->addWidget(lineEdit);
 
         QPushButton *browseBtn = new QPushButton("...", this);
@@ -81,7 +73,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         });
         layout->addWidget(browseBtn);
 
-        ui->settingsTable->setCellWidget(row, 2, editWidget);
+        ui->settingsTable->setCellWidget(row, 1, editWidget);
         ++row;
     }
 
@@ -92,12 +84,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         QTableWidgetItem *nameItem = new QTableWidgetItem(p.displayName);
         ui->settingsTable->setItem(row, 0, nameItem);
 
-        // Imported value (with tooltip for long paths)
-        QTableWidgetItem *importedItem = new QTableWidgetItem(p.currentValue);
-        importedItem->setToolTip(p.currentValue);
-        ui->settingsTable->setItem(row, 1, importedItem);
-
-        // New value - editable with browse button
+        // Value - editable with browse button, imported value as placeholder
         QWidget *editWidget = new QWidget();
         QHBoxLayout *layout = new QHBoxLayout(editWidget);
         layout->setContentsMargins(2, 2, 2, 2);
@@ -107,6 +94,7 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         {
             QLineEdit *lineEdit = new QLineEdit(this);
             lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
+            lineEdit->setPlaceholderText(p.currentValue);
             layout->addWidget(lineEdit);
 
             QPushButton *browseBtn = new QPushButton("...",this);
@@ -120,10 +108,11 @@ void PlatformSettingsDialog::setParameters(const QList<PlatformParameter> &param
         {
             SerialPortEditLine *lineEdit = new SerialPortEditLine(this);
             lineEdit->setObjectName(QString("lineEdit_%1").arg(row));
+            lineEdit->setPlaceholderText(p.currentValue);
             layout->addWidget(lineEdit);
         }
 
-        ui->settingsTable->setCellWidget(row, 2, editWidget);
+        ui->settingsTable->setCellWidget(row, 1, editWidget);
         ++row;
     }
 }
@@ -136,7 +125,7 @@ QList<PlatformParameter> PlatformSettingsDialog::getParameters() const
 
     for ( int row = 0; row < result.size(); ++row )
     {
-        QWidget *cellWidget = ui->settingsTable->cellWidget(row, 2);
+        QWidget *cellWidget = ui->settingsTable->cellWidget(row, 1);
         if ( cellWidget )
         {
             QLineEdit *lineEdit = cellWidget->findChild<QLineEdit*>(QString("lineEdit_%1").arg(row));
@@ -160,7 +149,7 @@ QList<ProfileParameter> PlatformSettingsDialog::getProfilePortParameters() const
     for ( int i = 0; i < result.size(); ++i )
     {
         int row = parameterCount + i;
-        QWidget *cellWidget = ui->settingsTable->cellWidget(row, 2);
+        QWidget *cellWidget = ui->settingsTable->cellWidget(row, 1);
         if ( cellWidget )
         {
             QLineEdit *lineEdit = cellWidget->findChild<QLineEdit*>(QString("lineEdit_%1").arg(row));
@@ -193,7 +182,7 @@ void PlatformSettingsDialog::browseForPath(int row)
 
     if ( filename.isEmpty() ) return;
 
-    QWidget *cellWidget = ui->settingsTable->cellWidget(row, 2);
+    QWidget *cellWidget = ui->settingsTable->cellWidget(row, 1);
     if ( cellWidget )
     {
         QLineEdit *lineEdit = cellWidget->findChild<QLineEdit*>(QString("lineEdit_%1").arg(row));

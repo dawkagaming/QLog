@@ -86,7 +86,7 @@ QList<PlatformParameter> PlatformParameterManager::getParameters(const QString &
                 {
                     // For executable paths from Flatpak source: path is not useful
                     if ( param.isExecutablePath && sourceIsFlatpak )
-                        p.currentValue = QObject::tr("(Flatpak internal path - not applicable)");
+                        p.currentValue = QObject::tr("(Flatpak internal path)");
                     else
                         p.currentValue = query.value(0).toString();
                 }
@@ -225,7 +225,7 @@ QList<ProfileParameter> PlatformParameterManager::getProfileParameters(const QSt
                 p.isExecutablePath = def.isExecutablePath;
 
                 if ( def.isExecutablePath && sourceIsFlatpak )
-                    p.currentValue = QObject::tr("(Flatpak internal path - not applicable)");
+                    p.currentValue = QObject::tr("(Flatpak internal path)");
                 else
                     p.currentValue = query.value(1).toString();
 
