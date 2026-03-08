@@ -17,6 +17,7 @@ TBC - 0.49.0
 - [CHANGED] - Reduced download period for DXCC Entities from 21 to 7 days
 - LogbookWidget: Delete Performance Optimization
 - Fixed Awards POTA Activator Filter
+- Fixing SATmode Activity is blank (issue #948)
 
 2026/01/30 - 0.48.0
 - [NEW] - Rig Widget - tuning rig with mouse (issue #855)

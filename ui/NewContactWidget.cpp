@@ -2805,9 +2805,15 @@ void NewContactWidget::updateSatMode()
     if ( Data::instance()->propagationModeTextToID(ui->propagationModeEdit->currentText()) != "SAT")
         return;
 
-    uiDynamic->satModeEdit->setCurrentText(Data::instance()->satModeIDToText(( bandTX.satDesignator.isEmpty()
-                                                                               || bandRX.satDesignator.isEmpty() ) ? ""
-                                                                                                                   : bandTX.satDesignator + bandRX.satDesignator));
+    const QString satModeText = Data::instance()->satModeIDToText(( bandTX.satDesignator.isEmpty()
+                                                                    || bandRX.satDesignator.isEmpty() ) ? ""
+                                                                                                        : bandTX.satDesignator + bandRX.satDesignator);
+    // Only update if a valid SAT mode was resolved.
+    // When the rig reports only one VFO frequency, bandTX == bandRX which produces
+    // an invalid designator combination (e.g. "SS") and satModeIDToText returns "".
+    // In that case we preserve whatever SAT mode is currently set.
+    if ( !satModeText.isEmpty() )
+        uiDynamic->satModeEdit->setCurrentText(satModeText);
 }
 
 void NewContactWidget::tuneDx(const DxSpot &spot)
