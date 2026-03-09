@@ -7319,7 +7319,7 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>Člen:</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3986"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3992"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
@@ -7357,7 +7357,7 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>QSL odeslat přes</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4034"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4040"/>
         <source>Blank</source>
         <translation>Nevyplněno</translation>
     </message>
@@ -7382,7 +7382,7 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3966"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3972"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>DARC DOK (kód uzemí) (např A01)</translation>
     </message>
@@ -7407,7 +7407,7 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>Rig</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4035"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4041"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -7522,47 +7522,47 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3059"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3065"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3069"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3075"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3075"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3081"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3393"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3399"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3767"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3773"/>
         <source>Callbook search is active</source>
         <translation>Hledání v Callbooku je aktivní</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3841"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3847"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>Pro aktivaci je nutné vyplnit Contest ID</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4022"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4028"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Není to jméno Contestu ale jeho přiřazené Contest ID (např. CQ-WW-CW pro CQ WW DX Contest (CW)) </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4037"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4043"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Popis vybavení kontaktované stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3762"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3768"/>
         <source>Callbook search is inactive</source>
         <translation>Hledání v Callbooku není aktivní</translation>
     </message>
@@ -7572,17 +7572,17 @@ Toto heslo bude později potřeba pro jejich obnovení.</translation>
         <translation>Rozbalit/sbalit</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3963"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3969"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>dva nebo čtyři sousední lokátory, každý o délce čtyř znaků (např. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3990"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3996"/>
         <source>Special Activity Group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3994"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4000"/>
         <source>Special Activity Group Information</source>
         <translation></translation>
     </message>
@@ -7766,26 +7766,21 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
     </message>
     <message>
         <location filename="../ui/PlatformSettingsDialog.ui" line="59"/>
-        <source>Imported Value</source>
-        <translation>Importovaná hodnota</translation>
+        <source>Value</source>
+        <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.ui" line="64"/>
-        <source>New Value</source>
-        <translation>Nová hodnota</translation>
-    </message>
-    <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="32"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="28"/>
         <source>Continue</source>
         <translation>Pokračovat</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="189"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="178"/>
         <source>Select File</source>
         <translation>Vybrat soubor</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="191"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="180"/>
         <source>All Files (*)</source>
         <translation>Všechny soubory (*)</translation>
     </message>
@@ -8389,8 +8384,8 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
     <message>
         <location filename="../core/PlatformParameterManager.cpp" line="89"/>
         <location filename="../core/PlatformParameterManager.cpp" line="228"/>
-        <source>(Flatpak internal path - not applicable)</source>
-        <translation>(Interní cesta Flatpak – neuplatňuje se)</translation>
+        <source>(Flatpak internal path)</source>
+        <translation>(Interní cesta Flatpak)</translation>
     </message>
     <message>
         <location filename="../core/PlatformParameterManager.cpp" line="192"/>

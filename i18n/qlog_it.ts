@@ -7386,12 +7386,12 @@ Questa password sarà necessaria in seguito per ripristinarle.</translation>
         <translation>Antenna</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4034"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4040"/>
         <source>Blank</source>
         <translation>Vuoto</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4035"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4041"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -7511,72 +7511,72 @@ Questa password sarà necessaria in seguito per ripristinarle.</translation>
         <translation>Confermato</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3059"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3065"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3069"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3075"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3075"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3081"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3393"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3399"/>
         <source> m</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3762"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3768"/>
         <source>Callbook search is inactive</source>
         <translation>Ricerca sul Callbook inattiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3767"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3773"/>
         <source>Callbook search is active</source>
         <translation>Ricerca sul Callbook attiva</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3841"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3847"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>L&apos;ID del contest deve essere compilato per attivare</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3963"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3969"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>due o quattro localizzatori di griglia Maidenhead adiacenti, ciascuno lungo quattro caratteri, (es. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3966"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3972"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>il DARC DOK (District Location Code) della stazione contattata (ex. A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3986"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3992"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3990"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3996"/>
         <source>Special Activity Group</source>
         <translation>Gruppo di Attività Speciali</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3994"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4000"/>
         <source>Special Activity Group Information</source>
         <translation>Informazioni sul gruppo di attività speciali</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4022"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4028"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Non è il nome del Contest ma è un ID del Contest assegnato (ad esempio CQ-WW-CW per CQ WW DX Contest (CW)) </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4037"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4043"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Descrizione dell&apos;attrezzatura della stazione contattata</translation>
     </message>
@@ -7760,26 +7760,21 @@ Verificate o aggiornate le seguenti impostazioni.
     </message>
     <message>
         <location filename="../ui/PlatformSettingsDialog.ui" line="59"/>
-        <source>Imported Value</source>
-        <translation>Valore importato</translation>
+        <source>Value</source>
+        <translation>Valore</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.ui" line="64"/>
-        <source>New Value</source>
-        <translation>Nuovo valore</translation>
-    </message>
-    <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="32"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="28"/>
         <source>Continue</source>
         <translation>Continua</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="189"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="178"/>
         <source>Select File</source>
         <translation>Seleziona File</translation>
     </message>
     <message>
-        <location filename="../ui/PlatformSettingsDialog.cpp" line="191"/>
+        <location filename="../ui/PlatformSettingsDialog.cpp" line="180"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
@@ -8380,8 +8375,8 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
     <message>
         <location filename="../core/PlatformParameterManager.cpp" line="89"/>
         <location filename="../core/PlatformParameterManager.cpp" line="228"/>
-        <source>(Flatpak internal path - not applicable)</source>
-        <translation>(Percorso interno Flatpak – non applicabile)</translation>
+        <source>(Flatpak internal path)</source>
+        <translation>(Percorso interno Flatpak)</translation>
     </message>
     <message>
         <location filename="../core/PlatformParameterManager.cpp" line="192"/>
