@@ -20,14 +20,15 @@ MODULE_IDENTIFICATION("qlog.core.migration");
  * Migrate the database to the latest schema version.
  * Returns true on success.
  */
-bool DBSchemaMigration::run() {
+bool DBSchemaMigration::run(bool force)
+{
     FCT_IDENTIFICATION;
 
     int currentVersion = getVersion();
 
     if (currentVersion == latestVersion) {
         qCDebug(runtime) << "Database schema already up to date";
-        updateExternalResource();
+        updateExternalResource(force);
         // temporarily added to create a trigger without calling db migration
         //refreshUploadStatusTrigger();
         return true;
@@ -79,7 +80,7 @@ bool DBSchemaMigration::run() {
 
     progress.close();
 
-    updateExternalResource();
+    updateExternalResource(force);
 
     qCDebug(runtime) << "Database migration successful";
 
@@ -189,7 +190,8 @@ bool DBSchemaMigration::backupAllQSOsToADX(bool force)
 /**
  * Returns the current user_version of the database.
  */
-int DBSchemaMigration::getVersion() {
+int DBSchemaMigration::getVersion()
+{
     FCT_IDENTIFICATION;
 
     QSqlQuery query("SELECT version FROM schema_versions "
@@ -204,7 +206,8 @@ int DBSchemaMigration::getVersion() {
  * Changes the user_version of the database to version.
  * Returns true of the operation was successful.
  */
-bool DBSchemaMigration::setVersion(int version) {
+bool DBSchemaMigration::setVersion(int version)
+{
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << version;
@@ -231,7 +234,8 @@ bool DBSchemaMigration::setVersion(int version) {
  * Migrate the database to the given version.
  * Returns true if the operation was successful.
  */
-bool DBSchemaMigration::migrate(int toVersion) {
+bool DBSchemaMigration::migrate(int toVersion)
+{
     FCT_IDENTIFICATION;
 
     qCDebug(runtime) << "migrate to" << toVersion;
@@ -258,7 +262,8 @@ bool DBSchemaMigration::migrate(int toVersion) {
     }
 }
 
-bool DBSchemaMigration::runSqlFile(QString filename) {
+bool DBSchemaMigration::runSqlFile(QString filename)
+{
     FCT_IDENTIFICATION;
 
     qCDebug(function_parameters) << filename;
@@ -342,7 +347,7 @@ int DBSchemaMigration::tableRows(const QString &name)
     return i;
 }
 
-bool DBSchemaMigration::updateExternalResource()
+bool DBSchemaMigration::updateExternalResource(bool force)
 {
     FCT_IDENTIFICATION;
 
@@ -361,14 +366,14 @@ bool DBSchemaMigration::updateExternalResource()
     connect(&progress, &QProgressDialog::canceled,
             &downloader, &LOVDownloader::abortRequest);
 
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::CTY, "(1/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::CLUBLOGCTY, "2/8");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::SATLIST, "(3/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::SOTASUMMITS, "(4/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::WWFFDIRECTORY, "(5/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::IOTALIST, "(6/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::POTADIRECTORY, "(7/8)");
-    updateExternalResourceProgress(progress, downloader, LOVDownloader::MEMBERSHIPCONTENTLIST, "(8/8)");
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::CTY, "(1/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::CLUBLOGCTY, "2/8", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::SATLIST, "(3/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::SOTASUMMITS, "(4/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::WWFFDIRECTORY, "(5/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::IOTALIST, "(6/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::POTADIRECTORY, "(7/8)", force);
+    updateExternalResourceProgress(progress, downloader, LOVDownloader::MEMBERSHIPCONTENTLIST, "(8/8)", force);
 
     return true;
 }
@@ -376,7 +381,8 @@ bool DBSchemaMigration::updateExternalResource()
 void DBSchemaMigration::updateExternalResourceProgress(QProgressDialog& progress,
                                                LOVDownloader& downloader,
                                                const LOVDownloader::SourceType & sourceType,
-                                               const QString &counter)
+                                               const QString &counter,
+                                               bool force)
 {
     FCT_IDENTIFICATION;
 
@@ -419,7 +425,7 @@ void DBSchemaMigration::updateExternalResourceProgress(QProgressDialog& progress
     progress.setModal(true);
     progress.show();
 
-    downloader.update(sourceType);
+    downloader.update(sourceType, force);
 
     if ( progress.wasCanceled() )
         qCDebug(runtime) << "Update was canceled";

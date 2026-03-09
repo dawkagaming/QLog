@@ -44,7 +44,7 @@ LOVDownloader::~LOVDownloader()
     FCT_IDENTIFICATION;
 }
 
-void LOVDownloader::update(const SourceType & sourceType)
+void LOVDownloader::update(const SourceType & sourceType, bool force)
 {
     FCT_IDENTIFICATION;
 
@@ -57,7 +57,8 @@ void LOVDownloader::update(const SourceType & sourceType)
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
     const QDate &last_update = LogParam::getLOVaParam(sourceDef.lastTimeConfigName);
 
-    if ( dir.exists(sourceDef.fileName)
+    if ( !force
+         && dir.exists(sourceDef.fileName)
          && last_update.isValid()
          && last_update.daysTo(QDate::currentDate()) < sourceDef.ageTime )
     {

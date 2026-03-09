@@ -264,12 +264,12 @@ bool LogDatabase::openDatabase()
     return createSQLFunctions();
 }
 
-bool LogDatabase::schemaVersionUpgrade()
+bool LogDatabase::schemaVersionUpgrade(bool force)
 {
     FCT_IDENTIFICATION;
 
     DBSchemaMigration m;
-    return m.run();
+    return m.run(force);
 }
 
 DatabaseInfo LogDatabase::inspectDatabase(const QString &filename)

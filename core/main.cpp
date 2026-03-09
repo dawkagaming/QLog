@@ -323,12 +323,15 @@ int main(int argc, char* argv[])
                 QCoreApplication::translate("main", "Writes debug messages to the debug file"));
     QCommandLineOption importPending("import-pending",
                 QCoreApplication::translate("main", "Process pending database import (internal use)"));
+    QCommandLineOption forceLOVUpdate(QStringList() << "f" << "force-update",
+                QCoreApplication::translate("main", "Force update of all value lists (DXCC, SATs, etc.)"));
 
     parser.addOption(environmentName);
     parser.addOption(translationFilename);
     parser.addOption(forceLanguage);
     parser.addOption(debugFile);
     parser.addOption(importPending);
+    parser.addOption(forceLOVUpdate);
 
     parser.process(app);
     QString environment = parser.value(environmentName);
@@ -336,6 +339,7 @@ int main(int argc, char* argv[])
     QString lang = parser.value(forceLanguage);
     logToFile = parser.isSet(debugFile);
     bool isImportPending = parser.isSet(importPending);
+    bool isForceLOVUpdate = parser.isSet(forceLOVUpdate);
 
     // If started with --import-pending, wait a bit for the previous instance to fully terminate
     if ( isImportPending )
@@ -449,7 +453,7 @@ int main(int argc, char* argv[])
 
         QCoreApplication::processEvents();
 
-        if ( ! LogDatabase::instance()->schemaVersionUpgrade() )
+        if ( ! LogDatabase::instance()->schemaVersionUpgrade(isForceLOVUpdate) )
         {
             QMessageBox::critical(nullptr, QMessageBox::tr("QLog Error"),
                                   QMessageBox::tr("Database migration failed."));

@@ -27,7 +27,7 @@ public:
 public:
     LOVDownloader(QObject *parent = nullptr);
     ~LOVDownloader();
-    void update(const SourceType &);
+    void update(const SourceType &, bool force = false);
 
 public slots:
     void abortRequest();

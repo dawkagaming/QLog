@@ -11,7 +11,7 @@ class DBSchemaMigration : public QObject
 
 public:
     DBSchemaMigration(QObject *parent = nullptr) : QObject(parent) {}
-    bool run();
+    bool run(bool force = false);
     static bool backupAllQSOsToADX(bool force = false);
 
     static constexpr int latestVersion = 37;
@@ -23,11 +23,12 @@ private:
     bool setVersion(int version);
     bool runSqlFile(QString filename);
     int tableRows(const QString &name);
-    bool updateExternalResource();
+    bool updateExternalResource(bool force = false);
     void updateExternalResourceProgress(QProgressDialog&,
                                         LOVDownloader&,
                                         const LOVDownloader::SourceType & sourceType,
-                                        const QString &counter);
+                                        const QString &counter,
+                                        bool force = false);
     bool fixIntlFields();
     bool insertUUID();
     bool fillMyDXCC();
