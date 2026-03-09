@@ -1470,57 +1470,57 @@
 <context>
     <name>DBSchemaMigration</name>
     <message>
-        <location filename="../core/Migration.cpp" line="389"/>
+        <location filename="../core/Migration.cpp" line="395"/>
         <source>DXCC Entities</source>
         <translation>DXCC Země</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="392"/>
+        <location filename="../core/Migration.cpp" line="398"/>
         <source>Sats Info</source>
         <translation>Sat Info</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="395"/>
+        <location filename="../core/Migration.cpp" line="401"/>
         <source>SOTA Summits</source>
         <translation>SOTA Summit</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="398"/>
+        <location filename="../core/Migration.cpp" line="404"/>
         <source>WWFF Records</source>
         <translation>WWFF záznamy</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="401"/>
+        <location filename="../core/Migration.cpp" line="407"/>
         <source>IOTA Records</source>
         <translation>IOTA záznamy</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="404"/>
+        <location filename="../core/Migration.cpp" line="410"/>
         <source>POTA Records</source>
         <translation>POTA záznamy</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="407"/>
+        <location filename="../core/Migration.cpp" line="413"/>
         <source>Membership Directory Records</source>
         <translation>Klubové informace</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="410"/>
+        <location filename="../core/Migration.cpp" line="416"/>
         <source>Clublog CTY.XML</source>
         <translation>Clublog CTY.XML</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="413"/>
+        <location filename="../core/Migration.cpp" line="419"/>
         <source>List of Values</source>
         <translation>Seznam hodnot</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="417"/>
+        <location filename="../core/Migration.cpp" line="423"/>
         <source>Updating </source>
         <translation>Aktualizuji </translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="430"/>
+        <location filename="../core/Migration.cpp" line="436"/>
         <source> Update Failed</source>
         <translation> Aktualizace selhala</translation>
     </message>
@@ -7808,8 +7808,8 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <location filename="../core/MembershipQE.cpp" line="211"/>
         <location filename="../core/MembershipQE.cpp" line="338"/>
         <location filename="../core/MembershipQE.cpp" line="345"/>
-        <location filename="../core/Migration.cpp" line="429"/>
-        <location filename="../core/main.cpp" line="418"/>
+        <location filename="../core/Migration.cpp" line="435"/>
+        <location filename="../core/main.cpp" line="422"/>
         <location filename="../ui/ExportDialog.cpp" line="170"/>
         <location filename="../ui/ImportDialog.cpp" line="240"/>
         <location filename="../ui/MainWindow.cpp" line="634"/>
@@ -7886,11 +7886,11 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <translation>Síťová chyba. Nepovedlo se stáhnout Club List pro</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="390"/>
-        <location filename="../core/main.cpp" line="411"/>
-        <location filename="../core/main.cpp" line="432"/>
-        <location filename="../core/main.cpp" line="444"/>
-        <location filename="../core/main.cpp" line="454"/>
+        <location filename="../core/main.cpp" line="394"/>
+        <location filename="../core/main.cpp" line="415"/>
+        <location filename="../core/main.cpp" line="436"/>
+        <location filename="../core/main.cpp" line="448"/>
+        <location filename="../core/main.cpp" line="458"/>
         <location filename="../ui/AlertRuleDetail.cpp" line="329"/>
         <location filename="../ui/ExportDialog.cpp" line="179"/>
         <location filename="../ui/KSTChatWidget.cpp" line="311"/>
@@ -7902,32 +7902,32 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <translation>Chyba QLog</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="391"/>
+        <location filename="../core/main.cpp" line="395"/>
         <source>QLog is already running</source>
         <translation>QLog již běží</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="412"/>
+        <location filename="../core/main.cpp" line="416"/>
         <source>Failed to process pending database import.</source>
         <translation>Nepodařilo se zpracovat čekající import databáze.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="419"/>
+        <location filename="../core/main.cpp" line="423"/>
         <source>The database was imported successfully, but the stored passwords could not be restored (decryption failed or the data is corrupted). All service passwords have been cleared and must be re-entered in Settings.</source>
         <translation>Databáze byla úspěšně importována, ale uložená hesla nebylo možné obnovit (dešifrování selhalo nebo jsou data poškozena). Všechna hesla služeb byla vymazána a musí být znovu zadána v Nastavení.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="433"/>
+        <location filename="../core/main.cpp" line="437"/>
         <source>Could not connect to database.</source>
         <translation>Nelze se připojit k databázi.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="445"/>
+        <location filename="../core/main.cpp" line="449"/>
         <source>Could not export a QLog database to ADIF as a backup.&lt;p&gt;Try to export your log to ADIF manually</source>
         <translation>Nelze exportovat QLog databázi do ADIF jako backup.&lt;p&gt;Pokuste se ručně exportovat log do ADIF</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="455"/>
+        <location filename="../core/main.cpp" line="459"/>
         <source>Database migration failed.</source>
         <translation>Migrace databaze selhala.</translation>
     </message>
@@ -8205,27 +8205,27 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <translation>Interní Chyba</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="406"/>
+        <location filename="../core/main.cpp" line="410"/>
         <source>Importing Database</source>
         <translation>Importuji databázi</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="426"/>
+        <location filename="../core/main.cpp" line="430"/>
         <source>Opening Database</source>
         <translation>Načítání Databáze</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="437"/>
+        <location filename="../core/main.cpp" line="441"/>
         <source>Backuping Database</source>
         <translation>Záloha Databáze</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="448"/>
+        <location filename="../core/main.cpp" line="452"/>
         <source>Migrating Database</source>
         <translation>Migrace Databáze</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="460"/>
+        <location filename="../core/main.cpp" line="464"/>
         <source>Starting Application</source>
         <translation>Start aplikace</translation>
     </message>
@@ -12333,6 +12333,11 @@ Nainstalujte prosím TQSL nebo zadejte cestu ručně.</translation>
         <location filename="../core/main.cpp" line="325"/>
         <source>Process pending database import (internal use)</source>
         <translation>Zpracovat čekající import databáze (pro interní použití)</translation>
+    </message>
+    <message>
+        <location filename="../core/main.cpp" line="327"/>
+        <source>Force update of all value lists (DXCC, SATs, etc.)</source>
+        <translation>Vynutit aktualizaci všech seznamů hodnot (DXCC, SATy atd.)</translation>
     </message>
 </context>
 </TS>

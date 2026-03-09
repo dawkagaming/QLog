@@ -1470,57 +1470,57 @@
 <context>
     <name>DBSchemaMigration</name>
     <message>
-        <location filename="../core/Migration.cpp" line="389"/>
+        <location filename="../core/Migration.cpp" line="395"/>
         <source>DXCC Entities</source>
         <translation>Entità DXCC</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="392"/>
+        <location filename="../core/Migration.cpp" line="398"/>
         <source>Sats Info</source>
         <translation>Info Satelliti</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="395"/>
+        <location filename="../core/Migration.cpp" line="401"/>
         <source>SOTA Summits</source>
         <translation>SOTA Summits</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="398"/>
+        <location filename="../core/Migration.cpp" line="404"/>
         <source>WWFF Records</source>
         <translation>WWFF Records</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="401"/>
+        <location filename="../core/Migration.cpp" line="407"/>
         <source>IOTA Records</source>
         <translation>IOTA Records</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="404"/>
+        <location filename="../core/Migration.cpp" line="410"/>
         <source>POTA Records</source>
         <translation>POTA Records</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="407"/>
+        <location filename="../core/Migration.cpp" line="413"/>
         <source>Membership Directory Records</source>
         <translation>Registro dell&apos;elenco dei membri</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="410"/>
+        <location filename="../core/Migration.cpp" line="416"/>
         <source>Clublog CTY.XML</source>
         <translation>Clublog CTY.XML</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="413"/>
+        <location filename="../core/Migration.cpp" line="419"/>
         <source>List of Values</source>
         <translation>Lista di valori</translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="417"/>
+        <location filename="../core/Migration.cpp" line="423"/>
         <source>Updating </source>
         <translation>In aggiornamento </translation>
     </message>
     <message>
-        <location filename="../core/Migration.cpp" line="430"/>
+        <location filename="../core/Migration.cpp" line="436"/>
         <source> Update Failed</source>
         <translation> Aggiornamento fallito</translation>
     </message>
@@ -7819,8 +7819,8 @@ Verificate o aggiornate le seguenti impostazioni.
         <location filename="../core/MembershipQE.cpp" line="211"/>
         <location filename="../core/MembershipQE.cpp" line="338"/>
         <location filename="../core/MembershipQE.cpp" line="345"/>
-        <location filename="../core/Migration.cpp" line="429"/>
-        <location filename="../core/main.cpp" line="418"/>
+        <location filename="../core/Migration.cpp" line="435"/>
+        <location filename="../core/main.cpp" line="422"/>
         <location filename="../ui/ExportDialog.cpp" line="170"/>
         <location filename="../ui/ImportDialog.cpp" line="240"/>
         <location filename="../ui/MainWindow.cpp" line="634"/>
@@ -7881,11 +7881,11 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore di rete. Impossibile scaricare l&apos;elenco dei club per</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="390"/>
-        <location filename="../core/main.cpp" line="411"/>
-        <location filename="../core/main.cpp" line="432"/>
-        <location filename="../core/main.cpp" line="444"/>
-        <location filename="../core/main.cpp" line="454"/>
+        <location filename="../core/main.cpp" line="394"/>
+        <location filename="../core/main.cpp" line="415"/>
+        <location filename="../core/main.cpp" line="436"/>
+        <location filename="../core/main.cpp" line="448"/>
+        <location filename="../core/main.cpp" line="458"/>
         <location filename="../ui/AlertRuleDetail.cpp" line="329"/>
         <location filename="../ui/ExportDialog.cpp" line="179"/>
         <location filename="../ui/KSTChatWidget.cpp" line="311"/>
@@ -7897,32 +7897,32 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore di QLog</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="391"/>
+        <location filename="../core/main.cpp" line="395"/>
         <source>QLog is already running</source>
         <translation>QLog è già in esecuzione</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="412"/>
+        <location filename="../core/main.cpp" line="416"/>
         <source>Failed to process pending database import.</source>
         <translation>Impossibile elaborare l’importazione in sospeso del database.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="419"/>
+        <location filename="../core/main.cpp" line="423"/>
         <source>The database was imported successfully, but the stored passwords could not be restored (decryption failed or the data is corrupted). All service passwords have been cleared and must be re-entered in Settings.</source>
         <translation>Il database è stato importato con successo, ma le password memorizzate non sono state ripristinate (decrittazione fallita o dati corrotti). Tutte le password dei servizi sono state cancellate e devono essere reinserite nelle Impostazioni.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="433"/>
+        <location filename="../core/main.cpp" line="437"/>
         <source>Could not connect to database.</source>
         <translation>Impossibile collegare il Database.</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="445"/>
+        <location filename="../core/main.cpp" line="449"/>
         <source>Could not export a QLog database to ADIF as a backup.&lt;p&gt;Try to export your log to ADIF manually</source>
         <translation>Impossibile esportare un database QLog in ADIF come backup.&lt;p&gt;Prova a esportare manualmente il tuo Log in ADIF</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="455"/>
+        <location filename="../core/main.cpp" line="459"/>
         <source>Database migration failed.</source>
         <translation>Errore nella Migrazione del database.</translation>
     </message>
@@ -8204,27 +8204,27 @@ Aggiornamento elenco club non riuscito. Impossibile rimuovere i vecchi record</t
         <translation>Errore Interno</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="406"/>
+        <location filename="../core/main.cpp" line="410"/>
         <source>Importing Database</source>
         <translation>Importazione database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="426"/>
+        <location filename="../core/main.cpp" line="430"/>
         <source>Opening Database</source>
         <translation>Apertura Database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="437"/>
+        <location filename="../core/main.cpp" line="441"/>
         <source>Backuping Database</source>
         <translation>Backup del database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="448"/>
+        <location filename="../core/main.cpp" line="452"/>
         <source>Migrating Database</source>
         <translation>Migrazione del database</translation>
     </message>
     <message>
-        <location filename="../core/main.cpp" line="460"/>
+        <location filename="../core/main.cpp" line="464"/>
         <source>Starting Application</source>
         <translation>Avvio applicazione</translation>
     </message>
@@ -12281,6 +12281,11 @@ Installare TQSL o specificare manualmente il percorso.</translation>
         <location filename="../core/main.cpp" line="325"/>
         <source>Process pending database import (internal use)</source>
         <translation>Elaborare l’importazione in sospeso del database (uso interno)</translation>
+    </message>
+    <message>
+        <location filename="../core/main.cpp" line="327"/>
+        <source>Force update of all value lists (DXCC, SATs, etc.)</source>
+        <translation>Forza l’aggiornamento di tutte le liste di valori (DXCC, SAT, ecc.)</translation>
     </message>
 </context>
 </TS>
