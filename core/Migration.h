@@ -14,7 +14,7 @@ public:
     bool run();
     static bool backupAllQSOsToADX(bool force = false);
 
-    static constexpr int latestVersion = 36;
+    static constexpr int latestVersion = 37;
 
 private:
     bool functionMigration(int version);
