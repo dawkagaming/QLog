@@ -9,6 +9,18 @@ Group: Productivity/Hamradio/Logging
 Source: https://github.com/foldynl/QLog/archive/refs/tags/v%{version}.tar.gz#/qlog-%{version}.tar.gz
 URL: https://github.com/foldynl/QLog/wiki
 Packager: Ladislav Foldyna <ok1mlg@gmail.com>
+BuildRequires: gcc-c++
+BuildRequires: make
+BuildRequires: pkg-config
+BuildRequires: qt5-qtbase-devel
+BuildRequires: qt5-qtcharts-devel
+BuildRequires: qt5-qtwebengine-devel
+BuildRequires: qt5-qtserialport-devel
+BuildRequires: qt5-qtwebsockets-devel
+BuildRequires: hamlib-devel
+BuildRequires: libsqlite3x-devel
+BuildRequires: openssl-devel
+BuildRequires: qtkeychain-qt5-devel
 
 %description
 QLog is an Amateur Radio logging application for Linux, Windows and Mac OS. It
@@ -17,7 +29,6 @@ is based on the Qt 5 framework and uses SQLite as database backend.
 %prep
 %global debug_package %{nil}
 %setup
-%setup -T -D -b 1 
 
 
 %build
@@ -38,6 +49,7 @@ INSTALL_ROOT=%{buildroot} make -f Makefile install
 %{_datadir}/applications/qlog.desktop
 %{_datadir}//icons/hicolor/256x256/apps/qlog.png
 %{_metainfodir}/*
+%{_mandir}/man1/*
 
 %changelog
 * Fri Mar 13 2026 Ladislav Foldyna - 0.49.0-1
