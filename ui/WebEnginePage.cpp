@@ -1,4 +1,5 @@
 #include <QCoreApplication>
+#include <QDesktopServices>
 #include <QWebEngineProfile>
 #include "WebEnginePage.h"
 #include "core/debug.h"
@@ -13,6 +14,23 @@ WebEnginePage::WebEnginePage(QObject *parent)
     QString userAgent = QString("%1/%2 (+https://github.com/foldynl/QLog)")
                             .arg(QCoreApplication::applicationName(), VERSION);
     profile()->setHttpUserAgent(userAgent);
+}
+
+bool WebEnginePage::acceptNavigationRequest(const QUrl &url,
+                                             QWebEnginePage::NavigationType type,
+                                             bool isMainFrame)
+{
+    FCT_IDENTIFICATION;
+
+    qCDebug(function_parameters) << url << type << isMainFrame;
+
+    if ( isMainFrame && type == QWebEnginePage::NavigationTypeLinkClicked )
+    {
+        QDesktopServices::openUrl(url);
+        return false;
+    }
+
+    return QWebEnginePage::acceptNavigationRequest(url, type, isMainFrame);
 }
 
 void WebEnginePage::javaScriptConsoleMessage(JavaScriptConsoleMessageLevel level,
