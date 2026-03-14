@@ -11,8 +11,7 @@ WebEnginePage::WebEnginePage(QObject *parent)
     FCT_IDENTIFICATION;
 
     QString userAgent = QString("%1/%2 (+https://github.com/foldynl/QLog)")
-                            .arg(QCoreApplication::applicationName(),
-                                 QCoreApplication::applicationVersion());
+                            .arg(QCoreApplication::applicationName(), VERSION);
     profile()->setHttpUserAgent(userAgent);
 }
 
