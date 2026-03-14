@@ -1,3 +1,5 @@
+#include <QCoreApplication>
+#include <QWebEngineProfile>
 #include "WebEnginePage.h"
 #include "core/debug.h"
 
@@ -6,7 +8,12 @@ MODULE_IDENTIFICATION("qlog.ui.webenginepage");
 WebEnginePage::WebEnginePage(QObject *parent)
     : QWebEnginePage{parent}
 {
+    FCT_IDENTIFICATION;
 
+    QString userAgent = QString("%1/%2 (+https://github.com/foldynl/QLog)")
+                            .arg(QCoreApplication::applicationName(),
+                                 QCoreApplication::applicationVersion());
+    profile()->setHttpUserAgent(userAgent);
 }
 
 void WebEnginePage::javaScriptConsoleMessage(JavaScriptConsoleMessageLevel level,
