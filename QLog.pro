@@ -539,7 +539,8 @@ unix:!macx {
    INSTALLS += target desktop icon metainfo manpage
 
    INCLUDEPATH += /usr/local/include
-   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz -lssl -lcrypto
+   PKGCONFIG += openssl
+   LIBS += -L/usr/local/lib -lhamlib -lsqlite3 -lz
    equals(QT_MAJOR_VERSION, 6): LIBS += -lqt6keychain
    equals(QT_MAJOR_VERSION, 5): LIBS += -lqt5keychain
 }
