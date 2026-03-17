@@ -110,11 +110,35 @@ jobs:
     - name: Run lintian
       run: lintian --no-tag-display-limit ../qlog_*.changes || true
 
+    - name: Upload DEB artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: deb-package
+        path: /home/runner/work/QLog/qlog_*.deb
+        retention-days: 1
+
+  deb-smoke-test:
+    name: DEB Smoke Test
+    needs: deb-package
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Download DEB artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: deb-package
+
+    - name: Install and smoke test
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ./qlog_*.deb
+        QT_QPA_PLATFORM=offscreen qlog --help 2>&1 | grep -q "QLog Help"
+
   rpm-package:
     name: RPM Package Build
     runs-on: ubuntu-latest
     container:
-      image: fedora:41
+      image: fedora:43
 
     steps:
     - name: Install base tools
@@ -150,3 +174,28 @@ jobs:
 
     - name: Run rpmlint
       run: rpmlint ~/rpmbuild/RPMS/*/*.rpm || true
+
+    - name: Upload RPM artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rpm-package
+        path: ~/rpmbuild/RPMS/*/QLog-*.rpm
+        retention-days: 1
+
+  rpm-smoke-test:
+    name: RPM Smoke Test
+    needs: rpm-package
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:43
+
+    steps:
+    - name: Download RPM artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: rpm-package
+
+    - name: Install and smoke test
+      run: |
+        dnf install -y ./QLog-*.rpm
+        QT_QPA_PLATFORM=offscreen qlog --help 2>&1 | grep -q "QLog Help"
