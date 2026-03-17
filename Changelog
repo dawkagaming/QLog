@@ -1,5 +1,6 @@
 TBC - 0.49.1
 - Fixed Online Map OSM Access Blocked banner (issue #956)
+- Fixed Package build process issue - openssl-dev is missing (issue #957)
 - Fixed Missing dependence for QTKeychain (issue #964)
 
 2026/03/13 - 0.49.0
