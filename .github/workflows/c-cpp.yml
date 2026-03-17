@@ -91,6 +91,7 @@ jobs:
 
   deb-package:
     name: DEB Package Build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
 
     steps:
@@ -138,6 +139,7 @@ jobs:
 
   rpm-package:
     name: RPM Package Build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     container:
       image: fedora:43
