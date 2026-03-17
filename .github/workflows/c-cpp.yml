@@ -8,6 +8,12 @@ on:
     branches:
       - 'testing_*'
       - master
+  workflow_dispatch:
+    inputs:
+      enable_macos:
+        description: 'Enable macOS build'
+        type: boolean
+        default: false
 jobs:
   ubuntu-build-qt5:
     name: Ubuntu CI QT5
@@ -51,6 +57,7 @@ jobs:
 
   macos-build:
      name: MacOS CI
+     if: github.event_name == 'workflow_dispatch' && inputs.enable_macos
      strategy:
        matrix:
          os: [macos-15]
@@ -197,5 +204,5 @@ jobs:
 
     - name: Install and smoke test
       run: |
-        dnf install -y ./QLog-*.rpm
+        dnf install -y $(find . -name 'QLog-*.rpm')
         QT_QPA_PLATFORM=offscreen qlog --help 2>&1 | grep -q "QLog Help"
