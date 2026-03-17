@@ -9,11 +9,6 @@ on:
       - 'testing_*'
       - master
   workflow_dispatch:
-    inputs:
-      enable_macos:
-        description: 'Enable macOS build'
-        type: boolean
-        default: false
 jobs:
   ubuntu-build-qt5:
     name: Ubuntu CI QT5
@@ -57,7 +52,7 @@ jobs:
 
   macos-build:
      name: MacOS CI
-     if: github.event_name == 'workflow_dispatch' && inputs.enable_macos
+     if: vars.ENABLE_MACOS == 'true'
      strategy:
        matrix:
          os: [macos-15]
@@ -118,7 +113,7 @@ jobs:
       run: lintian --no-tag-display-limit ../qlog_*.changes || true
 
     - name: Upload DEB artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: deb-package
         path: /home/runner/work/QLog/qlog_*.deb
@@ -131,7 +126,7 @@ jobs:
 
     steps:
     - name: Download DEB artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         name: deb-package
 
@@ -183,7 +178,7 @@ jobs:
       run: rpmlint ~/rpmbuild/RPMS/*/*.rpm || true
 
     - name: Upload RPM artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: rpm-package
         path: ~/rpmbuild/RPMS/*/QLog-*.rpm
@@ -198,7 +193,7 @@ jobs:
 
     steps:
     - name: Download RPM artifact
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
         name: rpm-package
 
