@@ -6,12 +6,12 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="14"/>
         <source>Activity Editor</source>
-        <translation>Éditeur d'activité</translation>
+        <translation>Éditeur d&apos;activité</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="39"/>
         <source>Activity Name</source>
-        <translation>Nom de l'activité</translation>
+        <translation>Nom de l&apos;activité</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="73"/>
@@ -76,7 +76,7 @@
         <location filename="../ui/ActivityEditor.ui" line="993"/>
         <location filename="../ui/ActivityEditor.ui" line="1197"/>
         <source>Change the order. Move selected field up</source>
-        <translation>Changer l'ordre. Monter le champ sélectionné</translation>
+        <translation>Changer l&apos;ordre. Monter le champ sélectionné</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="385"/>
@@ -85,7 +85,7 @@
         <location filename="../ui/ActivityEditor.ui" line="1019"/>
         <location filename="../ui/ActivityEditor.ui" line="1223"/>
         <source>Change the order. Move selected field down</source>
-        <translation>Changer l'ordre. Descendre le champ sélectionné</translation>
+        <translation>Changer l&apos;ordre. Descendre le champ sélectionné</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="417"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="14"/>
         <source>Alert Rule Detail</source>
-        <translation>Détail de la règle d'alerte</translation>
+        <translation>Détail de la règle d&apos;alerte</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="30"/>
@@ -362,8 +362,8 @@
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="512"/>
-        <source>FT8</source>
-        <translation>FT8</translation>
+        <source>FTx (FT8/FT4)</source>
+        <translation>FTx (FT8/FT4)</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.ui" line="525"/>
@@ -451,7 +451,7 @@
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="614"/>
         <source>No Club List is enabled</source>
-        <translation>Aucune liste de club n'est activée</translation>
+        <translation>Aucune liste de club n&apos;est activée</translation>
     </message>
 </context>
 <context>
@@ -459,7 +459,7 @@
     <message>
         <location filename="../ui/AlertSettingDialog.ui" line="14"/>
         <source>Alerts Rules</source>
-        <translation>Règles d'alertes</translation>
+        <translation>Règles d&apos;alertes</translation>
     </message>
     <message>
         <location filename="../ui/AlertSettingDialog.ui" line="22"/>
@@ -904,7 +904,7 @@
     <message>
         <location filename="../ui/BandmapWidget.cpp" line="973"/>
         <source>Show Emergency Frequencies</source>
-        <translation>Montrer les fréquences d'urgence</translation>
+        <translation>Montrer les fréquences d&apos;urgence</translation>
     </message>
     <message>
         <location filename="../ui/BandmapWidget.cpp" line="1088"/>
@@ -931,21 +931,21 @@
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="113"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="120"/>
         <source>Cannot send Text to Rig</source>
-        <translation>Impossible d'envoyer du texte au poste</translation>
+        <translation>Impossible d&apos;envoyer du texte au poste</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="106"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="136"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="161"/>
         <source>Keyer is not connected</source>
-        <translation>Le manipulateur (keyer) n'est pas connecté</translation>
+        <translation>Le manipulateur (keyer) n&apos;est pas connecté</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="113"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="143"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="168"/>
         <source>Rig is not connected</source>
-        <translation>Le poste n'est pas connecté</translation>
+        <translation>Le poste n&apos;est pas connecté</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="136"/>
@@ -958,7 +958,7 @@
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="168"/>
         <location filename="../cwkey/drivers/CWCatKey.cpp" line="175"/>
         <source>Cannot stop Text Sending</source>
-        <translation>Impossible d'arrêter l'envoi du texte</translation>
+        <translation>Impossible d&apos;arrêter l&apos;envoi du texte</translation>
     </message>
 </context>
 <context>
@@ -1016,7 +1016,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="193"/>
         <source>Switch between sending &lt;b&gt;words&lt;/b&gt; individually (separated by spaces)&lt;br&gt; and sending the entire text as a &lt;b&gt;whole&lt;/b&gt; (separated by a new line).</source>
-        <translation>Alterner entre l'envoi par &lt;b&gt;mots&lt;/b&gt; individuels (séparés par des espaces)&lt;br&gt; et l'envoi du texte &lt;b&gt;complet&lt;/b&gt; (séparé par un saut de ligne).</translation>
+        <translation>Alterner entre l&apos;envoi par &lt;b&gt;mots&lt;/b&gt; individuels (séparés par des espaces)&lt;br&gt; et l&apos;envoi du texte &lt;b&gt;complet&lt;/b&gt; (séparé par un saut de ligne).</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="233"/>
@@ -1056,7 +1056,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="408"/>
         <source>Immediately stop CW sending</source>
-        <translation>Arrêt immédiat de l'émission CW</translation>
+        <translation>Arrêt immédiat de l&apos;émission CW</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="411"/>
@@ -1066,7 +1066,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="437"/>
         <source>Clear Sent and Echo Console</source>
-        <translation>Effacer la console d'envoi et d'écho</translation>
+        <translation>Effacer la console d&apos;envoi et d&apos;écho</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="440"/>
@@ -1076,7 +1076,7 @@
     <message>
         <location filename="../ui/CWConsoleWidget.ui" line="468"/>
         <source>CW Console - Halt Sending</source>
-        <translation>Console CW - Arrêt d'émission</translation>
+        <translation>Console CW - Arrêt d&apos;émission</translation>
     </message>
     <message>
         <location filename="../ui/CWConsoleWidget.cpp" line="383"/>
@@ -1101,12 +1101,12 @@
         <location filename="../cwkey/drivers/CWDaemonKey.cpp" line="105"/>
         <location filename="../cwkey/drivers/CWDaemonKey.cpp" line="123"/>
         <source>Keyer is not connected</source>
-        <translation>Le manipulateur n'est pas connecté</translation>
+        <translation>Le manipulateur n&apos;est pas connecté</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWDaemonKey.cpp" line="70"/>
         <source>Cannot send Text</source>
-        <translation>Impossible d'envoyer le texte</translation>
+        <translation>Impossible d&apos;envoyer le texte</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWDaemonKey.cpp" line="106"/>
@@ -1116,7 +1116,7 @@
     <message>
         <location filename="../cwkey/drivers/CWDaemonKey.cpp" line="124"/>
         <source>Cannot stop Text Sending</source>
-        <translation>Impossible d'arrêter l'émission</translation>
+        <translation>Impossible d&apos;arrêter l&apos;émission</translation>
     </message>
 </context>
 <context>
@@ -1124,44 +1124,44 @@
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="57"/>
         <source>Connected device is not FLDigi</source>
-        <translation>L'appareil connecté n'est pas FLDigi</translation>
+        <translation>L&apos;appareil connecté n&apos;est pas FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="110"/>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="176"/>
         <source>Keyer is not connected</source>
-        <translation>Le manipulateur n'est pas connecté</translation>
+        <translation>Le manipulateur n&apos;est pas connecté</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="111"/>
         <source>Cannot send Text to FLDigi</source>
-        <translation>Impossible d'envoyer le texte à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer le texte à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="121"/>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="191"/>
         <source>Cannot send the Clear command to FLDigi</source>
-        <translation>Impossible d'envoyer la commande Clear à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer la commande Clear à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="127"/>
         <source>Cannot send the TX command to FLDigi</source>
-        <translation>Impossible d'envoyer la commande TX à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer la commande TX à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="148"/>
         <source>Cannot send the Text command to FLDigi</source>
-        <translation>Impossible d'envoyer la commande Text à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer la commande Text à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="177"/>
         <source>Cannot send the Stop command to FLDigi</source>
-        <translation>Impossible d'envoyer la commande Stop à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer la commande Stop à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="185"/>
         <source>Cannot send the Abort command to FLDigi</source>
-        <translation>Impossible d'envoyer la commande Abort à FLDigi</translation>
+        <translation>Impossible d&apos;envoyer la commande Abort à FLDigi</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWFldigiKey.cpp" line="219"/>
@@ -1194,7 +1194,7 @@
     <message>
         <location filename="../cwkey/CWKeyer.cpp" line="144"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../cwkey/CWKeyer.cpp" line="145"/>
@@ -1209,7 +1209,7 @@
     <message>
         <location filename="../cwkey/CWKeyer.cpp" line="152"/>
         <source>Cannot open the Keyer connection</source>
-        <translation>Impossible d'ouvrir la connexion au manipulateur</translation>
+        <translation>Impossible d&apos;ouvrir la connexion au manipulateur</translation>
     </message>
 </context>
 <context>
@@ -1217,19 +1217,19 @@
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="125"/>
         <source>Connected device is not WinKey</source>
-        <translation>L'appareil connecté n'est pas un WinKey</translation>
+        <translation>L&apos;appareil connecté n&apos;est pas un WinKey</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="260"/>
         <source>Cannot send Text to Rig</source>
-        <translation>Impossible d'envoyer le texte au poste</translation>
+        <translation>Impossible d&apos;envoyer le texte au poste</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="260"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="461"/>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="501"/>
         <source>Keyer is not connected</source>
-        <translation>Le manipulateur n'est pas connecté</translation>
+        <translation>Le manipulateur n&apos;est pas connecté</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="431"/>
@@ -1244,7 +1244,7 @@
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="501"/>
         <source>Cannot stop Text Sending</source>
-        <translation>Impossible d'arrêter l'émission</translation>
+        <translation>Impossible d&apos;arrêter l&apos;émission</translation>
     </message>
     <message>
         <location filename="../cwkey/drivers/CWWinKey.cpp" line="711"/>
@@ -1335,7 +1335,7 @@
     <message>
         <location filename="../ui/ChatWidget.cpp" line="164"/>
         <source>ON4KST Chat is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
-        <translation>Le chat ON4KST n'est pas configuré correctement.&lt;p&gt; Veuillez utiliser le menu &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
+        <translation>Le chat ON4KST n&apos;est pas configuré correctement.&lt;p&gt; Veuillez utiliser le menu &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -1390,7 +1390,7 @@
     <message>
         <location filename="../service/clublog/ClubLog.cpp" line="301"/>
         <source>Clublog Operation for Callsign %1 failed.&lt;br&gt;%2</source>
-        <translation>L'opération Clublog pour l'indicatif %1 a échoué.&lt;br&gt;%2</translation>
+        <translation>L&apos;opération Clublog pour l&apos;indicatif %1 a échoué.&lt;br&gt;%2</translation>
     </message>
 </context>
 <context>
@@ -1540,7 +1540,7 @@
     <message>
         <location filename="dbstrings.tri" line="3"/>
         <source>Aland Islands</source>
-        <translation>Îles d'Åland</translation>
+        <translation>Îles d&apos;Åland</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="4"/>
@@ -1590,7 +1590,7 @@
     <message>
         <location filename="dbstrings.tri" line="13"/>
         <source>Annobon Island</source>
-        <translation>Île d'Annobon</translation>
+        <translation>Île d&apos;Annobon</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="14"/>
@@ -1620,7 +1620,7 @@
     <message>
         <location filename="dbstrings.tri" line="19"/>
         <source>Ascension Island</source>
-        <translation>Île de l'Ascension</translation>
+        <translation>Île de l&apos;Ascension</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="20"/>
@@ -1650,7 +1650,7 @@
     <message>
         <location filename="dbstrings.tri" line="25"/>
         <source>Aves Island</source>
-        <translation>Île d'Aves</translation>
+        <translation>Île d&apos;Aves</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="26"/>
@@ -1904,8 +1904,8 @@
     </message>
     <message>
         <location filename="dbstrings.tri" line="76"/>
-        <source>Cote d'Ivoire</source>
-        <translation>Côte d'Ivoire</translation>
+        <source>Cote d&apos;Ivoire</source>
+        <translation>Côte d&apos;Ivoire</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="77"/>
@@ -2060,7 +2060,7 @@
     <message>
         <location filename="dbstrings.tri" line="107"/>
         <source>Fed. Rep. of Germany</source>
-        <translation>Rép. féd. d'Allemagne</translation>
+        <translation>Rép. féd. d&apos;Allemagne</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="108"/>
@@ -2215,7 +2215,7 @@
     <message>
         <location filename="dbstrings.tri" line="138"/>
         <source>ITU HQ</source>
-        <translation>Siège de l'UIT</translation>
+        <translation>Siège de l&apos;UIT</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="139"/>
@@ -2330,7 +2330,7 @@
     <message>
         <location filename="dbstrings.tri" line="161"/>
         <source>Kingdom of Eswatini</source>
-        <translation>Royaume d'Eswatini</translation>
+        <translation>Royaume d&apos;Eswatini</translation>
     </message>
     <message>
         <location filename="dbstrings.tri" line="162"/>
@@ -3591,12 +3591,12 @@
     <message>
         <location filename="../ui/DownloadQSLDialog.cpp" line="46"/>
         <source>LoTW is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
-        <translation>LoTW n'est pas configuré correctement.&lt;p&gt; Veuillez utiliser la fenêtre des &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
+        <translation>LoTW n&apos;est pas configuré correctement.&lt;p&gt; Veuillez utiliser la fenêtre des &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../ui/DownloadQSLDialog.cpp" line="53"/>
         <source>eQSL is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
-        <translation>eQSL n'est pas configuré correctement.&lt;p&gt; Veuillez utiliser la fenêtre des &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
+        <translation>eQSL n&apos;est pas configuré correctement.&lt;p&gt; Veuillez utiliser la fenêtre des &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../ui/DownloadQSLDialog.cpp" line="129"/>
@@ -3771,7 +3771,7 @@
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="336"/>
         <source>Do not show the following spots when they have the same Callsign and their time difference is lower than Time Diff and their frequency difference is lower than Freq Diff</source>
-        <translation>Ne pas afficher les spots suivants s'ils ont le même indicatif et que leur différence de temps est inférieure à Time Diff et leur différence de fréquence inférieure à Freq Diff</translation>
+        <translation>Ne pas afficher les spots suivants s&apos;ils ont le même indicatif et que leur différence de temps est inférieure à Time Diff et leur différence de fréquence inférieure à Freq Diff</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="339"/>
@@ -3806,7 +3806,7 @@
     <message>
         <location filename="../ui/DxFilterDialog.cpp" line="214"/>
         <source>No Club List is enabled</source>
-        <translation>Aucune liste de club n'est activée</translation>
+        <translation>Aucune liste de club n&apos;est activée</translation>
     </message>
 </context>
 <context>
@@ -4162,12 +4162,12 @@
     <message>
         <location filename="../service/eqsl/Eqsl.cpp" line="530"/>
         <source>Cannot opet temporary file</source>
-        <translation>Impossible d'ouvrir le fichier temporaire</translation>
+        <translation>Impossible d&apos;ouvrir le fichier temporaire</translation>
     </message>
     <message>
         <location filename="../service/eqsl/Eqsl.cpp" line="581"/>
         <source>Cannot save the image to file</source>
-        <translation>Impossible de sauvegarder l'image dans le fichier</translation>
+        <translation>Impossible de sauvegarder l&apos;image dans le fichier</translation>
     </message>
 </context>
 <context>
@@ -4247,7 +4247,7 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="106"/>
         <source>Export Type</source>
-        <translation>Type d'exportation</translation>
+        <translation>Type d&apos;exportation</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="123"/>
@@ -4300,7 +4300,7 @@
         <location filename="../ui/ExportDialog.ui" line="284"/>
         <location filename="../ui/ExportDialog.ui" line="297"/>
         <source>Export only QSOs that match the selected My Callsign</source>
-        <translation>Exporter uniquement les QSO correspondant à "Mon Indicatif"</translation>
+        <translation>Exporter uniquement les QSO correspondant à &quot;Mon Indicatif&quot;</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="287"/>
@@ -4322,7 +4322,7 @@
         <location filename="../ui/ExportDialog.ui" line="324"/>
         <location filename="../ui/ExportDialog.ui" line="337"/>
         <source>Export only QSOs that match the selected QSL Send Via value</source>
-        <translation>Exporter uniquement les QSO avec ce mode d'envoi de QSL</translation>
+        <translation>Exporter uniquement les QSO avec ce mode d&apos;envoi de QSL</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="327"/>
@@ -4332,32 +4332,32 @@
     <message>
         <location filename="../ui/ExportDialog.ui" line="344"/>
         <source>Include unusual QSO Sent statuses</source>
-        <translation>Inclure les statuts d'envoi de QSO inhabituels</translation>
+        <translation>Inclure les statuts d&apos;envoi de QSO inhabituels</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="347"/>
         <source>Include Sent Status</source>
-        <translation>Inclure le statut d'envoi</translation>
+        <translation>Inclure le statut d&apos;envoi</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="381"/>
         <source>Under normal circumstances this status means &lt;b&gt;&quot;Ignore/Invalid&quot;&lt;/b&gt;.&lt;br/&gt;However, it may sometimes be wanted to ignore this setting when sending a QSL.</source>
-        <translation>En temps normal, ce statut signifie &lt;b&gt;"Ignorer/Invalide"&lt;/b&gt;.&lt;br/&gt;Cependant, il peut être souhaitable d'ignorer ce paramètre lors de l'envoi d'une QSL.</translation>
+        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;Ignorer/Invalide&quot;&lt;/b&gt;.&lt;br/&gt;Cependant, il peut être souhaitable d&apos;ignorer ce paramètre lors de l&apos;envoi d&apos;une QSL.</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="384"/>
         <source>&quot;Ignore&quot;</source>
-        <translation>"Ignorer"</translation>
+        <translation>&quot;Ignorer&quot;</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="403"/>
         <source>Under normal circumstances this status means &lt;b&gt;&quot;do not send&quot;&lt;/b&gt;.&lt;br/&gt;However, it may sometimes be wanted to ignore this setting when sending a QSL.</source>
-        <translation>En temps normal, ce statut signifie &lt;b&gt;"ne pas envoyer"&lt;/b&gt;.&lt;br/&gt;Cependant, il peut être souhaitable d'ignorer ce paramètre lors de l'envoi d'une QSL.</translation>
+        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;ne pas envoyer&quot;&lt;/b&gt;.&lt;br/&gt;Cependant, il peut être souhaitable d&apos;ignorer ce paramètre lors de l&apos;envoi d&apos;une QSL.</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="406"/>
         <source>&quot;No&quot;</source>
-        <translation>"Non"</translation>
+        <translation>&quot;Non&quot;</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.ui" line="435"/>
@@ -4482,7 +4482,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/ExportPasswordDialog.ui" line="68"/>
         <source>Delete passwords from Credential Store after export</source>
-        <translation>Supprimer les mots de passe du gestionnaire d'identifiants après export</translation>
+        <translation>Supprimer les mots de passe du gestionnaire d&apos;identifiants après export</translation>
     </message>
 </context>
 <context>
@@ -4546,7 +4546,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="164"/>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="202"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="237"/>
@@ -4561,7 +4561,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="257"/>
         <source>Cannot set CIV Addr</source>
-        <translation>Impossible de définir l'adresse CI-V</translation>
+        <translation>Impossible de définir l&apos;adresse CI-V</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="265"/>
@@ -4576,7 +4576,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="279"/>
         <source>Rig Open Error</source>
-        <translation>Erreur d'ouverture du transceiver</translation>
+        <translation>Erreur d&apos;ouverture du transceiver</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="349"/>
@@ -4596,12 +4596,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="487"/>
         <source>Cannot sent Morse</source>
-        <translation>Impossible d'envoyer du Morse</translation>
+        <translation>Impossible d&apos;envoyer du Morse</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="506"/>
         <source>Cannot stop Morse</source>
-        <translation>Impossible d'arrêter le Morse</translation>
+        <translation>Impossible d&apos;arrêter le Morse</translation>
     </message>
     <message>
         <location filename="../rig/drivers/HamlibRigDrv.cpp" line="656"/>
@@ -4670,7 +4670,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="83"/>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="122"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="147"/>
@@ -4680,7 +4680,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="166"/>
         <source>Rot Open Error</source>
-        <translation>Erreur d'ouverture du rotor</translation>
+        <translation>Erreur d&apos;ouverture du rotor</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/HamlibRotDrv.cpp" line="256"/>
@@ -4708,7 +4708,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/ImportDialog.ui" line="51"/>
         <source>Import all or only QSOs from the given period</source>
-        <translation>Importer tous les QSO ou seulement ceux d'une période donnée</translation>
+        <translation>Importer tous les QSO ou seulement ceux d&apos;une période donnée</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="54"/>
@@ -4738,18 +4738,18 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/ImportDialog.ui" line="186"/>
         <source>Recalculate DXCC Entity Information (DXCC, Country name, Continent etc.)</source>
-        <translation>Recalculer les informations de l'entité DXCC (DXCC, nom du pays, continent, etc.)</translation>
+        <translation>Recalculer les informations de l&apos;entité DXCC (DXCC, nom du pays, continent, etc.)</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="189"/>
         <source>Update DXCC Entity Information</source>
-        <translation>Mettre à jour les informations de l'entité DXCC</translation>
+        <translation>Mettre à jour les informations de l&apos;entité DXCC</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="199"/>
         <location filename="../ui/ImportDialog.cpp" line="106"/>
         <source>The value is used when an input record does not contain the ADIF value</source>
-        <translation>La valeur est utilisée lorsqu'un enregistrement d'entrée ne contient pas la valeur ADIF</translation>
+        <translation>La valeur est utilisée lorsqu&apos;un enregistrement d&apos;entrée ne contient pas la valeur ADIF</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.ui" line="202"/>
@@ -4786,7 +4786,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../ui/ImportDialog.cpp" line="135"/>
         <location filename="../ui/ImportDialog.cpp" line="144"/>
         <source>The values below will be used when an input record does not contain the ADIF values</source>
-        <translation>Les valeurs ci-dessous seront utilisées lorsqu'un enregistrement d'entrée ne contient pas les valeurs ADIF</translation>
+        <translation>Les valeurs ci-dessous seront utilisées lorsqu&apos;un enregistrement d&apos;entrée ne contient pas les valeurs ADIF</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.cpp" line="160"/>
@@ -4816,12 +4816,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/ImportDialog.cpp" line="216"/>
         <source>QLog Import Summary</source>
-        <translation>Résumé de l'importation QLog</translation>
+        <translation>Résumé de l&apos;importation QLog</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.cpp" line="218"/>
         <source>Import date</source>
-        <translation>Date d'importation</translation>
+        <translation>Date d&apos;importation</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.cpp" line="219"/>
@@ -4860,7 +4860,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/ImportDialog.cpp" line="313"/>
         <source>Import Result</source>
-        <translation>Résultat de l'importation</translation>
+        <translation>Résultat de l&apos;importation</translation>
     </message>
     <message>
         <location filename="../ui/ImportDialog.cpp" line="321"/>
@@ -4878,7 +4878,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/InputPasswordDialog.ui" line="34"/>
         <source>The password will be stored in the Credential Store.</source>
-        <translation>Le mot de passe sera enregistré dans le gestionnaire d'identifiants.</translation>
+        <translation>Le mot de passe sera enregistré dans le gestionnaire d&apos;identifiants.</translation>
     </message>
     <message>
         <location filename="../ui/InputPasswordDialog.ui" line="37"/>
@@ -4914,7 +4914,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="173"/>
         <source>Clear selected Callsign and Chat message entry.</source>
-        <translation>Effacer l'indicatif sélectionné et le message de discussion saisi.</translation>
+        <translation>Effacer l&apos;indicatif sélectionné et le message de discussion saisi.</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="195"/>
@@ -4939,12 +4939,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="218"/>
         <source>Transfer Callsign and Gridsquare Information to the New QSO dialog</source>
-        <translation>Transférer l'indicatif et le Locator vers la fenêtre de nouveau QSO</translation>
+        <translation>Transférer l&apos;indicatif et le Locator vers la fenêtre de nouveau QSO</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="226"/>
         <source>Show About Me Only</source>
-        <translation>M'afficher uniquement</translation>
+        <translation>M&apos;afficher uniquement</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="229"/>
@@ -4954,7 +4954,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="237"/>
         <source>Suppress User To User</source>
-        <translation>Supprimer "Utilisateur à Utilisateur"</translation>
+        <translation>Supprimer &quot;Utilisateur à Utilisateur&quot;</translation>
     </message>
     <message>
         <location filename="../ui/KSTChatWidget.ui" line="240"/>
@@ -5032,7 +5032,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/KSTHighlightRuleDetail.ui" line="84"/>
         <source>Any of the following conditions</source>
-        <translation>L'une des conditions suivantes</translation>
+        <translation>L&apos;une des conditions suivantes</translation>
     </message>
     <message>
         <location filename="../ui/KSTHighlightRuleDetail.ui" line="123"/>
@@ -5141,7 +5141,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/LoadDatabaseDialog.ui" line="29"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;Current database will be DELETED!&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;All stored passwords will be DELETED!&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;The application will restart after loading&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;To preserve data, use Pack Data &amp;amp; Settings or Export QSOs first.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;La base de données actuelle sera SUPPRIMÉE !&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;Tous les mots de passe enregistrés seront SUPPRIMÉS !&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;L'application redémarrera après le chargement&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Pour préserver les données, utilisez d'abord Pack Data &amp;amp; Settings ou Export QSOs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;La base de données actuelle sera SUPPRIMÉE !&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;Tous les mots de passe enregistrés seront SUPPRIMÉS !&lt;/span&gt;&lt;br/&gt;⚠ &lt;span style=&quot; font-weight:700;&quot;&gt;L&apos;application redémarrera après le chargement&lt;/span&gt;.&lt;/p&gt;&lt;p&gt;Pour préserver les données, utilisez d&apos;abord Pack Data &amp;amp; Settings ou Export QSOs.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../ui/LoadDatabaseDialog.ui" line="39"/>
@@ -5217,7 +5217,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/LoadDatabaseDialog.cpp" line="224"/>
         <source>Cannot open database</source>
-        <translation>Impossible d'ouvrir la base de données</translation>
+        <translation>Impossible d&apos;ouvrir la base de données</translation>
     </message>
     <message>
         <location filename="../ui/LoadDatabaseDialog.cpp" line="247"/>
@@ -5247,7 +5247,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../logformat/LogFormat.cpp" line="375"/>
         <location filename="../logformat/LogFormat.cpp" line="661"/>
         <source>Cannot find My DXCC Entity Info</source>
-        <translation>Impossible de trouver mes informations d'entité DXCC</translation>
+        <translation>Impossible de trouver mes informations d&apos;entité DXCC</translation>
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="433"/>
@@ -5268,7 +5268,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../logformat/LogFormat.cpp" line="537"/>
         <source>Cannot find DXCC Entity Info</source>
-        <translation>Impossible de trouver les informations d'entité DXCC</translation>
+        <translation>Impossible de trouver les informations d&apos;entité DXCC</translation>
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="563"/>
@@ -5285,7 +5285,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../logformat/LogFormat.cpp" line="747"/>
         <source>Cannot insert to database</source>
-        <translation>Impossible d'insérer dans la base de données</translation>
+        <translation>Impossible d&apos;insérer dans la base de données</translation>
     </message>
     <message>
         <location filename="../logformat/LogFormat.cpp" line="759"/>
@@ -5615,12 +5615,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../models/LogbookModel.cpp" line="637"/>
         <source>ClubLog Upload Date</source>
-        <translation>Date d'envoi ClubLog</translation>
+        <translation>Date d&apos;envoi ClubLog</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="638"/>
         <source>ClubLog Upload State</source>
-        <translation>État d'envoi ClubLog</translation>
+        <translation>État d&apos;envoi ClubLog</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="639"/>
@@ -5741,32 +5741,32 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../models/LogbookModel.cpp" line="664"/>
         <source>HamlogEU Upload Date</source>
-        <translation>Date d'envoi HamlogEU</translation>
+        <translation>Date d&apos;envoi HamlogEU</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="665"/>
         <source>HamlogEU Upload Status</source>
-        <translation>Statut d'envoi HamlogEU</translation>
+        <translation>Statut d&apos;envoi HamlogEU</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="666"/>
         <source>HamQTH Upload Date</source>
-        <translation>Date d'envoi HamQTH</translation>
+        <translation>Date d&apos;envoi HamQTH</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="667"/>
         <source>HamQTH Upload Status</source>
-        <translation>Statut d'envoi HamQTH</translation>
+        <translation>Statut d&apos;envoi HamQTH</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="668"/>
         <source>HRDLog Upload Date</source>
-        <translation>Date d'envoi HRDLog</translation>
+        <translation>Date d&apos;envoi HRDLog</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="669"/>
         <source>HRDLog Upload Status</source>
-        <translation>Statut d'envoi HRDLog</translation>
+        <translation>Statut d&apos;envoi HRDLog</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="670"/>
@@ -5891,7 +5891,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../models/LogbookModel.cpp" line="694"/>
         <source>My IOTA Island ID</source>
-        <translation>Mon ID d'île IOTA</translation>
+        <translation>Mon ID d&apos;île IOTA</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="695"/>
@@ -6022,7 +6022,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../models/LogbookModel.cpp" line="722"/>
         <source>Operator Callsign</source>
-        <translation>Indicatif de l'opérateur</translation>
+        <translation>Indicatif de l&apos;opérateur</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="724"/>
@@ -6057,7 +6057,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../models/LogbookModel.cpp" line="730"/>
         <source>QRZ Upload Date</source>
-        <translation>Date d'envoi vers QRZ</translation>
+        <translation>Date d&apos;envoi vers QRZ</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="731"/>
@@ -6405,7 +6405,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="359"/>
         <source>Each batch supports up to 100 QSOs.</source>
-        <translation>Chaque lot supporte jusqu'à 100 QSO.</translation>
+        <translation>Chaque lot supporte jusqu&apos;à 100 QSO.</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="363"/>
@@ -6449,7 +6449,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="888"/>
         <source>Clublog&apos;s &lt;b&gt;Immediately Send&lt;/b&gt; supports only one-by-one deletion&lt;br&gt;&lt;br&gt;Do you want to continue despite the fact&lt;br&gt;that the DELETE operation will not be sent to Clublog?</source>
-        <translation>L'option &lt;b&gt;Envoi immédiat&lt;/b&gt; de Clublog ne supporte que la suppression unitaire.&lt;br&gt;&lt;br&gt;Voulez-vous continuer sachant que l'opération de SUPPRESSION ne sera pas transmise à Clublog ?</translation>
+        <translation>L&apos;option &lt;b&gt;Envoi immédiat&lt;/b&gt; de Clublog ne supporte que la suppression unitaire.&lt;br&gt;&lt;br&gt;Voulez-vous continuer sachant que l&apos;opération de SUPPRESSION ne sera pas transmise à Clublog ?</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="906"/>
@@ -6477,12 +6477,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="1095"/>
         <source>Downloading eQSL Image</source>
-        <translation>Téléchargement de l'image eQSL</translation>
+        <translation>Téléchargement de l&apos;image eQSL</translation>
     </message>
     <message>
         <location filename="../ui/LogbookWidget.cpp" line="1113"/>
         <source>eQSL Download Image failed: </source>
-        <translation>Échec du téléchargement de l'image eQSL : </translation>
+        <translation>Échec du téléchargement de l&apos;image eQSL : </translation>
     </message>
 </context>
 <context>
@@ -6490,7 +6490,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="503"/>
         <source>Cannot open temporary file</source>
-        <translation>Impossible d'ouvrir le fichier temporaire</translation>
+        <translation>Impossible d&apos;ouvrir le fichier temporaire</translation>
     </message>
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="515"/>
@@ -6503,7 +6503,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="333"/>
         <source>Upload cancelled by user</source>
-        <translation>Envoi annulé par l'utilisateur</translation>
+        <translation>Envoi annulé par l&apos;utilisateur</translation>
     </message>
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="337"/>
@@ -6518,7 +6518,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="345"/>
         <source>TQSL utility error</source>
-        <translation>Erreur de l'utilitaire TQSL</translation>
+        <translation>Erreur de l&apos;utilitaire TQSL</translation>
     </message>
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="349"/>
@@ -6528,12 +6528,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="353"/>
         <source>Unable to open input file</source>
-        <translation>Impossible d'ouvrir le fichier d'entrée</translation>
+        <translation>Impossible d&apos;ouvrir le fichier d&apos;entrée</translation>
     </message>
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="357"/>
         <source>Unable to open output file</source>
-        <translation>Impossible d'ouvrir le fichier de sortie</translation>
+        <translation>Impossible d&apos;ouvrir le fichier de sortie</translation>
     </message>
     <message>
         <location filename="../service/lotw/Lotw.cpp" line="361"/>
@@ -6623,12 +6623,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.ui" line="151"/>
         <source>Linking Exchange With</source>
-        <translation>Lier l'échange avec</translation>
+        <translation>Lier l&apos;échange avec</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="176"/>
         <source>Toolbar</source>
-        <translation>Barre d'outils</translation>
+        <translation>Barre d&apos;outils</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="204"/>
@@ -6709,7 +6709,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.ui" line="323"/>
         <source>Application - Quit</source>
-        <translation>Quitter l'application</translation>
+        <translation>Quitter l&apos;application</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="341"/>
@@ -6828,7 +6828,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.ui" line="570"/>
         <source>Switch New Contact dialog to the manually entry mode&lt;br/&gt;(time, freq, profiles etc. are not taken from their common sources)</source>
-        <translation>Passer la saisie de contact en mode manuel&lt;br/&gt;(l'heure, la fréquence et les profils ne sont plus synchronisés)</translation>
+        <translation>Passer la saisie de contact en mode manuel&lt;br/&gt;(l&apos;heure, la fréquence et les profils ne sont plus synchronisés)</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="575"/>
@@ -6865,7 +6865,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../ui/MainWindow.ui" line="634"/>
         <location filename="../ui/MainWindow.ui" line="637"/>
         <source>New QSO - Add text from Callsign field to Bandmap</source>
-        <translation>Nouveau QSO - Ajouter l'indicatif à la carte des bandes</translation>
+        <translation>Nouveau QSO - Ajouter l&apos;indicatif à la carte des bandes</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="654"/>
@@ -6880,7 +6880,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.ui" line="688"/>
         <source>New QSO - Use Callsign from the Whisperer</source>
-        <translation>Nouveau QSO - Utiliser l'indicatif du Whisperer</translation>
+        <translation>Nouveau QSO - Utiliser l&apos;indicatif du Whisperer</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.ui" line="705"/>
@@ -7015,19 +7015,19 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.cpp" line="169"/>
         <source>Press to tune the alert</source>
-        <translation>Appuyez pour régler l'alerte</translation>
+        <translation>Appuyez pour régler l&apos;alerte</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="416"/>
         <source>Clublog Immediately Upload Error</source>
-        <translation>Erreur d'envoi immédiat Clublog</translation>
+        <translation>Erreur d&apos;envoi immédiat Clublog</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="636"/>
         <location filename="../ui/MainWindow.cpp" line="646"/>
         <location filename="../ui/MainWindow.cpp" line="656"/>
         <source>&lt;b&gt;Error Detail:&lt;/b&gt; </source>
-        <translation>&lt;b&gt;Détail de l'erreur :&lt;/b&gt; </translation>
+        <translation>&lt;b&gt;Détail de l&apos;erreur :&lt;/b&gt; </translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="680"/>
@@ -7072,7 +7072,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.cpp" line="1162"/>
         <source>Failed to dump the database.</source>
-        <translation>Échec de l'exportation de la base de données.</translation>
+        <translation>Échec de l&apos;exportation de la base de données.</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1167"/>
@@ -7094,7 +7094,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/MainWindow.cpp" line="1249"/>
         <source>Failed to prepare database for import.</source>
-        <translation>Échec de la préparation de la base pour l'importation.</translation>
+        <translation>Échec de la préparation de la base pour l&apos;importation.</translation>
     </message>
     <message>
         <location filename="../ui/MainWindow.cpp" line="1426"/>
@@ -7258,7 +7258,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/NewContactWidget.ui" line="594"/>
         <source>Lookup the call on the web. The query URL can be changed in Settings -&gt; Callbook</source>
-        <translation>Rechercher l'indicatif sur le web. L'URL peut être modifiée dans Réglages -&gt; Callbook</translation>
+        <translation>Rechercher l&apos;indicatif sur le web. L&apos;URL peut être modifiée dans Réglages -&gt; Callbook</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="597"/>
@@ -7311,7 +7311,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../ui/NewContactWidget.ui" line="1132"/>
         <location filename="../ui/NewContactWidget.ui" line="1170"/>
         <source>&lt;b&gt;Yes&lt;/b&gt; - an outgoing QSL card has been sent; the QSO has been uploaded to, and accepted by, the online service&lt;br/&gt;&lt;b&gt;No&lt;/b&gt; - do not send an outgoing QSL card; do not upload the QSO to the online service&lt;br/&gt;&lt;b&gt;Requested&lt;/b&gt; - the contacted station has requested a QSL card; the contacted station has requested the QSO be uploaded to the online service&lt;br/&gt;&lt;b&gt;Queued&lt;/b&gt; - an outgoing QSL card has been selected to be sent; a QSO has been selected to be uploaded to the online service&lt;br/&gt;</source>
-        <translation>&lt;b&gt;Oui&lt;/b&gt; - une carte QSL a été envoyée ; le QSO a été transmis et accepté par le service en ligne&lt;br/&gt;&lt;b&gt;Non&lt;/b&gt; - ne pas envoyer de QSL ; ne pas transmettre le QSO au service en ligne&lt;br/&gt;&lt;b&gt;Demandé&lt;/b&gt; - le correspondant a demandé une QSL ou un envoi vers un service en ligne&lt;br/&gt;&lt;b&gt;En file d'attente&lt;/b&gt; - la QSL ou l'envoi vers le service est programmé&lt;br/&gt;</translation>
+        <translation>&lt;b&gt;Oui&lt;/b&gt; - une carte QSL a été envoyée ; le QSO a été transmis et accepté par le service en ligne&lt;br/&gt;&lt;b&gt;Non&lt;/b&gt; - ne pas envoyer de QSL ; ne pas transmettre le QSO au service en ligne&lt;br/&gt;&lt;b&gt;Demandé&lt;/b&gt; - le correspondant a demandé une QSL ou un envoi vers un service en ligne&lt;br/&gt;&lt;b&gt;En file d&apos;attente&lt;/b&gt; - la QSL ou l&apos;envoi vers le service est programmé&lt;br/&gt;</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.ui" line="1110"/>
@@ -7414,7 +7414,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../ui/NewContactWidget.cpp" line="112"/>
         <location filename="../ui/NewContactWidget.cpp" line="125"/>
         <source>Queued</source>
-        <translation>En file d'attente</translation>
+        <translation>En file d&apos;attente</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="100"/>
@@ -7521,7 +7521,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3847"/>
         <source>Contest ID must be filled in to activate</source>
-        <translation>L'ID du Concours doit être renseigné pour l'activation</translation>
+        <translation>L&apos;ID du Concours doit être renseigné pour l&apos;activation</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3969"/>
@@ -7541,17 +7541,17 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="3996"/>
         <source>Special Activity Group</source>
-        <translation>Groupe d'Activité Spéciale</translation>
+        <translation>Groupe d&apos;Activité Spéciale</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="4000"/>
         <source>Special Activity Group Information</source>
-        <translation>Informations du Groupe d'Activité Spéciale</translation>
+        <translation>Informations du Groupe d&apos;Activité Spéciale</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="4028"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
-        <translation>Ce n'est pas le nom complet du concours mais l'ID attribué&lt;br&gt;(ex. CQ-WW-CW pour le CQ WW DX Contest CW)</translation>
+        <translation>Ce n&apos;est pas le nom complet du concours mais l&apos;ID attribué&lt;br&gt;(ex. CQ-WW-CW pour le CQ WW DX Contest CW)</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="4040"/>
@@ -7566,7 +7566,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="4043"/>
         <source>Description of the contacted station&apos;s equipment</source>
-        <translation>Description de l'équipement de la station contactée</translation>
+        <translation>Description de l&apos;équipement de la station contactée</translation>
     </message>
 </context>
 <context>
@@ -7586,7 +7586,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="212"/>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="252"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="868"/>
@@ -7596,7 +7596,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rig/drivers/OmnirigRigDrv.cpp" line="869"/>
         <source>Rig is not connected</source>
-        <translation>Le transceiver n'est pas connecté</translation>
+        <translation>Le transceiver n&apos;est pas connecté</translation>
     </message>
 </context>
 <context>
@@ -7626,7 +7626,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="216"/>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="258"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="814"/>
@@ -7636,7 +7636,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rig/drivers/Omnirigv2RigDrv.cpp" line="815"/>
         <source>Rig is not connected</source>
-        <translation>Le transceiver n'est pas connecté</translation>
+        <translation>Le transceiver n&apos;est pas connecté</translation>
     </message>
 </context>
 <context>
@@ -7654,12 +7654,12 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="70"/>
         <source>Cannot get IP Address for</source>
-        <translation>Impossible d'obtenir l'adresse IP pour</translation>
+        <translation>Impossible d&apos;obtenir l&apos;adresse IP pour</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="89"/>
         <source>No IPv4 Address for</source>
-        <translation>Pas d'adresse IPv4 pour</translation>
+        <translation>Pas d&apos;adresse IPv4 pour</translation>
     </message>
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="107"/>
@@ -7669,7 +7669,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../rotator/drivers/PSTRotDrv.cpp" line="108"/>
         <source>Operation Timeout</source>
-        <translation>Délai d'attente dépassé</translation>
+        <translation>Délai d&apos;attente dépassé</translation>
     </message>
 </context>
 <context>
@@ -7687,7 +7687,7 @@ Ce mot de passe sera nécessaire pour les restaurer ultérieurement.</translatio
     <message>
         <location filename="../ui/PaperQSLDialog.ui" line="37"/>
         <source>Copy the input file from the source folder to the QLog Internal QSL Storage folder.&lt;br/&gt;The original file remains unchanged in the source folder</source>
-        <translation>Copie le fichier d'entrée du dossier source vers le stockage QSL interne de QLog.&lt;br/&gt;Le fichier original reste inchangé dans le dossier source</translation>
+        <translation>Copie le fichier d&apos;entrée du dossier source vers le stockage QSL interne de QLog.&lt;br/&gt;Le fichier original reste inchangé dans le dossier source</translation>
     </message>
     <message>
         <location filename="../ui/PaperQSLDialog.ui" line="40"/>
@@ -7795,12 +7795,12 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../core/CredentialStore.cpp" line="81"/>
         <source>Cannot save a password for %1 to the Credential Store</source>
-        <translation>Impossible de sauvegarder un mot de passe pour %1 dans le gestionnaire d'identifiants</translation>
+        <translation>Impossible de sauvegarder un mot de passe pour %1 dans le gestionnaire d&apos;identifiants</translation>
     </message>
     <message>
         <location filename="../core/CredentialStore.cpp" line="124"/>
         <source>Cannot get a password for %1 from the Credential Store</source>
-        <translation>Impossible de récupérer un mot de passe pour %1 depuis le gestionnaire d'identifiants</translation>
+        <translation>Impossible de récupérer un mot de passe pour %1 depuis le gestionnaire d&apos;identifiants</translation>
     </message>
     <message>
         <location filename="../core/MembershipQE.cpp" line="204"/>
@@ -7886,17 +7886,17 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../core/main.cpp" line="395"/>
         <source>QLog is already running</source>
-        <translation>QLog est déjà en cours d'exécution</translation>
+        <translation>QLog est déjà en cours d&apos;exécution</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="416"/>
         <source>Failed to process pending database import.</source>
-        <translation>Échec du traitement de l'importation de la base de données en attente.</translation>
+        <translation>Échec du traitement de l&apos;importation de la base de données en attente.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="423"/>
         <source>The database was imported successfully, but the stored passwords could not be restored (decryption failed or the data is corrupted). All service passwords have been cleared and must be re-entered in Settings.</source>
-        <translation>La base de données a été importée avec succès, mais les mots de passe stockés n'ont pas pu être restaurés (échec du déchiffrement ou données corrompues). Tous les mots de passe des services ont été effacés et doivent être saisis à nouveau dans les Paramètres.</translation>
+        <translation>La base de données a été importée avec succès, mais les mots de passe stockés n&apos;ont pas pu être restaurés (échec du déchiffrement ou données corrompues). Tous les mots de passe des services ont été effacés et doivent être saisis à nouveau dans les Paramètres.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="437"/>
@@ -7906,7 +7906,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../core/main.cpp" line="449"/>
         <source>Could not export a QLog database to ADIF as a backup.&lt;p&gt;Try to export your log to ADIF manually</source>
-        <translation>Impossible d'exporter la base QLog vers ADIF pour sauvegarde.&lt;p&gt;Essayez d'exporter votre carnet de trafic en ADIF manuellement</translation>
+        <translation>Impossible d&apos;exporter la base QLog vers ADIF pour sauvegarde.&lt;p&gt;Essayez d&apos;exporter votre carnet de trafic en ADIF manuellement</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="459"/>
@@ -7926,7 +7926,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/ActivityEditor.cpp" line="96"/>
         <source>Activity name is already exists.</source>
-        <translation>Ce nom d'activité existe déjà.</translation>
+        <translation>Ce nom d&apos;activité existe déjà.</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="118"/>
@@ -7936,17 +7936,17 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="128"/>
         <source>Callsign Regular Expression is incorrect.</source>
-        <translation>L'expression régulière de l'indicatif est incorrecte.</translation>
+        <translation>L&apos;expression régulière de l&apos;indicatif est incorrecte.</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="135"/>
         <source>Comment Regular Expression is incorrect.</source>
-        <translation>L'expression régulière du commentaire est incorrecte.</translation>
+        <translation>L&apos;expression régulière du commentaire est incorrecte.</translation>
     </message>
     <message>
         <location filename="../ui/AlertRuleDetail.cpp" line="330"/>
         <source>Cannot Update Alert Rules</source>
-        <translation>Impossible de mettre à jour les règles d'alerte</translation>
+        <translation>Impossible de mettre à jour les règles d&apos;alerte</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="612"/>
@@ -7956,7 +7956,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/DxWidget.cpp" line="613"/>
         <source>DXC Server address must be in format&lt;p&gt;&lt;b&gt;[username@]hostname:port&lt;/b&gt; (ex. hamqth.com:7300)&lt;/p&gt;</source>
-        <translation>L'adresse du serveur DXC doit être au format&lt;p&gt;&lt;b&gt;[utilisateur@]hôte:port&lt;/b&gt; (ex. hamqth.com:7300)&lt;/p&gt;</translation>
+        <translation>L&apos;adresse du serveur DXC doit être au format&lt;p&gt;&lt;b&gt;[utilisateur@]hôte:port&lt;/b&gt; (ex. hamqth.com:7300)&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../ui/DxWidget.cpp" line="1034"/>
@@ -7982,7 +7982,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/ExportDialog.cpp" line="180"/>
         <source>Cannot write to the file</source>
-        <translation>Impossible d'écrire dans le fichier</translation>
+        <translation>Impossible d&apos;écrire dans le fichier</translation>
     </message>
     <message>
         <location filename="../ui/ExportDialog.cpp" line="299"/>
@@ -8032,7 +8032,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1368"/>
         <source>The fields &lt;b&gt;%0&lt;/b&gt; will not be saved because the &lt;b&gt;%1&lt;/b&gt; is not filled.</source>
-        <translation>Les champs &lt;b&gt;%0&lt;/b&gt; ne seront pas sauvegardés car &lt;b&gt;%1&lt;/b&gt; n'est pas renseigné.</translation>
+        <translation>Les champs &lt;b&gt;%0&lt;/b&gt; ne seront pas sauvegardés car &lt;b&gt;%1&lt;/b&gt; n&apos;est pas renseigné.</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="1617"/>
@@ -8048,12 +8048,12 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../ui/SettingsDialog.cpp" line="341"/>
         <location filename="../ui/SettingsDialog.cpp" line="2146"/>
         <source>Please, define at least one Station Locations Profile</source>
-        <translation>Veuillez définir au moins un profil d'emplacement de station</translation>
+        <translation>Veuillez définir au moins un profil d&apos;emplacement de station</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="408"/>
         <source>WSJTX Multicast is enabled but the Address is not a multicast address.</source>
-        <translation>Le multicast WSJT-X est activé mais l'adresse n'est pas une adresse multicast.</translation>
+        <translation>Le multicast WSJT-X est activé mais l&apos;adresse n&apos;est pas une adresse multicast.</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="420"/>
@@ -8103,12 +8103,12 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1608"/>
         <source>Callsign has an invalid format</source>
-        <translation>Le format de l'indicatif est invalide</translation>
+        <translation>Le format de l&apos;indicatif est invalide</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1616"/>
         <source>Operator Callsign has an invalid format</source>
-        <translation>L'indicatif de l'opérateur a un format invalide</translation>
+        <translation>L&apos;indicatif de l&apos;opérateur a un format invalide</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="1623"/>
@@ -8161,7 +8161,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../core/main.cpp" line="464"/>
         <source>Starting Application</source>
-        <translation>Démarrage de l'application</translation>
+        <translation>Démarrage de l&apos;application</translation>
     </message>
     <message>
         <location filename="../data/Gridsquare.cpp" line="137"/>
@@ -8191,12 +8191,12 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../data/StationProfile.cpp" line="186"/>
         <source>Operator Name</source>
-        <translation>Nom de l'opérateur</translation>
+        <translation>Nom de l&apos;opérateur</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="187"/>
         <source>Operator Callsign</source>
-        <translation>Indicatif de l'opérateur</translation>
+        <translation>Indicatif de l&apos;opérateur</translation>
     </message>
     <message>
         <location filename="../data/StationProfile.cpp" line="188"/>
@@ -8280,7 +8280,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../service/kstchat/KSTChat.cpp" line="556"/>
         <location filename="../ui/DxWidget.cpp" line="1187"/>
         <source>Host closed the connection</source>
-        <translation>L'hôte a fermé la connexion</translation>
+        <translation>L&apos;hôte a fermé la connexion</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="330"/>
@@ -8294,7 +8294,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../service/kstchat/KSTChat.cpp" line="564"/>
         <location filename="../ui/DxWidget.cpp" line="1195"/>
         <source>Timeout</source>
-        <translation>Délai d'attente dépassé</translation>
+        <translation>Délai d&apos;attente dépassé</translation>
     </message>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="337"/>
@@ -8352,7 +8352,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../core/LogDatabase.cpp" line="323"/>
         <source>Database is not QLog Export file</source>
-        <translation>Le fichier n'est pas un export QLog</translation>
+        <translation>Le fichier n&apos;est pas un export QLog</translation>
     </message>
     <message>
         <location filename="../core/PlatformParameterManager.cpp" line="25"/>
@@ -8534,7 +8534,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../ui/QSLImportStatDialog.ui" line="14"/>
         <source>QSL Import Summary</source>
-        <translation>Résumé de l'importation QSL</translation>
+        <translation>Résumé de l&apos;importation QSL</translation>
     </message>
     <message>
         <location filename="../ui/QSLImportStatDialog.ui" line="20"/>
@@ -9489,7 +9489,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../rig/Rig.cpp" line="236"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rig/Rig.cpp" line="237"/>
@@ -9499,7 +9499,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
     <message>
         <location filename="../rig/Rig.cpp" line="331"/>
         <source>Cannot open Rig</source>
-        <translation>Impossible d'ouvrir le poste</translation>
+        <translation>Impossible d&apos;ouvrir le poste</translation>
     </message>
 </context>
 <context>
@@ -9601,7 +9601,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../ui/RigctldAdvancedDialog.cpp" line="76"/>
         <source>rigctld was not found on this system.
 Please install Hamlib or specify the path manually.</source>
-        <translation>rigctld n'a pas été trouvé sur ce système.
+        <translation>rigctld n&apos;a pas été trouvé sur ce système.
 Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     </message>
     <message>
@@ -9617,7 +9617,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/RigctldAdvancedDialog.cpp" line="96"/>
         <source>Select rigctld executable</source>
-        <translation>Sélectionner l'exécutable rigctld</translation>
+        <translation>Sélectionner l&apos;exécutable rigctld</translation>
     </message>
     <message>
         <location filename="../ui/RigctldAdvancedDialog.cpp" line="112"/>
@@ -9630,12 +9630,12 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="46"/>
         <source>rigctld executable not found in /app/bin/. This should not happen in Flatpak build.</source>
-        <translation>L'exécutable rigctld est introuvable dans /app/bin/. Cela ne devrait pas arriver avec un build Flatpak.</translation>
+        <translation>L&apos;exécutable rigctld est introuvable dans /app/bin/. Cela ne devrait pas arriver avec un build Flatpak.</translation>
     </message>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="48"/>
         <source>rigctld executable not found. Please install Hamlib or specify the path in Advanced settings.</source>
-        <translation>L'exécutable rigctld est introuvable. Veuillez installer Hamlib ou spécifier le chemin dans les paramètres avancés.</translation>
+        <translation>L&apos;exécutable rigctld est introuvable. Veuillez installer Hamlib ou spécifier le chemin dans les paramètres avancés.</translation>
     </message>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="66"/>
@@ -9665,12 +9665,12 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="433"/>
         <source>rigctld timed out.</source>
-        <translation>Délai d'attente dépassé pour rigctld.</translation>
+        <translation>Délai d&apos;attente dépassé pour rigctld.</translation>
     </message>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="436"/>
         <source>Write error with rigctld.</source>
-        <translation>Erreur d'écriture avec rigctld.</translation>
+        <translation>Erreur d&apos;écriture avec rigctld.</translation>
     </message>
     <message>
         <location filename="../rig/RigctldManager.cpp" line="439"/>
@@ -9693,7 +9693,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../rotator/Rotator.cpp" line="187"/>
         <source>Initialization Error</source>
-        <translation>Erreur d'initialisation</translation>
+        <translation>Erreur d&apos;initialisation</translation>
     </message>
     <message>
         <location filename="../rotator/Rotator.cpp" line="188"/>
@@ -9703,7 +9703,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../rotator/Rotator.cpp" line="217"/>
         <source>Cannot open Rotator</source>
-        <translation>Impossible d'ouvrir le rotor</translation>
+        <translation>Impossible d&apos;ouvrir le rotor</translation>
     </message>
 </context>
 <context>
@@ -9829,7 +9829,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="214"/>
         <source>Operator name (Optional parameter)</source>
-        <translation>Nom de l'opérateur (paramètre optionnel)</translation>
+        <translation>Nom de l&apos;opérateur (paramètre optionnel)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="221"/>
@@ -9895,7 +9895,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="333"/>
         <source>Profile name that is used as the alias for the Callsign, Gridsquare, Operator name, and QTH (required parameter) </source>
-        <translation>Nom du profil utilisé comme alias pour l'indicatif, le localisateur, l'opérateur et le QTH (obligatoire) </translation>
+        <translation>Nom du profil utilisé comme alias pour l&apos;indicatif, le localisateur, l&apos;opérateur et le QTH (obligatoire) </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="346"/>
@@ -9905,12 +9905,12 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="359"/>
         <source>Callsign of operator (Optional parameter, if different from station callsign)</source>
-        <translation>Indicatif de l'opérateur (optionnel, si différent de celui de la station)</translation>
+        <translation>Indicatif de l&apos;opérateur (optionnel, si différent de celui de la station)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="366"/>
         <source>Operator Name</source>
-        <translation>Nom de l'opérateur</translation>
+        <translation>Nom de l&apos;opérateur</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="373"/>
@@ -9935,7 +9935,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="401"/>
         <source>Operator Callsign</source>
-        <translation>Indicatif de l'opérateur</translation>
+        <translation>Indicatif de l&apos;opérateur</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="410"/>
@@ -10174,7 +10174,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
         <location filename="../ui/SettingsDialog.ui" line="2506"/>
         <location filename="../ui/SettingsDialog.ui" line="2922"/>
         <source>Host Name</source>
-        <translation>Nom d'hôte</translation>
+        <translation>Nom d&apos;hôte</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="941"/>
@@ -10278,7 +10278,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1731"/>
         <source>Enter manually RIT or Transverter Offset</source>
-        <translation>Entrer manuellement l'offset RIT ou Transverter</translation>
+        <translation>Entrer manuellement l&apos;offset RIT ou Transverter</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1675"/>
@@ -10291,7 +10291,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1778"/>
         <source>Enter manually XIT or Transverter offset</source>
-        <translation>Entrer manuellement l'offset XIT ou Transverter</translation>
+        <translation>Entrer manuellement l&apos;offset XIT ou Transverter</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1781"/>
@@ -10391,7 +10391,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
         <location filename="../ui/SettingsDialog.ui" line="1984"/>
         <location filename="../ui/SettingsDialog.cpp" line="2475"/>
         <source>Start rigctld daemon to share rig with other applications (e.g. WSJT-X)</source>
-        <translation>Lancer le démon rigctld pour partager le poste avec d'autres applis (ex: WSJT-X)</translation>
+        <translation>Lancer le démon rigctld pour partager le poste avec d&apos;autres applis (ex: WSJT-X)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="1987"/>
@@ -10484,7 +10484,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
         <location filename="../ui/SettingsDialog.ui" line="2449"/>
         <location filename="../ui/SettingsDialog.ui" line="2854"/>
         <source>Stop Bits</source>
-        <translation>Bits d'arrêt</translation>
+        <translation>Bits d&apos;arrêt</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2469"/>
@@ -10507,7 +10507,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2060"/>
         <source>Poll Interval</source>
-        <translation>Intervalle d'interrogation</translation>
+        <translation>Intervalle d&apos;interrogation</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2073"/>
@@ -10635,12 +10635,12 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3477"/>
         <source>Specify the URL to use for quick search. The &lt;DXCALL&gt; macro will be replaced by the current callsign</source>
-        <translation>Spécifier l'URL pour la recherche rapide. La macro &lt;DXCALL&gt; sera remplacée par l'indicatif courant</translation>
+        <translation>Spécifier l&apos;URL pour la recherche rapide. La macro &lt;DXCALL&gt; sera remplacée par l&apos;indicatif courant</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3484"/>
         <source>Test URL with your Callsign</source>
-        <translation>Tester l'URL avec votre indicatif</translation>
+        <translation>Tester l&apos;URL avec votre indicatif</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3487"/>
@@ -10703,23 +10703,23 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
         <location filename="../ui/SettingsDialog.ui" line="3736"/>
         <location filename="../ui/SettingsDialog.ui" line="3746"/>
         <source>It is not a password. It is the upload code received via email after the registration to HRDLOG..net</source>
-        <translation>Ce n'est pas un mot de passe. C'est le code d'envoi reçu par email après l'inscription sur HRDLOG.net</translation>
+        <translation>Ce n&apos;est pas un mot de passe. C&apos;est le code d&apos;envoi reçu par email après l&apos;inscription sur HRDLOG.net</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3739"/>
         <source>Upload Code</source>
-        <translation>Code d'envoi</translation>
+        <translation>Code d&apos;envoi</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3756"/>
         <location filename="../ui/SettingsDialog.ui" line="3769"/>
         <source>If it is enabled and Rig is connected then QLog periodically sends On-Air messages to HRDLog</source>
-        <translation>Si activé et le poste connecté, QLog envoie périodiquement des messages "On-Air" à HRDLog</translation>
+        <translation>Si activé et le poste connecté, QLog envoie périodiquement des messages &quot;On-Air&quot; à HRDLog</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3759"/>
         <source>Send On-Air</source>
-        <translation>Envoyer "On-Air"</translation>
+        <translation>Envoyer &quot;On-Air&quot;</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3809"/>
@@ -10766,7 +10766,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4094"/>
         <source>Endpoint</source>
-        <translation>Point d'accès (Endpoint)</translation>
+        <translation>Point d&apos;accès (Endpoint)</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4132"/>
@@ -10857,7 +10857,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4514"/>
         <source>Enable/Disable Multicast option for WSJTX</source>
-        <translation>Activer/Désactiver l'option Multicast pour WSJT-X</translation>
+        <translation>Activer/Désactiver l&apos;option Multicast pour WSJT-X</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4501"/>
@@ -10914,7 +10914,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
 &lt;MYWWFT&gt; = Mon WWFF
 &lt;MYVUCC&gt; = Mon VUCC
 &lt;MYPWR&gt; = Ma puissance (W)
-&lt;EXCHSTR&gt; = Message d'échange concours
+&lt;EXCHSTR&gt; = Message d&apos;échange concours
 &lt;EXCHNR&gt; = Numéro de série concours
 &lt;EXCHNRN&gt; = Numéro de série concours (9→N, 0→T)
 &lt;+&gt; = Vitesse +5 MPM (&lt;++&gt; = +10 MPM, etc.)
@@ -10929,7 +10929,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3848"/>
         <source>Leave empty for auto-detection</source>
-        <translation>Laisser vide pour l'auto-détection</translation>
+        <translation>Laisser vide pour l&apos;auto-détection</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="3881"/>
@@ -10949,7 +10949,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4463"/>
         <source>Specify Multicast Address. &lt;br&gt;On some Linux systems it may be necessary to enable multicast on the loop-back network interface.</source>
-        <translation>Spécifier l'adresse Multicast. &lt;br&gt;Sur certains systèmes Linux, il peut être nécessaire d'activer le multicast sur l'interface de boucle locale (loop-back).</translation>
+        <translation>Spécifier l&apos;adresse Multicast. &lt;br&gt;Sur certains systèmes Linux, il peut être nécessaire d&apos;activer le multicast sur l&apos;interface de boucle locale (loop-back).</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4470"/>
@@ -10959,7 +10959,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4483"/>
         <source>Time-To-Live determines the range&lt;br&gt; over which a multicast packet is propagated in your intranet. </source>
-        <translation>Le TTL (Time-To-Live) détermine la portée de propagation&lt;br&gt; d'un paquet multicast sur votre intranet. </translation>
+        <translation>Le TTL (Time-To-Live) détermine la portée de propagation&lt;br&gt; d&apos;un paquet multicast sur votre intranet. </translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4530"/>
@@ -10969,7 +10969,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4543"/>
         <source>Enable/Disable sending color-coded status indicators back to WSJT-X for each callsign calling CQ</source>
-        <translation>Activer/Désactiver l'envoi d'indicateurs d'état colorés à WSJT-X pour chaque indicatif appelant CQ</translation>
+        <translation>Activer/Désactiver l&apos;envoi d&apos;indicateurs d&apos;état colorés à WSJT-X pour chaque indicatif appelant CQ</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4556"/>
@@ -10984,7 +10984,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4572"/>
         <source>&lt;p&gt;Assigned LogID to the current log.&lt;/p&gt;The LogID is sent in the Network Nofitication messages as a unique instance identified.&lt;p&gt; The ID is generated automatically and cannot be changed&lt;/&gt;</source>
-        <translation>&lt;p&gt;LogID assigné au carnet actuel.&lt;/p&gt;Le LogID est envoyé dans les notifications réseau comme identifiant unique d'instance.&lt;p&gt;L'ID est généré automatiquement et ne peut être modifié.&lt;/p&gt;</translation>
+        <translation>&lt;p&gt;LogID assigné au carnet actuel.&lt;/p&gt;Le LogID est envoyé dans les notifications réseau comme identifiant unique d&apos;instance.&lt;p&gt;L&apos;ID est généré automatiquement et ne peut être modifié.&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4585"/>
@@ -11014,7 +11014,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4626"/>
         <source>&lt;p&gt; List of IP addresses to which QLog sends  UDP notification packets about a new/updated/deleted QSO in the log.&lt;/p&gt;The IP addresses are separated by a space and have the form IP:PORT</source>
-        <translation>&lt;p&gt;Liste des adresses IP vers lesquelles QLog envoie les notifications UDP lors de l'ajout/modification/suppression d'un QSO.&lt;/p&gt;Les adresses sont séparées par des espaces (format IP:PORT).</translation>
+        <translation>&lt;p&gt;Liste des adresses IP vers lesquelles QLog envoie les notifications UDP lors de l&apos;ajout/modification/suppression d&apos;un QSO.&lt;/p&gt;Les adresses sont séparées par des espaces (format IP:PORT).</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4636"/>
@@ -11034,7 +11034,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4660"/>
         <source>&lt;p&gt; List of IP addresses to which QLog sends UDP notification packets when Rig State changes.&lt;/p&gt;The IP addresses are separated by a space and have the form IP:PORT</source>
-        <translation>&lt;p&gt;Liste des adresses IP vers lesquelles QLog envoie les notifications UDP lors d'un changement d'état du poste.&lt;/p&gt;Les adresses sont séparées par des espaces (format IP:PORT).</translation>
+        <translation>&lt;p&gt;Liste des adresses IP vers lesquelles QLog envoie les notifications UDP lors d&apos;un changement d&apos;état du poste.&lt;/p&gt;Les adresses sont séparées par des espaces (format IP:PORT).</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4687"/>
@@ -11059,12 +11059,12 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4773"/>
         <source>&lt;a href=&quot;https://doc.qt.io/qt-6/qdate.html#fromString-1&quot;&gt;Time Format Documentation&lt;/a&gt;</source>
-        <translation>&lt;a href=&quot;https://doc.qt.io/qt-6/qdate.html#fromString-1&quot;&gt;Documentation du format d'heure&lt;/a&gt;</translation>
+        <translation>&lt;a href=&quot;https://doc.qt.io/qt-6/qdate.html#fromString-1&quot;&gt;Documentation du format d&apos;heure&lt;/a&gt;</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4798"/>
         <source>Time Format</source>
-        <translation>Format d'heure</translation>
+        <translation>Format d&apos;heure</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4807"/>
@@ -11079,7 +11079,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4842"/>
         <source>Unit System</source>
-        <translation>Système d'unités</translation>
+        <translation>Système d&apos;unités</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="4851"/>
@@ -11306,7 +11306,7 @@ Veuillez installer Hamlib ou spécifier le chemin manuellement.</translation>
         <location filename="../ui/SettingsDialog.cpp" line="2027"/>
         <source>TQSL was not found on this system.
 Please install TQSL or specify the path manually.</source>
-        <translation>TQSL n'a pas été trouvé sur ce système.
+        <translation>TQSL n&apos;a pas été trouvé sur ce système.
 Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     </message>
     <message>
@@ -11317,12 +11317,12 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="2466"/>
         <source>Rig sharing is only available for Hamlib driver</source>
-        <translation>Le partage du poste n'est disponible qu'avec le pilote Hamlib</translation>
+        <translation>Le partage du poste n&apos;est disponible qu&apos;avec le pilote Hamlib</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="2470"/>
         <source>Rig sharing is not available for network connection</source>
-        <translation>Le partage du poste n'est pas disponible pour les connexions réseau</translation>
+        <translation>Le partage du poste n&apos;est pas disponible pour les connexions réseau</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="2979"/>
@@ -11332,7 +11332,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/SettingsDialog.cpp" line="2987"/>
         <source>Required internet connection during application start</source>
-        <translation>Connexion internet requise au démarrage de l'application</translation>
+        <translation>Connexion internet requise au démarrage de l&apos;application</translation>
     </message>
 </context>
 <context>
@@ -11663,7 +11663,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../rig/drivers/TCIRigDrv.cpp" line="574"/>
         <source>Rig is not connected</source>
-        <translation>Le poste n'est pas connecté</translation>
+        <translation>Le poste n&apos;est pas connecté</translation>
     </message>
 </context>
 <context>
@@ -11766,7 +11766,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.ui" line="278"/>
         <source>Under normal circumstances this status means &lt;b&gt;&quot;do not send&quot;&lt;/b&gt;.&lt;br/&gt;However, it may sometimes be wanted to ignore this setting when sending a QSL.</source>
-        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;ne pas envoyer&quot;&lt;/b&gt;.&lt;br/&gt;Toutefois, il peut être souhaitable d'ignorer ce réglage lors de l'envoi d'une QSL.</translation>
+        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;ne pas envoyer&quot;&lt;/b&gt;.&lt;br/&gt;Toutefois, il peut être souhaitable d&apos;ignorer ce réglage lors de l&apos;envoi d&apos;une QSL.</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.ui" line="281"/>
@@ -11776,7 +11776,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.ui" line="288"/>
         <source>Under normal circumstances this status means &lt;b&gt;&quot;Ignore/Invalid&quot;&lt;/b&gt;.&lt;br/&gt;However, it may sometimes be wanted to ignore this setting when sending a QSL.</source>
-        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;Ignorer/Invalide&quot;&lt;/b&gt;.&lt;br/&gt;Toutefois, il peut être souhaitable d'ignorer ce réglage lors de l'envoi d'une QSL.</translation>
+        <translation>En temps normal, ce statut signifie &lt;b&gt;&quot;Ignorer/Invalide&quot;&lt;/b&gt;.&lt;br/&gt;Toutefois, il peut être souhaitable d&apos;ignorer ce réglage lors de l&apos;envoi d&apos;une QSL.</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.ui" line="291"/>
@@ -11883,7 +11883,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="373"/>
         <source>Cannot upload the QSO(s): </source>
-        <translation>Impossible d'envoyer le(s) QSO : </translation>
+        <translation>Impossible d&apos;envoyer le(s) QSO : </translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="435"/>
@@ -11894,7 +11894,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="435"/>
         <source>No QSO found to upload.</source>
-        <translation>Aucun QSO trouvé pour l'envoi.</translation>
+        <translation>Aucun QSO trouvé pour l&apos;envoi.</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="446"/>
@@ -11924,7 +11924,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="544"/>
         <source>The values below will be used when an input record does not contain the ADIF values</source>
-        <translation>Les valeurs ci-dessous seront utilisées lorsqu'un enregistrement ne contient pas les valeurs ADIF</translation>
+        <translation>Les valeurs ci-dessous seront utilisées lorsqu&apos;un enregistrement ne contient pas les valeurs ADIF</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="674"/>
@@ -11934,17 +11934,17 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="733"/>
         <source>Location callsign (%1) and grid (%2) do not match selected filters</source>
-        <translation>L'indicatif de l'emplacement (%1) et le locator (%2) ne correspondent pas aux filtres sélectionnés</translation>
+        <translation>L&apos;indicatif de l&apos;emplacement (%1) et le locator (%2) ne correspondent pas aux filtres sélectionnés</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="739"/>
         <source>Location callsign (%1) does not match selected callsign (%2)</source>
-        <translation>L'indicatif de l'emplacement (%1) ne correspond pas à l'indicatif sélectionné (%2)</translation>
+        <translation>L&apos;indicatif de l&apos;emplacement (%1) ne correspond pas à l&apos;indicatif sélectionné (%2)</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="745"/>
         <source>Location grid (%1) does not match selected grid (%2)</source>
-        <translation>Le locator de l'emplacement (%1) ne correspond pas au locator sélectionné (%2)</translation>
+        <translation>Le locator de l&apos;emplacement (%1) ne correspond pas au locator sélectionné (%2)</translation>
     </message>
     <message>
         <location filename="../ui/UploadQSODialog.cpp" line="763"/>
@@ -11954,7 +11954,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/UploadQSODialog.h" line="76"/>
         <source>Service is not configured properly.&lt;p&gt; Please, use &lt;b&gt;Settings&lt;/b&gt; dialog to configure it.&lt;/p&gt;</source>
-        <translation>Le service n'est pas configuré correctement.&lt;p&gt; Veuillez utiliser la boîte de dialogue &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
+        <translation>Le service n&apos;est pas configuré correctement.&lt;p&gt; Veuillez utiliser la boîte de dialogue &lt;b&gt;Paramètres&lt;/b&gt; pour le configurer.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -12176,7 +12176,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../ui/WsjtxFilterDialog.cpp" line="140"/>
         <source>No Club List is enabled</source>
-        <translation>Aucune liste de club n'est activée</translation>
+        <translation>Aucune liste de club n&apos;est activée</translation>
     </message>
 </context>
 <context>
@@ -12255,7 +12255,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../core/main.cpp" line="314"/>
         <source>Run with the specific namespace.</source>
-        <translation>Exécuter avec l'espace de noms (namespace) spécifique.</translation>
+        <translation>Exécuter avec l&apos;espace de noms (namespace) spécifique.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="315"/>
@@ -12275,7 +12275,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../core/main.cpp" line="320"/>
         <source>Set language. &lt;code&gt; example: &apos;en&apos; or &apos;en_US&apos;. Ignore environment setting.</source>
-        <translation>Définir la langue. &lt;code&gt; exemple : &apos;en&apos; ou &apos;en_US&apos;. Ignore les paramètres d'environnement.</translation>
+        <translation>Définir la langue. &lt;code&gt; exemple : &apos;en&apos; ou &apos;en_US&apos;. Ignore les paramètres d&apos;environnement.</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="321"/>
@@ -12290,7 +12290,7 @@ Veuillez installer TQSL ou spécifier le chemin manuellement.</translation>
     <message>
         <location filename="../core/main.cpp" line="325"/>
         <source>Process pending database import (internal use)</source>
-        <translation>Traiter l'importation de base de données en attente (usage interne)</translation>
+        <translation>Traiter l&apos;importation de base de données en attente (usage interne)</translation>
     </message>
     <message>
         <location filename="../core/main.cpp" line="327"/>
