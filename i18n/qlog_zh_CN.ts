@@ -200,7 +200,7 @@
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1406"/>
         <source>Bandmap Guide</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">频段图指南</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.ui" line="1412"/>
@@ -225,7 +225,7 @@
     <message>
         <location filename="../ui/ActivityEditor.cpp" line="515"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关闭</translation>
     </message>
     <message>
         <location filename="../ui/ActivityEditor.h" line="117"/>
@@ -5310,7 +5310,7 @@ Example:
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="138"/>
         <source>FTx (FT8/FT4)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">FTx (FT8/FT4)</translation>
     </message>
     <message>
         <location filename="../ui/DxFilterDialog.ui" line="172"/>
@@ -12674,12 +12674,12 @@ Please install Hamlib or specify the path manually.</source>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2333"/>
         <source>RTS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">RTS</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2364"/>
         <source>DTR</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">DTR</translation>
     </message>
     <message>
         <location filename="../ui/SettingsDialog.ui" line="2527"/>
