@@ -1699,6 +1699,9 @@
        <property name="text">
         <string notr="true"/>
        </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
       </widget>
      </item>
      <item>
