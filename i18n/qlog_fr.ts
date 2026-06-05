@@ -9321,187 +9321,192 @@ Submode: %2</source>
         <translation>Membre :</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="71"/>
+        <location filename="../ui/NewContactWidget.cpp" line="72"/>
         <source>Expand/Collapse</source>
         <translation>Développer/Réduire</translation>
-    </message>
-    <message>
-        <location filename="../ui/NewContactWidget.cpp" line="100"/>
-        <location filename="../ui/NewContactWidget.cpp" line="113"/>
-        <location filename="../ui/NewContactWidget.cpp" line="126"/>
-        <source>No</source>
-        <translation>Non</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="101"/>
         <location filename="../ui/NewContactWidget.cpp" line="114"/>
         <location filename="../ui/NewContactWidget.cpp" line="127"/>
-        <source>Yes</source>
-        <translation>Oui</translation>
+        <source>No</source>
+        <translation>Non</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="102"/>
         <location filename="../ui/NewContactWidget.cpp" line="115"/>
         <location filename="../ui/NewContactWidget.cpp" line="128"/>
-        <source>Requested</source>
-        <translation>Demandé</translation>
+        <source>Yes</source>
+        <translation>Oui</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="103"/>
         <location filename="../ui/NewContactWidget.cpp" line="116"/>
         <location filename="../ui/NewContactWidget.cpp" line="129"/>
-        <source>Queued</source>
-        <translation>En file d&apos;attente</translation>
+        <source>Requested</source>
+        <translation>Demandé</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="104"/>
         <location filename="../ui/NewContactWidget.cpp" line="117"/>
         <location filename="../ui/NewContactWidget.cpp" line="130"/>
+        <source>Queued</source>
+        <translation>En file d&apos;attente</translation>
+    </message>
+    <message>
+        <location filename="../ui/NewContactWidget.cpp" line="105"/>
+        <location filename="../ui/NewContactWidget.cpp" line="118"/>
+        <location filename="../ui/NewContactWidget.cpp" line="131"/>
         <source>Ignored</source>
         <translation>Ignoré</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="140"/>
+        <location filename="../ui/NewContactWidget.cpp" line="141"/>
         <source>Bureau</source>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="141"/>
+        <location filename="../ui/NewContactWidget.cpp" line="142"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="142"/>
+        <location filename="../ui/NewContactWidget.cpp" line="143"/>
         <source>Electronic</source>
         <translation>Électronique</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="226"/>
+        <location filename="../ui/NewContactWidget.cpp" line="227"/>
         <source>QLog Error</source>
         <translation>Erreur QLog</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="226"/>
+        <location filename="../ui/NewContactWidget.cpp" line="227"/>
         <source>Callbook login failed</source>
         <translation>Échec de connexion au Callbook</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2223"/>
+        <location filename="../ui/NewContactWidget.cpp" line="775"/>
+        <source>Member</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ui/NewContactWidget.cpp" line="2314"/>
         <source>LP</source>
         <translation>LP (Long Path)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2275"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2366"/>
         <source>New Entity!</source>
         <translation>Nouvelle Entité !</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2278"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2369"/>
         <source>New Band!</source>
         <translation>Nouvelle Bande !</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2281"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2372"/>
         <source>New Mode!</source>
         <translation>Nouveau Mode !</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2284"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2375"/>
         <source>New Band &amp; Mode!</source>
         <translation>Nouveau Bande &amp; Mode !</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2378"/>
         <source>New Slot!</source>
         <translation>Nouveau Slot !</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2290"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2381"/>
         <source>Worked</source>
         <translation>Contacté (Worked)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2293"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2384"/>
         <source>Confirmed</source>
         <translation>Confirmé</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3186"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3277"/>
         <source>GE</source>
         <translation>GE (Good Evening)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3196"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
         <source>GM</source>
         <translation>GM (Good Morning)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3202"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3293"/>
         <source>GA</source>
         <translation>GA (Good Afternoon)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3520"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3611"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3898"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3989"/>
         <source>Callbook search is inactive</source>
         <translation>Recherche Callbook inactive</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3903"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3994"/>
         <source>Callbook search is active</source>
         <translation>Recherche Callbook active</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3981"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4072"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>L&apos;ID du Concours doit être renseigné pour l&apos;activation</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4103"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4194"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>deux ou quatre locators adjacents (Maidenhead), chacun de quatre caractères (ex. JN18,JN19...)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4106"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4197"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>le DOK (District Location Code) DARC de la station contactée (ex. A01)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4126"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4217"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna (WWFF)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4130"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4221"/>
         <source>Special Activity Group</source>
         <translation>Groupe d&apos;Activité Spéciale</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4134"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4225"/>
         <source>Special Activity Group Information</source>
         <translation>Informations du Groupe d&apos;Activité Spéciale</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4162"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4253"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Ce n&apos;est pas le nom complet du concours mais l&apos;ID attribué&lt;br&gt;(ex. CQ-WW-CW pour le CQ WW DX Contest CW)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4174"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4265"/>
         <source>Blank</source>
         <translation>Vide</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4175"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4266"/>
         <source> W</source>
         <translation> W</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4177"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4268"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Description de l&apos;équipement de la station contactée</translation>
     </message>
@@ -9751,7 +9756,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../ui/MainWindow.cpp" line="663"/>
         <location filename="../ui/MainWindow.cpp" line="673"/>
         <location filename="../ui/MainWindow.cpp" line="683"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1376"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1459"/>
         <location filename="../ui/SettingsDialog.cpp" line="638"/>
         <location filename="../ui/SettingsDialog.cpp" line="663"/>
         <location filename="../ui/SettingsDialog.cpp" line="672"/>
@@ -9807,7 +9812,7 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <location filename="../ui/AlertRuleDetail.cpp" line="329"/>
         <location filename="../ui/ExportDialog.cpp" line="180"/>
         <location filename="../ui/KSTChatWidget.cpp" line="311"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1637"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1728"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="531"/>
         <location filename="../ui/SettingsDialog.cpp" line="732"/>
         <location filename="../ui/SettingsDialog.cpp" line="740"/>
@@ -9961,12 +9966,12 @@ Vous pouvez laisser les champs vides et les configurer plus tard dans les Param�
         <translation>&lt;b&gt;Erreur Keyer CW :&lt;/b&gt; </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1377"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1460"/>
         <source>The fields &lt;b&gt;%0&lt;/b&gt; will not be saved because the &lt;b&gt;%1&lt;/b&gt; is not filled.</source>
         <translation>Les champs &lt;b&gt;%0&lt;/b&gt; ne seront pas sauvegardés car &lt;b&gt;%1&lt;/b&gt; n&apos;est pas renseigné.</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1638"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1729"/>
         <source>Your callsign is empty. Please, set your Station Profile</source>
         <translation>Votre indicatif est vide. Veuillez configurer votre profil de station</translation>
     </message>

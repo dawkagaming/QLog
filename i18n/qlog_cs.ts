@@ -9258,7 +9258,7 @@ Submode: %2</source>
         <translation>Člen:</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4126"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4217"/>
         <source>World Wide Flora &amp; Fauna</source>
         <translation>World Wide Flora &amp; Fauna</translation>
     </message>
@@ -9296,7 +9296,7 @@ Submode: %2</source>
         <translation>QSL odeslat přes</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4174"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4265"/>
         <source>Blank</source>
         <translation>Nevyplněno</translation>
     </message>
@@ -9321,7 +9321,7 @@ Submode: %2</source>
         <translation>Stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4106"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4197"/>
         <source>the contacted station&apos;s DARC DOK (District Location Code) (ex. A01)</source>
         <translation>DARC DOK (kód uzemí) (např A01)</translation>
     </message>
@@ -9346,7 +9346,7 @@ Submode: %2</source>
         <translation>Rig</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4175"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4266"/>
         <source> W</source>
         <translation> W</translation>
     </message>
@@ -9361,167 +9361,172 @@ Submode: %2</source>
         <translation> MHz</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="100"/>
-        <location filename="../ui/NewContactWidget.cpp" line="113"/>
-        <location filename="../ui/NewContactWidget.cpp" line="126"/>
-        <source>No</source>
-        <translation>Neodesílat</translation>
-    </message>
-    <message>
         <location filename="../ui/NewContactWidget.cpp" line="101"/>
         <location filename="../ui/NewContactWidget.cpp" line="114"/>
         <location filename="../ui/NewContactWidget.cpp" line="127"/>
-        <source>Yes</source>
-        <translation>Odesláno</translation>
+        <source>No</source>
+        <translation>Neodesílat</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="102"/>
         <location filename="../ui/NewContactWidget.cpp" line="115"/>
         <location filename="../ui/NewContactWidget.cpp" line="128"/>
-        <source>Requested</source>
-        <translation>Vyžádáno</translation>
+        <source>Yes</source>
+        <translation>Odesláno</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="103"/>
         <location filename="../ui/NewContactWidget.cpp" line="116"/>
         <location filename="../ui/NewContactWidget.cpp" line="129"/>
-        <source>Queued</source>
-        <translation>Ve frontě</translation>
+        <source>Requested</source>
+        <translation>Vyžádáno</translation>
     </message>
     <message>
         <location filename="../ui/NewContactWidget.cpp" line="104"/>
         <location filename="../ui/NewContactWidget.cpp" line="117"/>
         <location filename="../ui/NewContactWidget.cpp" line="130"/>
+        <source>Queued</source>
+        <translation>Ve frontě</translation>
+    </message>
+    <message>
+        <location filename="../ui/NewContactWidget.cpp" line="105"/>
+        <location filename="../ui/NewContactWidget.cpp" line="118"/>
+        <location filename="../ui/NewContactWidget.cpp" line="131"/>
         <source>Ignored</source>
         <translation>Ignorovat</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="140"/>
+        <location filename="../ui/NewContactWidget.cpp" line="141"/>
         <source>Bureau</source>
         <translation>Bureau</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="141"/>
+        <location filename="../ui/NewContactWidget.cpp" line="142"/>
         <source>Direct</source>
         <translation>Direct</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="142"/>
+        <location filename="../ui/NewContactWidget.cpp" line="143"/>
         <source>Electronic</source>
         <translation>Elektronicky</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="226"/>
+        <location filename="../ui/NewContactWidget.cpp" line="227"/>
         <source>QLog Error</source>
         <translation>Chyba QLog</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="226"/>
+        <location filename="../ui/NewContactWidget.cpp" line="227"/>
         <source>Callbook login failed</source>
         <translation>Selhalo přihlášení do Callbooku</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2223"/>
+        <location filename="../ui/NewContactWidget.cpp" line="775"/>
+        <source>Member</source>
+        <translation>Člen</translation>
+    </message>
+    <message>
+        <location filename="../ui/NewContactWidget.cpp" line="2314"/>
         <source>LP</source>
         <translation>LP</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2275"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2366"/>
         <source>New Entity!</source>
         <translation>Nová země!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2278"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2369"/>
         <source>New Band!</source>
         <translation>Nové pásmo!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2281"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2372"/>
         <source>New Mode!</source>
         <translation>Nový druh provozu!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2284"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2375"/>
         <source>New Band &amp; Mode!</source>
         <translation>Nové pásmo &amp; druh!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2287"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2378"/>
         <source>New Slot!</source>
         <translation>Nový slot!</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2290"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2381"/>
         <source>Worked</source>
         <translation>Pracováno</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="2293"/>
+        <location filename="../ui/NewContactWidget.cpp" line="2384"/>
         <source>Confirmed</source>
         <translation>Potvrzeno</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3186"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3277"/>
         <source>GE</source>
         <translation>GE</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3196"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3287"/>
         <source>GM</source>
         <translation>GM</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3202"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3293"/>
         <source>GA</source>
         <translation>GA</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3520"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3611"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3903"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3994"/>
         <source>Callbook search is active</source>
         <translation>Hledání v Callbooku je aktivní</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3981"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4072"/>
         <source>Contest ID must be filled in to activate</source>
         <translation>Pro aktivaci je nutné vyplnit Contest ID</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4162"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4253"/>
         <source>It is not the name of the contest but it is an assigned&lt;br&gt;Contest ID (ex. CQ-WW-CW for CQ WW DX Contest (CW)) </source>
         <translation>Není to jméno Contestu ale jeho přiřazené Contest ID (např. CQ-WW-CW pro CQ WW DX Contest (CW)) </translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4177"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4268"/>
         <source>Description of the contacted station&apos;s equipment</source>
         <translation>Popis vybavení kontaktované stanice</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="3898"/>
+        <location filename="../ui/NewContactWidget.cpp" line="3989"/>
         <source>Callbook search is inactive</source>
         <translation>Hledání v Callbooku není aktivní</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="71"/>
+        <location filename="../ui/NewContactWidget.cpp" line="72"/>
         <source>Expand/Collapse</source>
         <translation>Rozbalit/sbalit</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4103"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4194"/>
         <source>two or four adjacent Maidenhead grid locators, each four characters long, (ex. EN98,FM08,EM97,FM07)</source>
         <translation>dva nebo čtyři sousední lokátory, každý o délce čtyř znaků (např. EN98,FM08,EM97,FM07)</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4130"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4221"/>
         <source>Special Activity Group</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="4134"/>
+        <location filename="../ui/NewContactWidget.cpp" line="4225"/>
         <source>Special Activity Group Information</source>
         <translation></translation>
     </message>
@@ -9754,7 +9759,7 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <location filename="../ui/MainWindow.cpp" line="663"/>
         <location filename="../ui/MainWindow.cpp" line="673"/>
         <location filename="../ui/MainWindow.cpp" line="683"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1376"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1459"/>
         <location filename="../ui/SettingsDialog.cpp" line="638"/>
         <location filename="../ui/SettingsDialog.cpp" line="663"/>
         <location filename="../ui/SettingsDialog.cpp" line="672"/>
@@ -9827,7 +9832,7 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <location filename="../ui/AlertRuleDetail.cpp" line="329"/>
         <location filename="../ui/ExportDialog.cpp" line="180"/>
         <location filename="../ui/KSTChatWidget.cpp" line="311"/>
-        <location filename="../ui/NewContactWidget.cpp" line="1637"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1728"/>
         <location filename="../ui/QSOFilterDetail.cpp" line="531"/>
         <location filename="../ui/SettingsDialog.cpp" line="732"/>
         <location filename="../ui/SettingsDialog.cpp" line="740"/>
@@ -9890,12 +9895,12 @@ Pole můžete nechat prázdná a nastavit je později v Nastavení.</translation
         <translation>Chyba připojení k DXC serveru</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1377"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1460"/>
         <source>The fields &lt;b&gt;%0&lt;/b&gt; will not be saved because the &lt;b&gt;%1&lt;/b&gt; is not filled.</source>
         <translation>Pole &lt;b&gt;%0&lt;/b&gt; nebudou uložena, protože &lt;b&gt;%1&lt;/b&gt; není vyplněno.</translation>
     </message>
     <message>
-        <location filename="../ui/NewContactWidget.cpp" line="1638"/>
+        <location filename="../ui/NewContactWidget.cpp" line="1729"/>
         <source>Your callsign is empty. Please, set your Station Profile</source>
         <translation>Vaše značka není vyplněna. Prosím, nastavte Profil Stanice</translation>
     </message>
