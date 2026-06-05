@@ -23,6 +23,7 @@ TBC - 0.51.0
 - Fixed QRZ callbook lookups stall for certain calls (issue #1040)
 - Fixed ADIF multiline fields are incorrectly parsed (issue #1046)
 - Fixed Editing POTA entity causes crash (issue #1049)
+- Fixed The HTML was not rendering in the membership label properly (PR #1060 @aa5sh)
 - Fixed ADX app-fields and grid normalization
 - Fixed WSJTX Status tx_mode value
 - Github - Source code is signed (#1018)
