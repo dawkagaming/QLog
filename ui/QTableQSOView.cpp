@@ -9,8 +9,16 @@ QTableQSOView::QTableQSOView(QWidget *parent) :
 
 void QTableQSOView::commitData(QWidget *editor)
 {
-    const QModelIndex modeSubmodeIndex = this->currentIndex();
-    const bool modeSubmodeColumn = modeSubmodeIndex.column() == LogbookModel::COLUMN_MODE_SUBMODE;
+    QModelIndex editedIndex;
+    if ( editor )
+        editedIndex = indexAt(editor->mapTo(viewport(), editor->rect().center()));
+
+    if ( !editedIndex.isValid() )
+        editedIndex = this->currentIndex();
+
+    int currRow = editedIndex.row();
+    int currCol = editedIndex.column();
+    const bool modeSubmodeColumn = currCol == LogbookModel::COLUMN_MODE_SUBMODE;
     QList<int> modeSubmodeSelectedRows;
 
     if ( modeSubmodeColumn )
@@ -23,16 +31,7 @@ void QTableQSOView::commitData(QWidget *editor)
     QTableView::commitData(editor);
 
     QAbstractItemModel *model = this->model();
-    QVariant value = model->data(this->currentIndex(), Qt::EditRole);
-    int currRow = this->currentIndex().row();
-    int currCol = this->currentIndex().column();
-
-    if ( modeSubmodeColumn )
-    {
-        currRow = modeSubmodeIndex.row();
-        currCol = modeSubmodeIndex.column();
-    }
-
+    QVariant value = model->data(model->index(currRow, currCol), Qt::EditRole);
     const QVariant modeValue = model->data(model->index(currRow, LogbookModel::COLUMN_MODE), Qt::EditRole);
     const QVariant submodeValue = model->data(model->index(currRow, LogbookModel::COLUMN_SUBMODE), Qt::EditRole);
 
