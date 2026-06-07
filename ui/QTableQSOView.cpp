@@ -9,6 +9,17 @@ QTableQSOView::QTableQSOView(QWidget *parent) :
 
 void QTableQSOView::commitData(QWidget *editor)
 {
+    const QModelIndex modeSubmodeIndex = this->currentIndex();
+    const bool modeSubmodeColumn = modeSubmodeIndex.column() == LogbookModel::COLUMN_MODE_SUBMODE;
+    QList<int> modeSubmodeSelectedRows;
+
+    if ( modeSubmodeColumn )
+    {
+        const QModelIndexList &selectedRows = this->selectionModel()->selectedRows();
+        for ( const QModelIndex &index : selectedRows )
+            modeSubmodeSelectedRows << index.row();
+    }
+
     QTableView::commitData(editor);
 
     QAbstractItemModel *model = this->model();
@@ -16,19 +27,44 @@ void QTableQSOView::commitData(QWidget *editor)
     int currRow = this->currentIndex().row();
     int currCol = this->currentIndex().column();
 
+    if ( modeSubmodeColumn )
+    {
+        currRow = modeSubmodeIndex.row();
+        currCol = modeSubmodeIndex.column();
+    }
+
+    const QVariant modeValue = model->data(model->index(currRow, LogbookModel::COLUMN_MODE), Qt::EditRole);
+    const QVariant submodeValue = model->data(model->index(currRow, LogbookModel::COLUMN_SUBMODE), Qt::EditRole);
+
     /* Group Editing Support */
     /* If rows are selected then update them*/
-    const QModelIndexList &selectedRows = this->selectionModel()->selectedRows();
-
-    for ( const QModelIndex &index : selectedRows )
+    if ( modeSubmodeColumn )
     {
-        if ( index.row() != currRow // Do not update the same row again
-             /* Protect selected columns against group editing */
-             && currCol != LogbookModel::COLUMN_CALL
-             && currCol != LogbookModel::COLUMN_TIME_ON
-             && currCol != LogbookModel::COLUMN_TIME_OFF )
+        for ( int row : modeSubmodeSelectedRows )
         {
-            model->setData(model->index(index.row(),currCol), value, Qt::EditRole);
+            if ( row != currRow ) // Do not update the same row again
+            {
+                model->setData(model->index(row, LogbookModel::COLUMN_MODE),
+                               modeValue, Qt::EditRole);
+                model->setData(model->index(row, LogbookModel::COLUMN_SUBMODE),
+                               submodeValue, Qt::EditRole);
+            }
+        }
+    }
+    else
+    {
+        const QModelIndexList &selectedRows = this->selectionModel()->selectedRows();
+
+        for ( const QModelIndex &index : selectedRows )
+        {
+            if ( index.row() != currRow // Do not update the same row again
+                 /* Protect selected columns against group editing */
+                 && currCol != LogbookModel::COLUMN_CALL
+                 && currCol != LogbookModel::COLUMN_TIME_ON
+                 && currCol != LogbookModel::COLUMN_TIME_OFF )
+            {
+                model->setData(model->index(index.row(),currCol), value, Qt::EditRole);
+            }
         }
     }
 
@@ -44,4 +80,3 @@ void QTableQSOView::keyPressEvent(QKeyEvent *event)
 
     QTableView::keyPressEvent(event);
 };
-
