@@ -13,7 +13,7 @@ QString AwardWAAC::rulesUrl() const
 
 QString AwardWAAC::headersColumns(const QString &) const
 {
-    return QStringLiteral("d.name col1, d.id col2 ");
+    return QStringLiteral("d.name col1, d.prefix col2 ");
 }
 
 QString AwardWAAC::sqlDetailTable(const QString &entity) const
