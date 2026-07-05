@@ -7851,7 +7851,7 @@ Submode: %2</source>
     <message>
         <location filename="../models/LogbookModel.cpp" line="855"/>
         <source>My CW Key Info</source>
-        <translation>Eiene CW Key</translation>
+        <translation>Eigener CW Key</translation>
     </message>
     <message>
         <location filename="../models/LogbookModel.cpp" line="856"/>
