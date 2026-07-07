@@ -588,6 +588,7 @@ if(LINUX)
         HAMLIBVERSION_PATCH=${HAMLIBVERSION_PATCH}
     )
 elseif(APPLE OR WIN32)
+    string(REPLACE "." ";" HAMLIB_VERSION_LIST ${HAMLIB})
     add_compile_definitions()
 endif()
 
@@ -647,12 +648,26 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     MACOSX_BUNDLE OFF
 )
 
-    # include(GNUInstallDirs)
+if(LINUX)
+    include(GNUInstallDirs)
 
-    # install(TARGETS ${PROJECT_NAME})
+    install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
 
-    # install(FILES)
+    install(FILES ${CMAKE_SOURCE_DIR}/res/${PROJECT_NAME}.desktop
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/applications
+    )
 
-    # install(FILES)
+    install(FILES ${CMAKE_SOURCE_DIR}/res/${PROJECT_NAME}.1
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1
+    )
 
-    # install(FILES)
+    install(FILES ${CMAKE_SOURCE_DIR}/res/${PROJECT_NAME}.png
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps
+    )
+
+    install(FILES ${CMAKE_SOURCE_DIR}/res/io.github.foldynl.QLog.metainfo.xml
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
+    )
+endif()
