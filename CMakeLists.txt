@@ -3,9 +3,14 @@ cmake_minimum_required(VERSION 3.31)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_compile_definitions(
+    QT_DEPRECATED_WARNINGS
+    QT_MESSAGELOGCONTEXT
+)
+
 project(qlog
     VERSION 0.51.0
-    LANGUAGES CXX
+    LANGUAGES C CXX
 )
 
 add_compile_definitions(VERSION="${PROJECT_VERSION}")
@@ -645,12 +650,10 @@ endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE OFF
+    MACOSX_BUNDLE ON
 )
 
 if(LINUX)
-    include(GNUInstallDirs)
-
     install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     )
@@ -670,4 +673,25 @@ if(LINUX)
     install(FILES ${CMAKE_SOURCE_DIR}/res/io.github.foldynl.QLog.metainfo.xml
         DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
     )
+elseif(WIN32)
+    qt_generate_deploy_app_script(
+        TARGET ${PROJECT_NAME}
+        OUTPUT_SCRIPT windows_deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+
+    install(SCRIPT ${windows_deploy_script})
+elseif(APPLE)
+    install(TARGETS ${PROJECT_NAME}
+        BUNDLE  DESTINATION .
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+
+    qt_generate_deploy_app_script(
+        TARGET ${PROJECT_NAME}
+        OUTPUT_SCRIPT macos_deploy_script
+        NO_UNSUPPORTED_PLATFORM_ERROR
+    )
+
+    install(SCRIPT ${macos_deploy_script})
 endif()
