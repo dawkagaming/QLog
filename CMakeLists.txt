@@ -620,7 +620,7 @@ if(LINUX)
     target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt6::DBus
         Qt6Keychain::Qt6Keychain
-        OpenSSL
+        OpenSSL::SSL
         PkgConfig::HAMLIB
         PkgConfig::SQLITE3
         PkgConfig::ZLIB
