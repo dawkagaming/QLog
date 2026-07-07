@@ -681,6 +681,10 @@ elseif(WIN32)
     )
 
     install(SCRIPT ${windows_deploy_script})
+
+    set(CPACK_NSIS ON)
+
+    include(CPack)
 elseif(APPLE)
     install(TARGETS ${PROJECT_NAME}
         BUNDLE  DESTINATION .
@@ -694,4 +698,8 @@ elseif(APPLE)
     )
 
     install(SCRIPT ${macos_deploy_script})
+
+    set(CPACK_DRAGNDROP ON)
+
+    include(CPack)
 endif()
