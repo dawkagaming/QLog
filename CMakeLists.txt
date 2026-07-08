@@ -10,6 +10,9 @@ add_compile_definitions(
 
 project(qlog
     VERSION 0.51.0
+    SPDX_LICENSE GPL-3.0+
+    DESCRIPTION "Amateur radio logbook software"
+    HOMEPAGE_URL "https://github.com/foldynl/QLog"
     LANGUAGES C CXX
 )
 
@@ -648,11 +651,6 @@ endif()
 
 # Installation rules
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE ON
-)
-
 if(LINUX)
     install(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -673,33 +671,34 @@ if(LINUX)
     install(FILES ${CMAKE_SOURCE_DIR}/res/io.github.foldynl.QLog.metainfo.xml
         DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo
     )
-elseif(WIN32)
+elseif(WIN32 OR APPLE)
     qt_generate_deploy_app_script(
         TARGET ${PROJECT_NAME}
-        OUTPUT_SCRIPT windows_deploy_script
+        OUTPUT_SCRIPT deploy_script
         NO_UNSUPPORTED_PLATFORM_ERROR
     )
 
-    install(SCRIPT ${windows_deploy_script})
+    install(SCRIPT ${deploy_script})
 
-    set(CPACK_NSIS ON)
+    if(WIN32)
+        set_target_properties(${PROJECT_NAME} PROPERTIES
+            WIN32_EXECUTABLE ON
+        )
 
-    include(CPack)
-elseif(APPLE)
-    install(TARGETS ${PROJECT_NAME}
-        BUNDLE  DESTINATION .
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    )
+        set(CPACK_NSIS_MUI_ICON ${CMAKE_SOURCE_DIR}/res/${PROJECT_NAME}.ico)
+        set(CPACK_NSIS_DISPLAY_NAME QLog)
+        set(CPACK_NSIS_PACKAGE_NAME QLog)
 
-    qt_generate_deploy_app_script(
-        TARGET ${PROJECT_NAME}
-        OUTPUT_SCRIPT macos_deploy_script
-        NO_UNSUPPORTED_PLATFORM_ERROR
-    )
+        set(CPACK_NSIS ON)
+    elseif(APPLE)
+        set_target_properties(${PROJECT_NAME} PROPERTIES
+            MACOSX_BUNDLE ON
+            MACOSX_BUNDLE_BUNDLE_NAME QLog
+            MACOSX_BUNDLE_ICON_FILE ${CMAKE_SOURCE_DIR}/res/${PROJECT_NAME}.icns
+        )
 
-    install(SCRIPT ${macos_deploy_script})
-
-    set(CPACK_DRAGNDROP ON)
+        set(CPACK_DRAGNDROP ON)
+    endif()    
 
     include(CPack)
 endif()
