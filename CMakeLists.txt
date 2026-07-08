@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.31)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 add_compile_definitions(
     QT_DEPRECATED_WARNINGS
@@ -10,7 +13,7 @@ add_compile_definitions(
 
 project(qlog
     VERSION 0.51.0
-    SPDX_LICENSE GPL-3.0+
+    # SPDX_LICENSE "GPL-3.0+" CMake 4.3+
     DESCRIPTION "Amateur radio logbook software"
     HOMEPAGE_URL "https://github.com/foldynl/QLog"
     LANGUAGES C CXX
