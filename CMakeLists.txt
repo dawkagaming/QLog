@@ -18,7 +18,14 @@ project(qlog
 
 add_compile_definitions(VERSION="${PROJECT_VERSION}")
 
-find_package(Qt6 REQUIRED
+option(USE_QT6 "Set to use Qt6 by default" ON)
+if(USE_QT6)
+    set(QT_VERSION 6)
+else()
+    set(QT_VERSION 5)
+endif()
+
+find_package(Qt${QT_VERSION} QUIET
     COMPONENTS
     Core
     Network
@@ -35,6 +42,10 @@ find_package(Qt6 REQUIRED
     WebSockets
     PrintSupport
 )
+
+if(LINUX)
+    find_package(Qt${QT_VERSION} REQUIRED COMPONENTS DBus)
+endif()
 
 qt_standard_project_setup()
 
@@ -522,8 +533,7 @@ qt_add_translations(${PROJECT_NAME} TS_FILES ${TRANSLATIONS})
 find_package(Threads REQUIRED)
 
 if(LINUX)
-    find_package(Qt6 REQUIRED COMPONENTS DBus)
-    find_package(Qt6Keychain REQUIRED)
+    find_package(Qt${QT_VERSION}Keychain REQUIRED)
     find_package(OpenSSL REQUIRED)
 
     find_package(PkgConfig REQUIRED)
@@ -559,7 +569,7 @@ elseif(WIN32)
     find_library(ZLIB zlib REQUIRED)
     find_library(CRYPTO libcrypto REQUIRED)
     find_library(SSL ssl REQUIRED)
-    find_library(QT6KEYCHAIN qt6keychain REQUIRED)
+    find_library(QT${QT_VERSION}KEYCHAIN qt${QT_VERSION}keychain REQUIRED)
 elseif(APPLE)
     target_include_directories(${PROJECT_NAME} PRIVATE
         /usr/local/include
@@ -580,25 +590,27 @@ elseif(APPLE)
     find_library(ZLIB z REQUIRED PATHS ${LIB_SEARCH_PATHS})
     find_library(CRYPTO crypto REQUIRED PATHS ${LIB_SEARCH_PATHS})
     find_library(SSL ssl REQUIRED  PATHS ${LIB_SEARCH_PATHS})
-    find_library(QT6KEYCHAIN qt6keychain REQUIRED  PATHS ${LIB_SEARCH_PATHS})
+    find_library(QT${QT_VERSION}KEYCHAIN qt${QT_VERSION}keychain REQUIRED  PATHS ${LIB_SEARCH_PATHS})
 endif()
 
-if(LINUX)
-    string(REPLACE "." ";" HAMLIB_VERSION_LIST ${HAMLIB_VERSION})
+# TODO
 
-    list(GET ${HAMLIB_VERSION_LIST} 0 HAMLIBVERSION_MAJOR)
-    list(GET ${HAMLIB_VERSION_LIST} 1 HAMLIBVERSION_MINOR)
-    list(GET ${HAMLIB_VERSION_LIST} 2 HAMLIBVERSION_PATCH)
+# if(LINUX)
+#     string(REPLACE "." ";" HAMLIB_VERSION_LIST ${HAMLIB_VERSION})
 
-    add_compile_definitions(
-        HAMLIBVERSION_MAJOR=${HAMLIBVERSION_MAJOR}
-        HAMLIBVERSION_MINOR=${HAMLIBVERSION_MINOR}
-        HAMLIBVERSION_PATCH=${HAMLIBVERSION_PATCH}
-    )
-elseif(APPLE OR WIN32)
-    string(REPLACE "." ";" HAMLIB_VERSION_LIST ${HAMLIB})
-    add_compile_definitions()
-endif()
+#     list(GET ${HAMLIB_VERSION_LIST} 0 HAMLIBVERSION_MAJOR)
+#     list(GET ${HAMLIB_VERSION_LIST} 1 HAMLIBVERSION_MINOR)
+#     list(GET ${HAMLIB_VERSION_LIST} 2 HAMLIBVERSION_PATCH)
+
+#     add_compile_definitions(
+#         HAMLIBVERSION_MAJOR=${HAMLIBVERSION_MAJOR}
+#         HAMLIBVERSION_MINOR=${HAMLIBVERSION_MINOR}
+#         HAMLIBVERSION_PATCH=${HAMLIBVERSION_PATCH}
+#     )
+# elseif(APPLE OR WIN32)
+#     string(REPLACE "." ";" HAMLIB_VERSION_LIST ${HAMLIB})
+#     add_compile_definitions()
+# endif()
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}
@@ -607,27 +619,27 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # Linking
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    Qt6::Core
-    Qt6::Network
-    Qt6::Gui
-    Qt6::Widgets
-    Qt6::Sql
-    Qt6::Xml
-    Qt6::Charts
-    Qt6::WebEngineWidgets
-    Qt6::SerialPort
-    Qt6::QuickWidgets
-    Qt6::WebChannel
-    Qt6::WebSockets
-    Qt6::PrintSupport
+    Qt${QT_VERSION}::Core
+    Qt${QT_VERSION}::Network
+    Qt${QT_VERSION}::Gui
+    Qt${QT_VERSION}::Widgets
+    Qt${QT_VERSION}::Sql
+    Qt${QT_VERSION}::Xml
+    Qt${QT_VERSION}::Charts
+    Qt${QT_VERSION}::WebEngineWidgets
+    Qt${QT_VERSION}::SerialPort
+    Qt${QT_VERSION}::QuickWidgets
+    Qt${QT_VERSION}::WebChannel
+    Qt${QT_VERSION}::WebSockets
+    Qt${QT_VERSION}::PrintSupport
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Threads::Threads)
 
 if(LINUX)
     target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt6::DBus
-        Qt6Keychain::Qt6Keychain
+        Qt${QT_VERSION}::DBus
+        Qt${QT_VERSION}Keychain::Qt${QT_VERSION}Keychain
         OpenSSL::SSL
         PkgConfig::HAMLIB
         PkgConfig::SQLITE3
@@ -639,7 +651,7 @@ elseif(WIN32 OR APPLE)
         ZLIB
         SSL
         CRYPTO
-        QT6KEYCHAIN
+        QT${QT_VERSION}KEYCHAIN
     )
 
     if(WIN32)
