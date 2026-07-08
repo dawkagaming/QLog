@@ -28,7 +28,9 @@ else()
     set(QT_VERSION 5)
 endif()
 
-find_package(Qt${QT_VERSION} QUIET
+message(STATUS "Using Qt version ${QT_VERSION} for the build!")
+
+find_package(Qt${QT_VERSION} REQUIRED
     COMPONENTS
     Core
     Network
@@ -49,6 +51,8 @@ find_package(Qt${QT_VERSION} QUIET
 if(LINUX)
     find_package(Qt${QT_VERSION} REQUIRED COMPONENTS DBus)
 endif()
+
+message(STATUS "Found all Qt required components!")
 
 qt_standard_project_setup()
 
@@ -567,12 +571,25 @@ elseif(WIN32)
 
     # Add sqlite3
 
+    # Find libraries for Windows
+
     find_library(WS2_32 ws2_32 REQUIRED)
+    message(STATUS "Found ws2_32: ${WS2_32}")
+
     find_library(HAMLIB libhamlib-4 REQUIRED)
+    message(STATUS "Found libhamlib-4: ${HAMLIB}")
+
     find_library(ZLIB zlib REQUIRED)
+    message(STATUS "Found zlib: ${ZLIB}")
+
     find_library(CRYPTO libcrypto REQUIRED)
+    message(STATUS "Found libcrypto: ${CRYPTO}")
+
     find_library(SSL ssl REQUIRED)
+    message(STATUS "Found libssl: ${SSL}")
+
     find_library(QT${QT_VERSION}KEYCHAIN qt${QT_VERSION}keychain REQUIRED)
+    message(STATUS "Found QtKeyChain: ---")
 elseif(APPLE)
     target_include_directories(${PROJECT_NAME} PRIVATE
         /usr/local/include
@@ -588,12 +605,25 @@ elseif(APPLE)
 
     target_link_directories(${PROJECT_NAME} PRIVATE ${LIB_SEARCH_PATHS})
 
+    # Find libraries for MacOS
+
     find_library(SQLITE3 sqlite3 REQUIRED PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found libsqlite3: ${SQLITE3}")
+
     find_library(HAMLIB hamlib REQUIRED PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found libhamlib: ${HAMLIB}")
+
     find_library(ZLIB z REQUIRED PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found zlib: ${ZLIB}")
+
     find_library(CRYPTO crypto REQUIRED PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found libcrypto: ${CRYPTO}")
+
     find_library(SSL ssl REQUIRED  PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found libssl: ${SSL}")
+
     find_library(QT${QT_VERSION}KEYCHAIN qt${QT_VERSION}keychain REQUIRED  PATHS ${LIB_SEARCH_PATHS})
+    message(STATUS "Found QtKeyChain: ---")
 endif()
 
 # TODO
@@ -620,6 +650,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 # Linking
+
+# Link Qt Libraries
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION}::Core
