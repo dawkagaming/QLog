@@ -527,14 +527,27 @@ set(TRANSLATIONS
     i18n/qlog_zh_CN.ts
 )
 
-qt_add_executable(${PROJECT_NAME}
-    ${SOURCES}
-    ${HEADERS}
-    ${FORMS}
-    ${RESOURCES}
-)
+if(QT_VERSION EQUAL 6)
+    qt_add_executable(${PROJECT_NAME}
+        ${SOURCES}
+        ${HEADERS}
+        ${FORMS}
+        ${RESOURCES}
+    )
 
-qt_add_translations(${PROJECT_NAME} TS_FILES ${TRANSLATIONS})
+    qt_add_translations(${PROJECT_NAME} TS_FILES ${TRANSLATIONS})
+else()
+    add_executable(${PROJECT_NAME}
+        ${SOURCES}
+        ${HEADERS}
+        ${FORMS}
+        ${RESOURCES}
+    )
+
+    qt5_add_translation(QM_FILES ${TRANSLATIONS})
+
+    target_sources(${PROJECT_NAME} PRIVATE ${QM_FILES})
+endif()
 
 find_package(Threads REQUIRED)
 
