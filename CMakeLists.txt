@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -53,8 +54,6 @@ if(LINUX)
 endif()
 
 message(STATUS "Found all Qt required components!")
-
-qt_standard_project_setup()
 
 set(SOURCES
     awards/AwardDefinition.cpp

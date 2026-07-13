@@ -14,7 +14,7 @@ jobs:
     name: Ubuntu CI QT5
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-22.04, ubuntu-24.04, ubuntu-26.04]
 
     runs-on: ${{ matrix.os }}
 
@@ -22,19 +22,19 @@ jobs:
     - name: Install dependencies
       run: |
          sudo apt-get update
-         sudo apt-get -y install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools libsqlite3-dev libhamlib++-dev libqt5charts5-dev qttools5-dev-tools libqt5keychain1 qt5keychain-dev qtwebengine5-dev build-essential libqt5serialport5-dev pkg-config libqt5websockets5-dev
+         sudo apt-get -y install build-essential cmake pkg-config libhamlib-dev libsqlite3-dev qtbase5-dev qttools5-dev qttools5-dev-tools libqt5charts5-dev qttools5-dev-tools qt5keychain-dev qtwebengine5-dev libqt5serialport5-dev libqt5websockets5-dev
     - name: Checkout code
       uses: actions/checkout@v5
     - name: configure
-      run: qmake QLog.pro
+      run: cmake -DUSE_QT6=OFF .
     - name: make
-      run: make -j2
+      run: make
 
   ubuntu-build-qt6:
     name: Ubuntu CI QT6
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-24.04, ubuntu-26.04]
         
     runs-on: ${{ matrix.os }}
 
@@ -42,13 +42,13 @@ jobs:
     - name: Install dependencies
       run: |
          sudo apt-get update
-         sudo apt-get -y install libhamlib-dev build-essential pkg-config qt6-base-dev qtkeychain-qt6-dev qt6-webengine-dev libqt6charts6-dev libqt6serialport6-dev libqt6webenginecore6-bin libqt6svg6-dev libgl-dev libqt6websockets6-dev
+         sudo apt-get -y install build-essential cmake pkg-config libhamlib-dev libsqlite3-dev qt6-base-dev qt6-tools-dev qtkeychain-qt6-dev qt6-webengine-dev qt6-charts-dev qt6-serialport-dev qt6-svg-dev qt6-websockets-dev
     - name: Checkout code
       uses: actions/checkout@v5
     - name: configure
-      run: qmake6 QLog.pro
+      run: cmake .
     - name: make
-      run: make -j2
+      run: make
 
   macos-build:
      name: MacOS CI
